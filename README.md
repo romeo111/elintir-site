@@ -1,19 +1,37 @@
-# ELINTIR — Context Intelligence Fusion
+# elintir-site
 
-3D interactive visualization of the ELINTIR autonomous intelligence loop.
+Статичний сайт-візитка ТОВ «ЕЛІНТІР» — https://elintir.com
 
-**Sense → Fuse → Learn → Repeat**
+Публічний репозиторій навмисно: GitHub Pages не обслуговує приватні репо на
+безкоштовному плані. Тут лежить **тільки** лендінг; код продукту —
+в приватному `elintir_mapper`.
 
-Passive RF detection through BandAtlas context labeling, NVIDIA Sionna RT terrain-aware propagation modeling, and backpropagation autoresearch that updates the Atlas database with every cycle.
+## Склад
 
-## Tech Stack
+| Файл | Призначення |
+|------|-------------|
+| `index.html` | Уся сторінка: розмітка + CSS в одному файлі, без JS і зовнішніх залежностей |
+| `404.html` | Редірект на головну |
+| `CNAME` | Кастомний домен `elintir.com` (не видаляти — Pages читає саме його) |
+| `assets/elintir-hero.png` | Картинка для `og:image` |
+| `.nojekyll` | Вимикає обробку Jekyll — файли віддаються як є |
 
-- Three.js r128 (3D rendering)
-- NASA SRTM 30m terrain model
-- NVIDIA Sionna RT propagation engine
-- BandAtlas Ukrainian frequency plan
-- KrakenSDR 5-ch UCA DoA
+## Деплой
 
-## Deploy
+Push у `main` → GitHub Pages підхоплює автоматично за хвилину-дві.
 
-Hosted via GitHub Pages with custom domain.
+```bash
+git add -A && git commit -m "site: ..." && git push
+```
+
+## DNS
+
+Apex і `www` вказують на IP GitHub Pages (`185.199.108-111.153`). Ці записи
+жити мають незалежно від репозиторію — при переїзді сайту між репо DNS
+чіпати не треба, достатньо CNAME-файлу і налаштування Pages у новому репо.
+
+## Локальний перегляд
+
+```bash
+python -m http.server 8137
+```

@@ -1,548 +1,415 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ELINTIR — Deep Tech · Context Intelligence Fusion</title>
-<meta name="description" content="ELINTIR autonomous intelligence loop: passive RF detection → BandAtlas context labeling → NVIDIA Sionna RT propagation → backpropagation autoresearch. One sensor, the complete operational picture.">
-<meta name="theme-color" content="#050907">
-<meta property="og:title" content="ELINTIR — Context Intelligence Fusion">
-<meta property="og:description" content="Autonomous EW intelligence loop: sense → fuse → learn → repeat. 3D visualization of passive ELINT with terrain-aware propagation and self-improving BandAtlas.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://elintir.com/og.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600;700;800&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#050907;--bg2:#0a0f0c;--green:#1db954;--teal:#0fa;--amber:#f0a030;--red:#e24b4a;--blue:#378add;--purple:#7f77dd;--magenta:#c45dff;--text:#c8d8c8;--text2:#5a6a5a;--text3:#2a3a2a;--border:#152018}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden}
-.page{max-width:1500px;margin:0 auto;padding:1rem 1.5rem}
-.hdr{text-align:center;padding:1rem 0 .3rem}
-.hdr h1{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;letter-spacing:.18em;text-transform:uppercase;background:linear-gradient(135deg,#1db954,#0fa,#1db954);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hdr .sub{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.4em;color:var(--text3);text-transform:uppercase;margin-top:.15rem}
-.scene-wrap{position:relative;background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:.8rem 0}
-.scene-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:.4;z-index:2}
-#c3d{width:100%;height:720px;display:block;cursor:default}
-.hud{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5}
-.hud-tl{position:absolute;top:14px;left:14px}
-.hud-tr{position:absolute;top:14px;right:14px;text-align:right}
-.hud-bl{position:absolute;bottom:14px;left:14px}
-.hud-br{position:absolute;bottom:14px;right:14px;text-align:right;max-width:200px}
-.hud-label{font-family:'JetBrains Mono',monospace;font-size:.48rem;letter-spacing:.2em;color:var(--text3);text-transform:uppercase}
-.hud-val{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);margin-top:1px}
-.hud-val.r{color:var(--red)}.hud-val.a{color:var(--amber)}.hud-val.m{color:var(--magenta)}.hud-val.t{color:var(--teal)}
-.hud-box{background:rgba(8,12,10,.9);border:1px solid var(--border);border-radius:5px;padding:5px 9px;margin-bottom:4px;backdrop-filter:blur(4px)}
-.phase-bar{position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:3px;align-items:center}
-.phase-pip{width:8px;height:8px;border-radius:50%;background:var(--text3);transition:all .5s}
-.phase-pip.active{background:var(--green);box-shadow:0 0 8px rgba(29,185,84,.5)}
-.phase-pip.done{background:var(--green);opacity:.4}
-.phase-pip.bp{background:var(--magenta);box-shadow:0 0 8px rgba(196,93,255,.5)}
-.phase-pip.bp-done{background:var(--magenta);opacity:.4}
-.phase-sep{width:12px;height:1px;background:var(--text3)}
-.phase-label{font-family:'JetBrains Mono',monospace;font-size:.45rem;color:var(--text3);text-transform:uppercase;letter-spacing:.15em;position:absolute;top:28px;left:50%;transform:translateX(-50%);white-space:nowrap}
-.center-msg{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);text-align:center;opacity:0;transition:opacity .8s;pointer-events:none}
-.center-msg.show{opacity:1}
-.cm-tag{font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;animation:pulse 1.5s ease-in-out infinite}
-.cm-main{font-size:1.1rem;font-weight:700;margin-top:5px;text-shadow:0 0 30px currentColor}
-.cm-sub{font-family:'JetBrains Mono',monospace;font-size:.46rem;margin-top:6px;opacity:.7;line-height:1.5}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ТОВ «ЕЛІНТІР» — програмне забезпечення для SDR</title>
+    <meta
+      name="description"
+      content="ТОВ «ЕЛІНТІР» розробляє програмне забезпечення для SDR (Software Defined Radio): фазово когерентна пеленгація, власні радіо дата лінк протоколи, сигнатурне розпізнавання цілей."
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="ТОВ «ЕЛІНТІР»">
+    <meta property="og:description" content="Програмне забезпечення для SDR: пеленгація, радіолінки, розпізнавання сигнатур.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:image" content="/assets/elintir-hero.png">
+    <link rel="canonical" href="https://elintir.com/">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      }
 
-/* TOOLTIP */
-#tooltip{position:absolute;pointer-events:none;z-index:20;opacity:0;transition:opacity .2s;max-width:300px}
-#tooltip.show{opacity:1}
-.tt-box{background:rgba(6,9,7,.96);border:1px solid var(--border);border-radius:8px;padding:10px 13px;backdrop-filter:blur(8px);box-shadow:0 4px 20px rgba(0,0,0,.4)}
-.tt-head{display:flex;align-items:center;gap:7px;margin-bottom:6px}
-.tt-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px currentColor}
-.tt-name{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;color:var(--text)}
-.tt-type{font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;margin-bottom:5px}
-.tt-desc{font-size:.58rem;color:var(--text2);line-height:1.65}
-.tt-desc b{color:var(--text);font-weight:500}
-.tt-conn{margin-top:7px;padding-top:6px;border-top:1px solid var(--border)}
-.tt-conn-title{font-family:'JetBrains Mono',monospace;font-size:.4rem;letter-spacing:.15em;color:var(--text3);text-transform:uppercase;margin-bottom:4px}
-.tt-conn-item{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--text2);padding:2px 0;display:flex;align-items:center;gap:5px}
-.tt-conn-item .arr{color:var(--green);font-size:.5rem}
-.tt-conn-item .c{font-size:.42rem;padding:1px 4px;border-radius:2px}
-.c-hi{background:rgba(29,185,84,.12);color:var(--green)}
-.c-md{background:rgba(240,160,48,.1);color:var(--amber)}
+      * {
+        box-sizing: border-box;
+      }
 
-/* Atlas panel */
-.atlas-panel{position:absolute;top:50%;right:14px;transform:translateY(-50%);width:265px;background:rgba(8,12,10,.93);border:1px solid var(--magenta);border-radius:8px;padding:10px;opacity:0;transition:opacity .8s;pointer-events:none;box-shadow:0 0 25px rgba(196,93,255,.08)}
-.atlas-panel.show{opacity:1}
-.ap-title{font-family:'JetBrains Mono',monospace;font-size:.46rem;letter-spacing:.25em;color:var(--magenta);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.ap-title::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--magenta);animation:pulse 1s ease-in-out infinite}
-.atlas-rule{padding:3px 0;border-bottom:1px solid rgba(196,93,255,.07);opacity:0;transform:translateX(8px);transition:all .4s}
-.atlas-rule.vis{opacity:1;transform:translateX(0)}
-.ar-l{font-family:'JetBrains Mono',monospace;font-size:.4rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em}
-.ar-v{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--magenta);margin-top:1px}
-.ar-v .c{color:var(--green);font-size:.44rem;margin-left:3px}
+      html {
+        scroll-behavior: smooth;
+      }
 
-/* Learn panel — below scene, normal flow */
-.learn-panel{width:100%;max-width:900px;margin:0 auto;background:var(--bg2);border:1px solid var(--magenta);border-radius:10px;padding:16px 20px;max-height:0;overflow:hidden;opacity:0;transition:max-height .8s ease,opacity .8s ease,padding .8s ease,margin .8s ease;box-shadow:0 0 40px rgba(196,93,255,.08)}
-.learn-panel.show{max-height:400px;opacity:1;padding:16px 20px;margin:.8rem auto}
-.lp-title{font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--magenta);text-transform:uppercase;margin-bottom:8px;text-align:center}
-.lp-steps{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.lp-step{flex:1;min-width:120px;max-width:170px;background:rgba(196,93,255,.03);border:1px solid rgba(196,93,255,.1);border-radius:6px;padding:7px 9px}
-.lp-step .n{font-family:'JetBrains Mono',monospace;font-size:.4rem;color:var(--magenta);opacity:.5}
-.lp-step .t{font-size:.6rem;font-weight:600;color:var(--magenta);margin-top:2px}
-.lp-step .d{font-family:'JetBrains Mono',monospace;font-size:.42rem;color:var(--text2);margin-top:2px;line-height:1.55}
-.lp-arr{color:var(--magenta);font-size:.65rem;display:flex;align-items:center;opacity:.3}
-.lp-bot{text-align:center;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--green);line-height:1.6}
-.lp-cyc{font-size:.4rem;color:var(--text3);margin-top:3px;letter-spacing:.15em;text-transform:uppercase}
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
 
+      a {
+        color: inherit;
+      }
 
+      .wrap {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
 
-.log-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.5rem;margin-top:.5rem;max-height:160px;overflow-y:auto}
-.log-wrap::-webkit-scrollbar{width:3px}
-.log-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.log-line{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:var(--text2);padding:1px 0;border-bottom:1px solid rgba(42,58,46,.08)}
-.log-line .ts{color:var(--text3);margin-right:3px}
-.log-line .tag{padding:1px 4px;border-radius:2px;font-size:.42rem;margin-right:2px}
-.tag-doa{background:rgba(55,138,221,.15);color:var(--blue)}
-.tag-ctx{background:rgba(29,185,84,.12);color:var(--green)}
-.tag-rt{background:rgba(0,255,170,.1);color:var(--teal)}
-.tag-tgt{background:rgba(226,75,74,.15);color:var(--red)}
-.tag-inf{background:rgba(240,160,48,.12);color:var(--amber)}
-.tag-bp{background:rgba(196,93,255,.12);color:var(--magenta)}
-.tag-atlas{background:rgba(196,93,255,.08);color:var(--purple)}
-</style>
-</head>
-<body>
-<div class="page">
-  <div class="hdr"><h1>Elintir</h1><div class="sub">Autonomous Intelligence Loop &middot; Context-Building Visualization</div></div>
-  <div class="scene-wrap">
-    <canvas id="c3d"></canvas>
-    <div class="hud">
-      <div class="hud-tl">
-        <div class="hud-box"><div class="hud-label">Phase</div><div class="hud-val" id="hudPhase">Initializing</div></div>
-        <div class="hud-box"><div class="hud-label">Observers</div><div class="hud-val">4 / 4</div></div>
-        <div class="hud-box"><div class="hud-label">Sionna RT</div><div class="hud-val" id="hudRays">standby</div></div>
-        <div class="hud-box"><div class="hud-label">Atlas</div><div class="hud-val" id="hudAtlas">47 bands</div></div>
-        <div class="hud-box"><div class="hud-label">Cycle</div><div class="hud-val" id="hudCycle">#1</div></div>
-      </div>
-      <div class="hud-tr">
-        <div class="hud-box"><div class="hud-label">Geofence</div><div class="hud-val">48.86&deg;N 2.29&deg;E</div></div>
-        <div class="hud-box"><div class="hud-label">Detection</div><div class="hud-val a" id="hudDet">scanning</div></div>
-      </div>
-      <div class="phase-bar"><div class="phase-pip" id="pp0"></div><div class="phase-sep"></div><div class="phase-pip" id="pp1"></div><div class="phase-sep"></div><div class="phase-pip" id="pp2"></div><div class="phase-sep"></div><div class="phase-pip" id="pp3"></div><div class="phase-sep"></div><div class="phase-pip" id="pp4"></div><div class="phase-sep"></div><div class="phase-pip" id="pp5"></div><div class="phase-sep"></div><div class="phase-pip" id="pp6"></div></div>
-      <div class="phase-label" id="phaseLabel">initializing</div>
-      <div class="hud-bl">
-        <div class="hud-box"><div class="hud-label">Phase Timer</div><div class="hud-val" id="hudTimer">0.0s / 4.0s</div></div>
-        <div class="hud-box"><div class="hud-label">Next</div><div class="hud-val" id="hudNext">doa triangulation</div></div>
-        <div class="hud-box"><div class="hud-label">Elapsed</div><div class="hud-val" id="hudElapsed">00:00</div></div>
-      </div>
-      <div class="hud-br"><div class="hud-box"><div class="hud-label">Target</div><div class="hud-val r" id="hudTarget">---</div></div></div>
-      <div class="center-msg" id="cmTgt" style="color:var(--red)"><div class="cm-tag">&#9650; target acquired &#9650;</div><div class="cm-main">HOSTILE RADAR</div><div class="cm-sub">Counter-UAS X-band &middot; PRF 2.4 kHz &middot; CEP 12m</div></div>
-      <div class="center-msg" id="cmBp" style="color:var(--magenta)"><div class="cm-tag">&#8635; backpropagation</div><div class="cm-main">Learning &amp; updating Atlas</div><div class="cm-sub">5 outputs &rarr; gradient flow &rarr; fixed context connections</div></div>
-      <div class="atlas-panel" id="atlasPanel"><div class="ap-title">Atlas update</div>
-        <div class="atlas-rule" id="ar0"><div class="ar-l">Connection #1</div><div class="ar-v">X-band &harr; VHF 30-88<span class="c">+12%</span></div></div>
-        <div class="atlas-rule" id="ar1"><div class="ar-l">Connection #2</div><div class="ar-v">C-UAS &harr; GPS jammer<span class="c">+18%</span></div></div>
-        <div class="atlas-rule" id="ar2"><div class="ar-l">Strengthened</div><div class="ar-v">Radar+Comms&rarr;Gen<span class="c">70&rarr;84%</span></div></div>
-        <div class="atlas-rule" id="ar3"><div class="ar-l">Terrain rule</div><div class="ar-v">NLoS&harr;Bldg reflect<span class="c">new</span></div></div>
-        <div class="atlas-rule" id="ar4"><div class="ar-l">Compound</div><div class="ar-v">Rdr+VHF+SAT=Bn CP<span class="c">85&rarr;91%</span></div></div>
-        <div class="atlas-rule" id="ar5"><div class="ar-l">RT calibration</div><div class="ar-v">Canyon +4.2dB<span class="c">cal</span></div></div>
-        <div class="atlas-rule" id="ar6"><div class="ar-l">Dwell</div><div class="ar-v">X-band 1&rarr;2.5s<span class="c">opt</span></div></div>
-        <div class="atlas-rule" id="ar7"><div class="ar-l">Template</div><div class="ar-v">Cluster saved<span class="c">tpl</span></div></div>
-      </div>
-    </div>
-    <!-- Tooltip -->
-    <div id="tooltip"><div class="tt-box">
-      <div class="tt-head"><span class="tt-dot" id="ttDot"></span><span class="tt-name" id="ttName"></span></div>
-      <div class="tt-type" id="ttType"></div>
-      <div class="tt-desc" id="ttDesc"></div>
-      <div class="tt-conn" id="ttConn"><div class="tt-conn-title">Context connections</div><div id="ttConnList"></div></div>
-    </div></div>
-  </div>
-  <!-- Learn panel: BELOW the 3D scene -->
-  <div class="learn-panel" id="learnPanel">
-    <div class="lp-title">&#9733; Cycle complete &middot; What the system learned</div>
-    <div class="lp-steps">
-      <div class="lp-step"><div class="n">01</div><div class="t">Gathered</div><div class="d">4 observers detected X-band spur. Raw DoA bearings converged via i2s clustering into a single emitter fix.</div></div>
-      <div class="lp-arr">&rarr;</div>
-      <div class="lp-step"><div class="n">02</div><div class="t">Contextualized</div><div class="d">BandAtlas labeled Counter-UAS radar. Sionna RT modeled 12 paths incl. 4 building reflections &amp; 2 NLoS routes.</div></div>
-      <div class="lp-arr">&rarr;</div>
-      <div class="lp-step"><div class="n">03</div><div class="t">Inferred</div><div class="d">Context engine implied 6 co-located assets. Compound signature matched Battalion command post template.</div></div>
-      <div class="lp-arr">&rarr;</div>
-      <div class="lp-step"><div class="n">04</div><div class="t">Learned</div><div class="d">Backprop wrote 8 Atlas rules. Fixed connections between radar items. Confidence weights updated. Geofence template stored. <b>Feedback arcs</b> carry output intelligence back into BandAtlas for next cycle.</div></div>
-    </div>
-    <div class="lp-bot">Next cycle uses <b>stronger inference</b> &mdash; this cluster recognized instantly.<div class="lp-cyc">Restarting with updated atlas &rarr;</div></div>
-  </div>
-  <div class="log-wrap" id="logWrap"><div class="log-line"><span class="ts">--:--:--</span><span class="tag tag-ctx">SYS</span>ELINTIR autonomous loop started</div></div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-const canvas=document.getElementById('c3d'),W=canvas.clientWidth,H=canvas.clientHeight;
-const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x050907,.003);
-const camera=new THREE.PerspectiveCamera(50,W/H,.1,1000);camera.position.set(55,65,55);
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0x050907,1);
-scene.add(new THREE.AmbientLight(0x1a2a1e,.6));
-const dirL=new THREE.DirectionalLight(0x1db954,.3);dirL.position.set(30,50,20);scene.add(dirL);
-const ptL=new THREE.PointLight(0x00ffaa,.4,120);ptL.position.set(0,30,0);scene.add(ptL);
+      /* ---------- topbar ---------- */
 
-// Raycaster for hover
-const raycaster=new THREE.Raycaster();
-const mouse=new THREE.Vector2();
-const hoverables=[]; // {mesh, info:{name,type,color,desc,connections}}
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
 
-function regHover(mesh,info){hoverables.push({mesh,info})}
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+      }
 
-// ====== GEOFENCE ======
-const GRID=40,CELL=2.5,geoG=new THREE.Group();scene.add(geoG);
-const gnd=new THREE.Mesh(new THREE.PlaneGeometry(GRID*CELL,GRID*CELL),new THREE.MeshLambertMaterial({color:0x060a08,transparent:true,opacity:.95}));
-gnd.rotation.x=-Math.PI/2;geoG.add(gnd);
-const cellData=[];
-for(let i=0;i<GRID;i++)for(let j=0;j<GRID;j++){
-  const x=(i-GRID/2)*CELL+CELL/2,z=(j-GRID/2)*CELL+CELL/2,dist=Math.sqrt(x*x+z*z),heat=Math.max(0,1-dist/50)*.6+Math.random()*.15;
-  const mat=new THREE.MeshBasicMaterial({color:new THREE.Color(heat*.1,heat*.7,heat*.35),transparent:true,opacity:.12+heat*.18,side:THREE.DoubleSide});
-  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(CELL*.92,CELL*.92),mat);mesh.rotation.x=-Math.PI/2;mesh.position.set(x,.02,z);geoG.add(mesh);
-  cellData.push({mesh,mat,heat,x,z,oC:new THREE.Color(heat*.1,heat*.7,heat*.35),oO:.12+heat*.18});
-}
-const gM=new THREE.LineBasicMaterial({color:0x1a2a1e,transparent:true,opacity:.18});
-for(let i=0;i<=GRID;i++){const p=(i-GRID/2)*CELL;geoG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(p,.01,-50),new THREE.Vector3(p,.01,50)]),gM));geoG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-50,.01,p),new THREE.Vector3(50,.01,p)]),gM))}
+      .brand-mark {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+      }
 
-// ====== BUILDINGS ======
-const bldG=new THREE.Group();scene.add(bldG);const BD=[];
-const bPos=[{x:0,z:0,w:5,d:4,h:18},{x:7,z:-3,w:4,d:5,h:14},{x:-6,z:4,w:6,d:3,h:22},{x:3,z:8,w:3,d:4,h:10},{x:-8,z:-6,w:5,d:5,h:16},{x:10,z:5,w:3,d:6,h:12},{x:-15,z:0,w:4,d:4,h:8},{x:15,z:-8,w:5,d:3,h:11},{x:-12,z:12,w:3,d:5,h:6},{x:18,z:10,w:4,d:4,h:9},{x:-18,z:-12,w:6,d:3,h:7},{x:5,z:-15,w:3,d:3,h:13},{x:-10,z:-18,w:4,d:4,h:5},{x:12,z:18,w:5,d:3,h:8},{x:20,z:-2,w:3,d:5,h:10},{x:-25,z:8,w:4,d:3,h:4},{x:25,z:-15,w:3,d:4,h:6},{x:-22,z:-20,w:5,d:3,h:5},{x:28,z:5,w:3,d:3,h:7},{x:-5,z:25,w:4,d:4,h:5},{x:8,z:-25,w:3,d:5,h:8}];
-bPos.forEach((p,i)=>{
-  const geo=new THREE.BoxGeometry(p.w,p.h,p.d);
-  const mesh=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color:0x0d1a14,transparent:true,opacity:.85}));
-  mesh.position.set(p.x,p.h/2,p.z);bldG.add(mesh);
-  const wire=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0x1db954,transparent:true,opacity:.12}));
-  wire.position.copy(mesh.position);bldG.add(wire);
-  const rf=new THREE.Mesh(new THREE.PlaneGeometry(p.w*.9,p.d*.9),new THREE.MeshBasicMaterial({color:0x1db954,transparent:true,opacity:.05,side:THREE.DoubleSide}));
-  rf.rotation.x=-Math.PI/2;rf.position.set(p.x,p.h+.05,p.z);bldG.add(rf);
-  for(let wi=0;wi<Math.floor(p.h/3);wi++){if(Math.random()>.45)continue;const s=Math.floor(Math.random()*4),win=new THREE.Mesh(new THREE.PlaneGeometry(.5,.7),new THREE.MeshBasicMaterial({color:0xf0a030,transparent:true,opacity:.1+Math.random()*.1,side:THREE.DoubleSide}));const wy=2+wi*3;if(s<2){win.position.set(p.x+(s?1:-1)*p.w/2+(s?.01:-.01),wy,p.z+(Math.random()-.5)*p.d*.6);win.rotation.y=Math.PI/2}else{win.position.set(p.x+(Math.random()-.5)*p.w*.6,wy,p.z+(s===2?-1:1)*p.d/2+(s===2?-.01:.01))}bldG.add(win)}
-  BD.push({mesh,pos:p,wire});
-  regHover(mesh,{name:'Building #'+(i+1),type:'Terrain Object \u00b7 Sionna RT',color:'#0fa',
-    desc:'<b>Terrain obstacle</b> modeled by Sionna RT. RF signals reflect off surfaces, creating multipath propagation. The RT engine computes reflection coefficient based on material (concrete: \u22123 dB per bounce). This building contributes to <b>NLoS path analysis</b> \u2014 signals that cannot reach observers directly bounce here first.',
-    connections:[{t:'Sionna RT reflection surface',c:'hi'},{t:'Multipath contributor to DoA error model',c:'md'},{t:'Urban canyon propagation factor',c:'md'}]});
-});
+      .topbar nav {
+        display: flex;
+        gap: 26px;
+        color: var(--muted);
+        font-size: 15px;
+      }
 
-// ====== BANDATLAS RING (ground-level context nodes) ======
-const atlasG=new THREE.Group();scene.add(atlasG);
-const ATLAS_NODES_DEF=[
-  {label:'Service Type',angle:0,color:0x1db954,desc:'Classifies signal as BCAST, MOBILE, RADAR, NAV, SAT, COMMS, ISM, or AMAT. Determines which inference ruleset applies.'},
-  {label:'Threat Level',angle:Math.PI*.33,color:0xe24b4a,desc:'Assigns HOSTILE, SUSPECT, NEUTRAL, or FRIENDLY based on frequency band + signal character. Military radar bands auto-flag HOSTILE.'},
-  {label:'Scan Priority',angle:Math.PI*.67,color:0x378add,desc:'P1 (critical) through P4 (low). Determines how often the scanner revisits this band and dwell time allocation.'},
-  {label:'Signal Char',angle:Math.PI,color:0xf0a030,desc:'CW, PULSE, BURST, WIDE, or CHIRP. Pulse signals with PRF combs indicate radar. Wide signals suggest communications.'},
-  {label:'Co-location',angle:Math.PI*1.33,color:0x00ffaa,desc:'Rules mapping signal types to implied co-located emitters. E.g., LTE implies WiFi+BLE+GPS. Radar implies VHF comms+generator.'},
-  {label:'Operator ID',angle:Math.PI*1.67,color:0x7f77dd,desc:'Ukrainian mobile operator lookup: Kyivstar, Vodafone, lifecell. Maps frequency to commercial operator for civilian traffic filtering.'},
-];
-const atlasNodes=[];
-const ATLAS_R=28;
-ATLAS_NODES_DEF.forEach((nd,i)=>{
-  const x=Math.cos(nd.angle)*ATLAS_R, z=Math.sin(nd.angle)*ATLAS_R, y=1.5;
-  const sp=new THREE.Mesh(new THREE.SphereGeometry(1,12,12),new THREE.MeshBasicMaterial({color:nd.color,transparent:true,opacity:.5}));
-  sp.position.set(x,y,z);atlasG.add(sp);
-  const glow=new THREE.Mesh(new THREE.SphereGeometry(2.5,12,12),new THREE.MeshBasicMaterial({color:nd.color,transparent:true,opacity:.04}));
-  glow.position.set(x,y,z);atlasG.add(glow);
-  // Ring on ground
-  const ring=new THREE.Mesh(new THREE.RingGeometry(1.5,2,24),new THREE.MeshBasicMaterial({color:nd.color,transparent:true,opacity:.08,side:THREE.DoubleSide}));
-  ring.rotation.x=-Math.PI/2;ring.position.set(x,.05,z);atlasG.add(ring);
-  atlasNodes.push({sp,glow,ring,x,y,z,color:nd.color,def:nd});
-  regHover(sp,{name:nd.label,type:'BandAtlas Context Node',color:'#'+nd.color.toString(16).padStart(6,'0'),
-    desc:nd.desc,
-    connections:[{t:'Receives raw freq from i2s matrix',c:'hi'},{t:'Feeds context to inference engine',c:'hi'},{t:'Updated by backpropagation feedback',c:'md'}]});
-});
-// Atlas ring connecting line
-const atlasRingPts=[];for(let a=0;a<=64;a++){const ang=a/64*Math.PI*2;atlasRingPts.push(new THREE.Vector3(Math.cos(ang)*ATLAS_R,.08,Math.sin(ang)*ATLAS_R))}
-atlasG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(atlasRingPts),new THREE.LineBasicMaterial({color:0x1db954,transparent:true,opacity:.08})));
+      .topbar nav a {
+        text-decoration: none;
+      }
 
-// ====== OBSERVERS ======
-const OBS=[{x:-35,z:-30,l:'\u03B1'},{x:35,z:-28,l:'\u03B2'},{x:-32,z:32,l:'\u03B3'},{x:30,z:35,l:'\u03B4'}];
-const obsG=new THREE.Group();scene.add(obsG);
-OBS.forEach((o,i)=>{
-  const ped=new THREE.Mesh(new THREE.CylinderGeometry(.8,1.2,2,8),new THREE.MeshLambertMaterial({color:0x0d1a14}));ped.position.set(o.x,1,o.z);obsG.add(ped);
-  const sp=new THREE.Mesh(new THREE.SphereGeometry(1.2,16,16),new THREE.MeshBasicMaterial({color:0x1db954,transparent:true,opacity:.7}));sp.position.set(o.x,3,o.z);obsG.add(sp);o.sphere=sp;
-  const pr=new THREE.Mesh(new THREE.RingGeometry(1.5,1.8,32),new THREE.MeshBasicMaterial({color:0x1db954,transparent:true,opacity:.2,side:THREE.DoubleSide}));pr.rotation.x=-Math.PI/2;pr.position.set(o.x,.15,o.z);obsG.add(pr);o.pulseRing=pr;
-  regHover(sp,{name:'Observer OBS-'+o.l,type:'DoA Agent \u00b7 KrakenSDR',color:'#1db954',
-    desc:'<b>5-channel phase-coherent receiver</b> with UCA antenna. Computes Direction of Arrival via MUSIC algorithm. Each observer independently measures bearing to all emitters within SDR bandwidth (2.4 MHz). Multiple observers enable <b>triangulation</b> \u2014 bearing intersection gives emitter geo-fix with CEP proportional to baseline length and angular accuracy.',
-    connections:[{t:'DoA vector \u2192 i2s clustering matrix',c:'hi'},{t:'Bearing \u2192 Sionna RT path validation',c:'hi'},{t:'Raw IQ \u2192 signal character extraction',c:'md'},{t:'LoRa mesh \u2192 other observers',c:'md'}]});
-});
+      .topbar nav a:hover {
+        color: var(--ink);
+      }
 
-// ====== TARGET ======
-const TGT={x:5,z:-2,y:16};const tgtG=new THREE.Group();tgtG.visible=false;scene.add(tgtG);
-const tgtMesh=new THREE.Mesh(new THREE.OctahedronGeometry(1.5,0),new THREE.MeshBasicMaterial({color:0xe24b4a,transparent:true,opacity:0}));tgtMesh.position.set(TGT.x,TGT.y,TGT.z);tgtG.add(tgtMesh);
-const tgtGlow=new THREE.Mesh(new THREE.SphereGeometry(3,16,16),new THREE.MeshBasicMaterial({color:0xe24b4a,transparent:true,opacity:0}));tgtGlow.position.copy(tgtMesh.position);tgtG.add(tgtGlow);
-const beam=new THREE.Mesh(new THREE.CylinderGeometry(.08,.08,40,4),new THREE.MeshBasicMaterial({color:0xe24b4a,transparent:true,opacity:0}));beam.position.set(TGT.x,20,TGT.z);tgtG.add(beam);
-regHover(tgtMesh,{name:'Hostile Emitter',type:'Target \u00b7 Counter-UAS X-band Radar',color:'#e24b4a',
-  desc:'<b>Detected via spurious emissions</b> \u2014 PRF harmonic comb at 2.4 kHz repetition. BandAtlas identified X-band (9.2\u201310.0 GHz) as Counter-UAS radar class. 4-observer triangulation produced CEP 12m fix. Compound inference: this emitter is part of an <b>integrated air defense node</b> with implied VHF comms, GPS jammer, generator, and SATCOM.',
-  connections:[{t:'4\u00d7 DoA bearing intersection',c:'hi'},{t:'BandAtlas: X-band \u2192 RADAR \u2192 HOSTILE',c:'hi'},{t:'Sionna RT: 12 paths incl. 4 reflections',c:'hi'},{t:'Implied: VHF+GPS jammer+gen+SATCOM',c:'md'},{t:'Compound: Bn CP template match 91%',c:'md'}]});
+      /* ---------- hero ---------- */
 
-// ====== DOA with arrows ======
-const doaG=new THREE.Group();scene.add(doaG);const doaLines=[];
-OBS.forEach((o,i)=>{
-  const mat=new THREE.LineBasicMaterial({color:0x378add,transparent:true,opacity:0});
-  doaG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(o.x,3,o.z),new THREE.Vector3(TGT.x,TGT.y,TGT.z)]),mat));
-  const arrows=[];for(let a=0;a<6;a++){const cone=new THREE.Mesh(new THREE.ConeGeometry(.4,.9,4),new THREE.MeshBasicMaterial({color:0x378add,transparent:true,opacity:0}));cone.visible=false;doaG.add(cone);arrows.push({cone,phase:a/6})}
-  const glow=[];for(let g=0;g<10;g++){const sp=new THREE.Mesh(new THREE.SphereGeometry(.18,4,4),new THREE.MeshBasicMaterial({color:0x378add,transparent:true,opacity:0}));sp.visible=false;doaG.add(sp);glow.push({mesh:sp,phase:g/10})}
-  doaLines.push({mat,arrows,glow,obs:o,active:false});
-});
+      .hero {
+        padding-top: clamp(56px, 12vw, 128px);
+        padding-bottom: clamp(64px, 12vw, 132px);
+      }
 
-// ====== RT RAYS ======
-const rayG=new THREE.Group();scene.add(rayG);const rtRays=[],refPts=[];
-OBS.forEach((o,oi)=>{
-  const s=new THREE.Vector3(o.x,3,o.z),e=new THREE.Vector3(TGT.x,TGT.y,TGT.z);
-  const dm=new THREE.LineBasicMaterial({color:0x00ffaa,transparent:true,opacity:0});
-  rayG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([s.clone(),e.clone()]),dm));rtRays.push({mat:dm,type:'direct'});
-  const near=BD.filter(b=>{const dx=b.pos.x-(o.x+TGT.x)/2,dz=b.pos.z-(o.z+TGT.z)/2;return Math.sqrt(dx*dx+dz*dz)<25});
-  const rb=near[oi%Math.max(1,near.length)];
-  if(rb){const rp=new THREE.Vector3(rb.pos.x+(Math.random()-.5)*rb.pos.w,rb.pos.h*(.4+Math.random()*.5),rb.pos.z+(Math.random()-.5)*rb.pos.d);
-    const m1=new THREE.LineBasicMaterial({color:0xf0a030,transparent:true,opacity:0});rayG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([s.clone(),rp.clone()]),m1));rtRays.push({mat:m1,type:'ref'});
-    const m2=new THREE.LineBasicMaterial({color:0xf0a030,transparent:true,opacity:0});rayG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([rp.clone(),e.clone()]),m2));rtRays.push({mat:m2,type:'ref'});
-    const rpm=new THREE.MeshBasicMaterial({color:0xf0a030,transparent:true,opacity:0});const rpM=new THREE.Mesh(new THREE.OctahedronGeometry(.4,0),rpm);rpM.position.copy(rp);rayG.add(rpM);refPts.push({mesh:rpM,mat:rpm});
-    regHover(rpM,{name:'Reflection Point',type:'Sionna RT \u00b7 Multipath Bounce',color:'#f0a030',
-      desc:'<b>RF signal bounced here</b> off building surface. Sionna RT computed reflection loss of ~3 dB (concrete). This multipath component arrives at the observer with a time delay, creating a secondary bearing measurement. After correction, reflected paths <b>improve geo-fix accuracy</b> in urban canyons where direct LoS is blocked.',
-      connections:[{t:'Building surface \u2192 reflection coefficient',c:'hi'},{t:'Delayed arrival \u2192 multipath DoA correction',c:'md'},{t:'Path loss model \u2192 RT calibration data',c:'md'}]});
-  }
-});
+      .eyebrow {
+        margin: 0 0 26px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
 
-// ====== BACKPROP LAYER ======
-const bpG=new THREE.Group();bpG.visible=false;scene.add(bpG);
-const OUT_DEF=[
-  {label:'Emitter Geo-fix',angle:0,color:0x1db954,desc:'Fused geographic position from all DoA bearings + RT path correction. CEP depends on observer geometry and multipath model quality.'},
-  {label:'Threat Class',angle:1.26,color:0xe24b4a,desc:'HOSTILE/SUSPECT/NEUTRAL/FRIENDLY assignment based on BandAtlas service type, signal character, and operational context.'},
-  {label:'Implied Assets',angle:2.51,color:0xf0a030,desc:'Co-located equipment inferred from context rules. Radar implies comms, generator, GPS jammer. LTE implies WiFi, BLE, population.'},
-  {label:'Context Edge',angle:3.77,color:0x7f77dd,desc:'Graph database connection between this emitter and all observers/assets sharing context. Each edge carries shared intelligence metadata.'},
-  {label:'Sit. Picture',angle:5.03,color:0x00ffaa,desc:'Complete operational assessment: target type, implied force composition, terrain advantage, recommended engagement approach.'},
-];
-const outNodes=[];
-OUT_DEF.forEach((od,i)=>{
-  const r=8,x=TGT.x+Math.cos(od.angle)*r,z=TGT.z+Math.sin(od.angle)*r,y=TGT.y+3;
-  const sp=new THREE.Mesh(new THREE.SphereGeometry(.8,12,12),new THREE.MeshBasicMaterial({color:od.color,transparent:true,opacity:0}));sp.position.set(x,y,z);bpG.add(sp);
-  const glow=new THREE.Mesh(new THREE.SphereGeometry(1.8,12,12),new THREE.MeshBasicMaterial({color:od.color,transparent:true,opacity:0}));glow.position.set(x,y,z);bpG.add(glow);
-  const lm=new THREE.LineBasicMaterial({color:od.color,transparent:true,opacity:0});
-  bpG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(TGT.x,TGT.y,TGT.z),new THREE.Vector3(x,y,z)]),lm));
-  outNodes.push({sp,glow,lm,x,y,z,color:od.color,def:od});
-  regHover(sp,{name:od.label,type:'Intelligence Output \u00b7 Backprop Source',color:'#'+od.color.toString(16).padStart(6,'0'),
-    desc:'<b>'+od.label+'</b>: '+od.desc+' During backpropagation, this output sends <b>gradient feedback</b> back through the network to update BandAtlas context weights and create fixed connections between correlated radar items.',
-    connections:[{t:'Forward: target data \u2192 this output',c:'hi'},{t:'Backward: gradient \u2192 BandAtlas nodes',c:'md'},{t:'Feedback arc \u2192 context weight update',c:'md'}]});
-});
-// Gradient lines
-const bpLines=[];outNodes.forEach(on=>{OBS.forEach(o=>{const lm=new THREE.LineBasicMaterial({color:0xc45dff,transparent:true,opacity:0});bpG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(on.x,on.y,on.z),new THREE.Vector3(o.x,3,o.z)]),lm));bpLines.push({mat:lm})})});
-// BP particles
-const bpParts=[];for(let i=0;i<40;i++){const mat=new THREE.MeshBasicMaterial({color:0xc45dff,transparent:true,opacity:0});const mesh=new THREE.Mesh(new THREE.SphereGeometry(.2,4,4),mat);mesh.visible=false;bpG.add(mesh);bpParts.push({mesh,mat,sx:TGT.x+(Math.random()-.5)*16,sy:TGT.y+(Math.random()-.5)*8,sz:TGT.z+(Math.random()-.5)*16,ex:(Math.random()-.5)*55,ey:.5,ez:(Math.random()-.5)*55,speed:.2+Math.random()*.4,phase:Math.random(),on:false})}
-// Fixed conns
-const fixedConns=[];
-[[0,1],[1,4],[2,5],[3,6],[0,5],[4,7],[2,3],[1,6]].forEach(([a,b])=>{if(!BD[a]||!BD[b])return;const pa=BD[a].pos,pb=BD[b].pos;const mid=new THREE.Vector3((pa.x+pb.x)/2,Math.max(pa.h,pb.h)+5,(pa.z+pb.z)/2);const curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(pa.x,pa.h,pa.z),mid,new THREE.Vector3(pb.x,pb.h,pb.z));const lm=new THREE.LineBasicMaterial({color:0xc45dff,transparent:true,opacity:0});bpG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(20)),lm));const nm=new THREE.MeshBasicMaterial({color:0xc45dff,transparent:true,opacity:0});const node=new THREE.Mesh(new THREE.SphereGeometry(.5,8,8),nm);node.position.copy(mid);bpG.add(node);fixedConns.push({lm,nm,node,a,b});
-  regHover(node,{name:'Fixed Connection',type:'Atlas Rule \u00b7 Learned Link',color:'#c45dff',
-    desc:'<b>Permanent context link</b> between two radar-relevant locations, created by backpropagation. This connection encodes that signals observed at Building #'+(a+1)+' and Building #'+(b+1)+' are <b>correlated</b> \u2014 when one activates, the system immediately checks the other. Stored in BandAtlas as a fixed inference rule that <b>persists across cycles</b>.',
-    connections:[{t:'Building #'+(a+1)+' \u2194 Building #'+(b+1),c:'hi'},{t:'Correlation: shared emitter cluster',c:'md'},{t:'Speeds next-cycle target acquisition',c:'md'}]});
-});
+      h1 {
+        margin: 0;
+        font-size: clamp(42px, 9vw, 92px);
+        line-height: 1.04;
+        letter-spacing: -0.015em;
+        font-weight: 700;
+      }
 
-// ====== FEEDBACK ARCS (Output nodes back to BandAtlas ring) ======
-const fbG=new THREE.Group();scene.add(fbG);
-const feedbackArcs=[];
-outNodes.forEach((on,oi)=>{
-  // Each output connects to 2 nearest atlas nodes
-  const targets=[oi % atlasNodes.length, (oi+1) % atlasNodes.length];
-  targets.forEach(ti=>{
-    const an=atlasNodes[ti];
-    const start=new THREE.Vector3(on.x,on.y,on.z);
-    const end=new THREE.Vector3(an.x,an.y,an.z);
-    const midH=Math.max(on.y,an.y)+8+oi*2;
-    const mid=new THREE.Vector3((start.x+end.x)/2,midH,(start.z+end.z)/2);
-    const curve=new THREE.QuadraticBezierCurve3(start,mid,end);
-    const pts=curve.getPoints(30);
-    const lm=new THREE.LineDashedMaterial({color:on.color,transparent:true,opacity:0,dashSize:1,gapSize:.5});
-    const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lm);
-    line.computeLineDistances();
-    fbG.add(line);
-    // Traveling particle along arc
-    const pm=new THREE.MeshBasicMaterial({color:on.color,transparent:true,opacity:0});
-    const particle=new THREE.Mesh(new THREE.SphereGeometry(.35,6,6),pm);
-    fbG.add(particle);
-    feedbackArcs.push({lm,particle,pm,curve,phase:oi*.15+ti*.08,srcColor:on.color,active:false});
-  });
-});
+      h1 .legal {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-size: clamp(13px, 2.4vw, 15px);
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
 
-// ====== CAMERA ======
-let camA=.8,camD=80,camH=55,isDrag=false,lastM={x:0,y:0};
-canvas.addEventListener('mousedown',e=>{isDrag=true;lastM={x:e.clientX,y:e.clientY}});
-canvas.addEventListener('mousemove',e=>{if(isDrag){camA+=(e.clientX-lastM.x)*.005;camH=Math.max(15,Math.min(120,camH-(e.clientY-lastM.y)*.3));lastM={x:e.clientX,y:e.clientY}}handleHover(e)});
-canvas.addEventListener('mouseup',()=>isDrag=false);
-canvas.addEventListener('mouseleave',()=>{isDrag=false;hideTooltip()});
-canvas.addEventListener('wheel',e=>{camD=Math.max(30,Math.min(150,camD+e.deltaY*.05))});
+      .lead {
+        max-width: 60ch;
+        margin: 30px 0 0;
+        color: var(--muted);
+        font-size: clamp(18px, 2.2vw, 21px);
+        line-height: 1.6;
+      }
 
-// ====== TOOLTIP ======
-const ttEl=document.getElementById('tooltip');
-function showTooltip(x,y,info){
-  document.getElementById('ttDot').style.background=info.color;document.getElementById('ttDot').style.boxShadow='0 0 6px '+info.color;
-  document.getElementById('ttName').textContent=info.name;
-  document.getElementById('ttType').textContent=info.type;
-  document.getElementById('ttDesc').innerHTML=info.desc;
-  const connEl=document.getElementById('ttConn'),listEl=document.getElementById('ttConnList');
-  if(info.connections&&info.connections.length){connEl.style.display='';listEl.innerHTML='';
-    info.connections.forEach(c=>{const d=document.createElement('div');d.className='tt-conn-item';d.innerHTML='<span class="arr">\u2192</span>'+c.t+'<span class="c c-'+c.c+'">'+({hi:'\u2713',md:'\u223C'}[c.c]||'')+'</span>';listEl.appendChild(d)})}
-  else connEl.style.display='none';
-  ttEl.style.left=Math.min(x+15,canvas.clientWidth-310)+'px';ttEl.style.top=Math.min(y-10,canvas.clientHeight-300)+'px';
-  ttEl.classList.add('show');
-}
-function hideTooltip(){ttEl.classList.remove('show')}
-let hoveredMesh=null;
-function handleHover(e){
-  const rect=canvas.getBoundingClientRect();
-  mouse.x=((e.clientX-rect.left)/rect.width)*2-1;mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
-  raycaster.setFromCamera(mouse,camera);
-  const intersects=raycaster.intersectObjects(hoverables.map(h=>h.mesh));
-  if(intersects.length){const hit=hoverables.find(h=>h.mesh===intersects[0].object);
-    if(hit){hoveredMesh=hit.mesh;showTooltip(e.clientX-rect.left,e.clientY-rect.top,hit.info);canvas.style.cursor='pointer';return}}
-  hoveredMesh=null;hideTooltip();canvas.style.cursor=isDrag?'grabbing':'default';
-}
+      .lead strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
 
-// ====== STATE ======
-const PHASES=['geofence','doa','trace','acquire','locked','backprop','learn'];
-const PHASE_DUR=[4,4.5,4,2,2,10,6];
-let phaseIdx=0,phaseT=0,cycle=1,totalAtlas=47;
-function addLog(tag,cls,msg){const el=document.getElementById('logWrap');const t=new Date(),ts=[t.getHours(),t.getMinutes(),t.getSeconds()].map(v=>String(v).padStart(2,'0')).join(':');const d=document.createElement('div');d.className='log-line';d.innerHTML='<span class="ts">'+ts+'</span><span class="tag '+cls+'">'+tag+'</span>'+msg;el.appendChild(d);el.scrollTop=el.scrollHeight}
-function setPips(idx){for(let i=0;i<7;i++){const p=document.getElementById('pp'+i);p.className='phase-pip'+(i<idx?(i>=5?'bp-done':'done'):i===idx?(i>=5?'bp':'active'):'')}}
-function setUI(name,color){document.getElementById('hudPhase').textContent=name;document.getElementById('hudPhase').style.color='var(--'+color+')';document.getElementById('phaseLabel').textContent=name;document.getElementById('phaseLabel').style.color='var(--'+color+')'}
-let logged={};function logOnce(k,tag,cls,msg){if(!logged[k]){logged[k]=true;addLog(tag,cls,msg)}}
-function softReset(){phaseT=0;logged={};tgtG.visible=false;bpG.visible=false;
-  document.getElementById('cmTgt').classList.remove('show');document.getElementById('cmBp').classList.remove('show');
-  document.getElementById('atlasPanel').classList.remove('show');document.getElementById('learnPanel').classList.remove('show');
-  document.getElementById('hudTarget').textContent='---';document.getElementById('hudRays').textContent='standby';document.getElementById('hudDet').textContent='scanning';
-  doaLines.forEach(d=>{d.mat.opacity=0;d.active=false;d.arrows.forEach(a=>{a.cone.visible=false;a.cone.material.opacity=0});d.glow.forEach(g=>{g.mesh.visible=false})});
-  rtRays.forEach(r=>r.mat.opacity=0);refPts.forEach(r=>r.mat.opacity=0);
-  outNodes.forEach(n=>{n.sp.material.opacity=0;n.glow.material.opacity=0;n.lm.opacity=0});
-  bpLines.forEach(l=>l.mat.opacity=0);fixedConns.forEach(c=>{c.lm.opacity=0;c.nm.opacity=0});
-  bpParts.forEach(p=>{p.mesh.visible=false;p.mat.opacity=0;p.on=false});
-  feedbackArcs.forEach(fa=>{fa.lm.opacity=0;fa.pm.opacity=0;fa.active=false;fa.particle.visible=false});
-  tgtMesh.material.opacity=0;tgtGlow.material.opacity=0;beam.material.opacity=0;
-  for(let i=0;i<8;i++){const el=document.getElementById('ar'+i);if(el)el.classList.remove('vis')}
-  cellData.forEach(c=>{c.mat.color.copy(c.oC);c.mat.opacity=c.oO});
-  BD.forEach(b=>{if(b.wire){b.wire.material.color.set(0x1db954);b.wire.material.opacity=.12}});
-  atlasNodes.forEach(n=>{n.sp.material.opacity=.5;n.glow.material.opacity=.04;n.ring.material.opacity=.08});
-}
+      /* ---------- напрями ---------- */
 
-// Precompute cone orientation quaternion per DoA line (target is fixed)
-const _upVec=new THREE.Vector3(0,1,0);
-doaLines.forEach(d=>{
-  const dir=new THREE.Vector3(TGT.x-d.obs.x,TGT.y-3,TGT.z-d.obs.z).normalize();
-  d.coneQuat=new THREE.Quaternion().setFromUnitVectors(_upVec,dir);
-});
+      .section {
+        padding-top: clamp(48px, 8vw, 80px);
+        padding-bottom: clamp(48px, 8vw, 80px);
+        border-top: 1px solid var(--line);
+      }
 
-function animDoA(fadeOut){
-  doaLines.forEach((d,i)=>{if(!d.active)return;
-    const ox=d.obs.x,oz=d.obs.z,dx=TGT.x-ox,dy=TGT.y-3,dz=TGT.z-oz;
-    const fo=fadeOut||1;
-    d.arrows.forEach(a=>{a.phase=(a.phase+.007)%1;const p=a.phase;
-      a.cone.position.set(ox+dx*p,3+dy*p,oz+dz*p);
-      a.cone.quaternion.copy(d.coneQuat);
-      a.cone.material.opacity=(.25+Math.sin(p*Math.PI)*.55)*fo});
-    d.glow.forEach(g=>{g.phase=(g.phase+.01)%1;const p=g.phase;
-      g.mesh.position.set(ox+dx*p,3+dy*p,oz+dz*p);g.mesh.material.opacity=Math.sin(p*Math.PI)*.35*fo})});
-}
+      .section-label {
+        margin: 0 0 40px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
 
-// ====== MAIN ======
-let time=0;
-function animate(){
-  requestAnimationFrame(animate);time+=.016;phaseT+=.016;
-  if(!isDrag)camA+=.0006;
-  camera.position.set(Math.cos(camA)*camD,camH,Math.sin(camA)*camD);camera.lookAt(0,8,0);
-  OBS.forEach((o,i)=>{const s=1+Math.sin(time*2+i*1.5)*.15;o.pulseRing.scale.set(s*2,1,s*2);o.pulseRing.material.opacity=.15*(1-(s-1)/.15);o.sphere.material.opacity=.5+Math.sin(time*3+i)*.2});
-  tgtMesh.rotation.y+=.02;tgtMesh.rotation.x=Math.sin(time)*.3;refPts.forEach(r=>r.mesh.rotation.y+=.02);
-  // Atlas nodes gentle pulse
-  atlasNodes.forEach((n,i)=>{n.sp.material.opacity=.4+Math.sin(time*1.5+i)*.1;n.glow.material.opacity=.03+Math.sin(time*2+i)*.01});
+      .directions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 44px 36px;
+      }
 
-  const ph=PHASES[phaseIdx],dur=PHASE_DUR[phaseIdx],t=Math.min(phaseT/dur,1);
-  if(t>=1){phaseIdx++;if(phaseIdx>=PHASES.length){phaseIdx=0;cycle++;totalAtlas+=8;document.getElementById('hudCycle').textContent='#'+cycle;document.getElementById('hudAtlas').textContent=totalAtlas+' bands';softReset();addLog('CTX','tag-ctx','\u21BB Cycle #'+cycle+' \u2014 Atlas: '+totalAtlas+' entries')}phaseT=0;logged={}}
-  setPips(phaseIdx);
-  // Timer HUD
-  const PHASE_NAMES=['geofence scan','doa triangulation','sionna rt trace','target acquire','target locked','backpropagation','learning summary'];
-  const curDur=PHASE_DUR[phaseIdx]||1;
-  const remaining=Math.max(0,curDur-phaseT);
-  document.getElementById('hudTimer').textContent=phaseT.toFixed(1)+'s / '+curDur.toFixed(1)+'s';
-  const nextIdx=(phaseIdx+1)%PHASES.length;
-  document.getElementById('hudNext').textContent=nextIdx===0?'cycle #'+(cycle+1):PHASE_NAMES[nextIdx];
-  const totalElapsed=Math.floor(time);
-  const eM=Math.floor(totalElapsed/60),eS=totalElapsed%60;
-  document.getElementById('hudElapsed').textContent=String(eM).padStart(2,'0')+':'+String(eS).padStart(2,'0');
+      .direction {
+        padding-top: 20px;
+        border-top: 1px solid var(--ink);
+      }
 
-  if(ph==='geofence'){setUI('geofence scan','green');
-    cellData.forEach(c=>{c.mat.opacity=Math.max(.04,c.oO+Math.sin(time*1.5+c.x*.1+c.z*.1)*.04)});
-    logOnce('g1','CTX','tag-ctx','Geofence monitoring '+GRID*GRID+' cells');if(t>.5)logOnce('g2','DOA','tag-doa','X-band emission detected \u2014 bearing 047\u00B0');
-    if(t>.7){document.getElementById('hudDet').textContent='X-band spur';document.getElementById('hudDet').style.color='var(--red)'}}
+      .direction .no {
+        display: block;
+        margin-bottom: 16px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+      }
 
-  if(ph==='doa'){setUI('doa triangulation','blue');
-    doaLines.forEach((d,i)=>{const lt=Math.max(0,Math.min(1,(t-i*.1)*3));d.mat.opacity=lt*.45;d.active=lt>.3;
-      if(d.active){d.arrows.forEach(a=>{a.cone.visible=true});d.glow.forEach(g=>{g.mesh.visible=true})}});
-    animDoA();
-    cellData.forEach(c=>{const dx=c.x-TGT.x,dz=c.z-TGT.z,dist=Math.sqrt(dx*dx+dz*dz);if(dist<15){const b=(1-dist/15)*t*.3;c.mat.color.setRGB(Math.max(0,c.heat*.1+b*.5),c.heat*.7,c.heat*.35);c.mat.opacity=Math.min(.6,c.oO+b)}});
-    logOnce('d1','DOA','tag-doa','4 bearings converging');logOnce('d2','INF','tag-inf','BandAtlas: X-band \u2192 Counter-UAS radar')}
+      .direction h3 {
+        margin: 0 0 12px;
+        font-size: 21px;
+        line-height: 1.25;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
 
-  if(ph==='trace'){setUI('sionna rt tracing','teal');animDoA();
-    rtRays.forEach((r,i)=>{const lt=Math.max(0,Math.min(1,(t-.1-i*.05)*2.5));r.mat.opacity=lt*(r.type==='direct'?.45:.3)});
-    refPts.forEach((rp,i)=>{const lt=Math.max(0,Math.min(1,(t-.2-i*.08)*2));rp.mat.opacity=lt*.65});
-    document.getElementById('hudRays').textContent=Math.floor(t*(rtRays.length+4))+' rays';
-    logOnce('r1','RT','tag-rt','Computing '+rtRays.length+' propagation paths');if(t>.7)logOnce('r2','DOA','tag-doa','Triangulation converged: CEP 12m')}
+      .direction p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.68;
+      }
 
-  if(ph==='acquire'){setUI('acquiring target','red');animDoA();
-    tgtG.visible=true;tgtMesh.material.opacity=t*.85;tgtGlow.material.opacity=t*.12;beam.material.opacity=t*.18;
-    cellData.forEach(c=>{const dx=c.x-TGT.x,dz=c.z-TGT.z,dist=Math.sqrt(dx*dx+dz*dz);if(dist<10){const f=(1-dist/10)*(.5+Math.sin(time*8)*.3)*t;c.mat.color.setRGB(.7*f,.08,.08);c.mat.opacity=Math.min(.8,.3+f*.5)}});
-    logOnce('a1','TGT','tag-tgt','TARGET ACQUISITION');if(t>.5)document.getElementById('hudTarget').textContent='HOSTILE \u2014 CEP 12m'}
+      /* ---------- компанія ---------- */
 
-  if(ph==='locked'){setUI('target locked','red');animDoA(.7);
-    tgtMesh.material.opacity=.8+Math.sin(time*3)*.1;beam.material.opacity=.08+Math.sin(time*4)*.05;tgtGlow.scale.setScalar(1+Math.sin(time*2)*.15);
-    if(t<.4)document.getElementById('cmTgt').classList.add('show');if(t>.7)document.getElementById('cmTgt').classList.remove('show');
-    logOnce('l1','TGT','tag-tgt','\u25B2 LOCKED: Counter-UAS X-band');logOnce('l2','INF','tag-inf','Compound: air defense node')}
+      .about {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+        gap: 36px;
+        align-items: start;
+      }
 
-  if(ph==='backprop'){setUI('backpropagation','magenta');bpG.visible=true;
-    const fadeDoA=Math.max(0,1-phaseT/3);animDoA(fadeDoA);
-    tgtMesh.material.opacity=.3+Math.sin(time*2)*.08;beam.material.opacity=.03;
-    // Output nodes
-    if(t<.2){const st=t/.2;outNodes.forEach((n,i)=>{const lt=Math.max(0,Math.min(1,(st-i*.1)*4));n.sp.material.opacity=lt*.7;n.glow.material.opacity=lt*.05;n.lm.opacity=lt*.3});logOnce('b1','BP','tag-bp','\u2935 Backpropagation: 5 outputs active')}
-    // Gradient flow
-    if(t>=.15&&t<.45){const st=(t-.15)/.3;bpLines.forEach((bl,i)=>{bl.mat.opacity=Math.max(0,Math.min(1,(st-i*.015)*2))*.1});
-      if(t>.2)document.getElementById('cmBp').classList.add('show');
-      bpParts.forEach((p,i)=>{if(!p.on&&st>i/bpParts.length){p.on=true;p.mesh.visible=true;p.phase=0}
-        if(p.on){p.phase=(p.phase+.005*p.speed)%1;p.mesh.position.set(p.sx+(p.ex-p.sx)*p.phase,p.sy+(p.ey-p.sy)*p.phase+Math.sin(p.phase*Math.PI)*7,p.sz+(p.ez-p.sz)*p.phase);p.mat.opacity=Math.sin(p.phase*Math.PI)*.35}});
-      logOnce('b2','BP','tag-bp','Gradients flowing \u2014 adjusting weights')}
-    if(t>.4)document.getElementById('cmBp').classList.remove('show');
-    // Fixed conns
-    if(t>=.4&&t<.7){const st=(t-.4)/.3;fixedConns.forEach((fc,i)=>{const lt=Math.max(0,Math.min(1,(st-i*.07)*3));fc.lm.opacity=lt*.3;fc.nm.opacity=lt*.5;fc.node.scale.setScalar(.5+Math.sin(time*3+i)*.1);
-      if(lt>.4)[fc.a,fc.b].forEach(bi=>{if(BD[bi]&&BD[bi].wire){BD[bi].wire.material.color.lerp(new THREE.Color(0xc45dff),.012);BD[bi].wire.material.opacity=Math.min(.3,.12+lt*.12)}})});
-      logOnce('b3','ATLAS','tag-atlas','Fixed connections: '+fixedConns.length+' radar context pairs')}
-    // FEEDBACK ARCS activate
-    if(t>=.35){const st=Math.min(1,(t-.35)/.3);
-      feedbackArcs.forEach((fa,i)=>{
-        const lt=Math.max(0,Math.min(1,(st-i*.04)*3));fa.lm.opacity=lt*.25;fa.active=lt>.3;
-        if(fa.active){fa.phase=(fa.phase+.005)%1;const pt=fa.curve.getPoint(fa.phase);fa.particle.visible=true;fa.particle.position.copy(pt);fa.pm.opacity=Math.sin(fa.phase*Math.PI)*.6}
-      });
-      // Atlas nodes brighten as feedback arrives
-      atlasNodes.forEach((n,i)=>{const boost=st*.3;n.sp.material.opacity=.4+boost+Math.sin(time*2+i)*.1;n.glow.material.opacity=.03+boost*.15;n.ring.material.opacity=.08+boost*.2});
-      if(st>.5)logOnce('b4','BP','tag-bp','Feedback arcs: output intel \u2192 BandAtlas context nodes')}
-    // Atlas rules
-    if(t>=.6){const st=(t-.6)/.25;document.getElementById('atlasPanel').classList.add('show');
-      const cnt=Math.min(8,Math.floor(st*8+1));for(let i=0;i<cnt;i++){const el=document.getElementById('ar'+i);if(el&&!el.classList.contains('vis')){el.classList.add('vis');
-        if(i===0)logOnce('a0','ATLAS','tag-atlas','X-band \u2194 VHF (+12%)');if(i===1)logOnce('a1','ATLAS','tag-atlas','C-UAS \u2194 GPS jammer (+18%)');
-        if(i===4)logOnce('a4','ATLAS','tag-atlas','Compound: Bn CP (85\u219291%)')}}
-      document.getElementById('hudAtlas').textContent=(totalAtlas+Math.min(8,cnt))+' bands'}
-    // Geofence magenta
-    if(t>.5)cellData.forEach(c=>{const dx=c.x-TGT.x,dz=c.z-TGT.z,dist=Math.sqrt(dx*dx+dz*dz);if(dist<20){const m=(1-dist/20)*Math.min(1,(t-.5)*3)*.18;c.mat.color.setRGB(.25+m,.08,.35+m);c.mat.opacity=Math.min(.5,c.oO+m)}});
-    // Keep bp stuff alive
-    bpParts.forEach(p=>{if(p.on){p.phase=(p.phase+.004*p.speed)%1;p.mesh.position.set(p.sx+(p.ex-p.sx)*p.phase,p.sy+(p.ey-p.sy)*p.phase+Math.sin(p.phase*Math.PI)*6,p.sz+(p.ez-p.sz)*p.phase);p.mat.opacity=Math.sin(p.phase*Math.PI)*.25}});
-    outNodes.forEach((n,i)=>{n.sp.material.opacity=.5+Math.sin(time*2.5+i)*.15;n.glow.material.opacity=.03})}
+      .about h2 {
+        margin: 0;
+        max-width: 14ch;
+        font-size: clamp(25px, 3.4vw, 33px);
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
 
-  if(ph==='learn'){setUI('learning complete','magenta');
-    document.getElementById('atlasPanel').classList.remove('show');document.getElementById('learnPanel').classList.add('show');
-    tgtMesh.material.opacity=.2+Math.sin(time*1.5)*.06;
-    fixedConns.forEach((fc,i)=>{fc.lm.opacity=.12+Math.sin(time*1.5+i)*.06;fc.nm.opacity=.25+Math.sin(time*2+i)*.08;fc.node.scale.setScalar(.5+Math.sin(time*2+i)*.06)});
-    outNodes.forEach((n,i)=>{n.sp.material.opacity=.3+Math.sin(time*2+i)*.08;n.glow.material.opacity=.02});
-    // Feedback arcs keep flowing gently
-    feedbackArcs.forEach(fa=>{if(fa.active){fa.phase=(fa.phase+.003)%1;const pt=fa.curve.getPoint(fa.phase);fa.particle.position.copy(pt);fa.pm.opacity=Math.sin(fa.phase*Math.PI)*.3;fa.lm.opacity=.12}});
-    atlasNodes.forEach((n,i)=>{n.sp.material.opacity=.5+Math.sin(time*1.5+i)*.1;n.glow.material.opacity=.06;n.ring.material.opacity=.15});
-    bpParts.forEach(p=>{if(p.on){p.phase=(p.phase+.003*p.speed)%1;p.mesh.position.set(p.sx+(p.ex-p.sx)*p.phase,p.sy+(p.ey-p.sy)*p.phase+Math.sin(p.phase*Math.PI)*4,p.sz+(p.ez-p.sz)*p.phase);p.mat.opacity=Math.sin(p.phase*Math.PI)*.12}});
-    cellData.forEach(c=>{const dx=c.x-TGT.x,dz=c.z-TGT.z,dist=Math.sqrt(dx*dx+dz*dz);if(dist<20){const m=(1-dist/20)*.1;c.mat.color.setRGB(.2+m,.07,.3+m);c.mat.opacity=Math.min(.4,c.oO+m)}});
-    logOnce('le1','CTX','tag-ctx','\u2605 Atlas updated: 8 rules, '+fixedConns.length+' fixed connections');
-    logOnce('le2','BP','tag-bp','Feedback arcs delivered output intel back to BandAtlas context');
-    if(t>.7)logOnce('le3','CTX','tag-ctx','\u21BB Preparing cycle #'+(cycle+1))}
+      .about p {
+        margin: 0 0 18px;
+        max-width: 60ch;
+        color: var(--muted);
+        font-size: 17px;
+      }
 
-  renderer.render(scene,camera);
-}
-addEventListener('resize',()=>{const w=canvas.clientWidth,h=canvas.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h)});
-addLog('CTX','tag-ctx','BandAtlas: '+totalAtlas+' bands');addLog('RT','tag-rt','SRTM + Sionna RT v1.2 ready');addLog('DOA','tag-doa','Observers: \u03B1 \u03B2 \u03B3 \u03B4');
-animate();
-</script>
-</body>
+      .about p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ---------- контакти ---------- */
+
+      .contacts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px 36px;
+      }
+
+      .contact .key {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .contact .val {
+        font-size: 18px;
+        text-decoration: none;
+        border-bottom: 1px solid var(--ink);
+        padding-bottom: 2px;
+      }
+
+      .contact span.val {
+        border-bottom: 0;
+        color: var(--muted);
+      }
+
+      .contact a.val:hover {
+        color: var(--muted);
+        border-bottom-color: var(--muted);
+      }
+
+      /* ---------- footer ---------- */
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+        padding-top: 24px;
+        padding-bottom: 40px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .directions,
+        .contacts {
+          grid-template-columns: 1fr;
+        }
+
+        .about {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .directions {
+          gap: 32px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .topbar nav {
+          gap: 18px;
+          font-size: 14px;
+        }
+
+        .topbar nav a.hide-sm {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/" aria-label="ЕЛІНТІР — на початок">
+        <span class="brand-mark" aria-hidden="true"></span>
+        ЕЛІНТІР
+      </a>
+      <nav aria-label="Основна навігація">
+        <a href="#directions">Напрями</a>
+        <a class="hide-sm" href="#company">Компанія</a>
+        <a href="#contacts">Контакти</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <p class="eyebrow">Розробка програмного забезпечення</p>
+        <h1>
+          <span class="legal">Товариство з обмеженою відповідальністю</span>
+          ЕЛІНТІР
+        </h1>
+        <p class="lead">
+          Ми пишемо програмне забезпечення для <strong>SDR — Software Defined
+          Radio</strong>, програмно-визначуваних радіосистем, у яких приймання,
+          обробка та формування сигналу виконуються не окремими апаратними
+          вузлами, а кодом.
+        </p>
+      </section>
+
+      <section class="section wrap" id="directions">
+        <p class="section-label">Напрями</p>
+        <div class="directions">
+          <article class="direction">
+            <span class="no">01</span>
+            <h3>Фазово когерентна пеленгація</h3>
+            <p>
+              Багатоканальні когерентні приймальні тракти: синхронізація
+              каналів, калібрування фази, оцінка напрямку на джерело за
+              різницею фаз між елементами антенної решітки. Від сирого IQ до
+              пеленга — і до засічки за кількома рознесеними позиціями.
+            </p>
+          </article>
+          <article class="direction">
+            <span class="no">02</span>
+            <h3>Власні радіо дата лінк протоколи</h3>
+            <p>
+              Свій фізичний і канальний рівень: модуляція, завадостійке
+              кодування, синхронізація, шифрування. Лінки, розраховані на
+              роботу за низького відношення сигнал/шум, у вузькій смузі та з
+              низькою помітністю в ефірі.
+            </p>
+          </article>
+          <article class="direction">
+            <span class="no">03</span>
+            <h3>Сигнатурне розпізнавання цілей</h3>
+            <p>
+              Виділення ознак сигналу — часових, спектральних, структурних — і
+              класифікація випромінювача за ними. Розпізнавання типу джерела
+              без демодуляції корисного навантаження.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section wrap" id="company">
+        <p class="section-label">Компанія</p>
+        <div class="about">
+          <h2>Код, який перетворює радіоефір на дані.</h2>
+          <div>
+            <p>
+              ЕЛІНТІР працює на стику цифрової обробки сигналів і прикладної
+              інженерії: алгоритми, вбудоване програмне забезпечення,
+              операторські інтерфейси. Ми доводимо рішення від математики та
+              стендового макета до перевіреної роботи на реальній апаратурі.
+            </p>
+            <p>
+              Розробляємо як власні продукти, так і замовні модулі, що
+              вбудовуються в наявні системи замовника.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="contacts">
+        <p class="section-label">Контакти</p>
+        <div class="contacts">
+          <div class="contact">
+            <span class="key">Пошта</span>
+            <!-- TODO: підставити робочу корпоративну адресу -->
+            <a class="val" href="mailto:info@elintir.com">info@elintir.com</a>
+          </div>
+          <div class="contact">
+            <span class="key">Платформа</span>
+            <a class="val" href="https://app.elintir.com/">app.elintir.com</a>
+          </div>
+          <div class="contact">
+            <span class="key">Розташування</span>
+            <span class="val">Україна</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>© 2026 ТОВ «ЕЛІНТІР»</span>
+      <span>Програмне забезпечення для програмно-визначуваних радіосистем</span>
+    </footer>
+  </body>
 </html>
