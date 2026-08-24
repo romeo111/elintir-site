@@ -103,7 +103,7 @@
       }
 
       .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
-      .topbar nav a { text-decoration: none; }
+      .topbar nav a { text-decoration: none; padding-bottom: 4px; }
 
       .topbar nav a.lang {
         font-family: var(--mono);
@@ -131,7 +131,10 @@
       .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
 
       .topbar nav a:hover { color: var(--ink); }
-      .topbar nav a.current { color: var(--ink); }
+      .topbar nav a.current {
+        box-shadow: inset 0 -2px 0 0 var(--brand-green);
+      }
+      .topbar nav a.current:not(.cta) { color: var(--ink); }
       .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
       .topbar nav a.cta:hover { color: var(--brand-green); }
 
@@ -477,7 +480,7 @@
       <nav aria-label="Main navigation">
         <a class="hide-sm" href="/en/#directions">Directions</a>
         <a href="/en/company/">Company</a>
-        <a class="current" href="/en/hardware/">Hardware</a>
+        <a class="current" href="/en/hardware/" aria-current="page">Hardware</a>
         <a href="/en/#contacts">Contacts</a>
         <a class="cta" href="/en/investors/">Investors</a>
               <a class="lang" href="/hardware/" hreflang="uk" lang="uk">UA</a>
