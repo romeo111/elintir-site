@@ -160,8 +160,8 @@
       h1 {
         font-family: var(--display);
         margin: 0;
-        max-width: 21ch;
-        font-size: clamp(31px, 5vw, 52px);
+        max-width: 28ch;
+        font-size: clamp(29px, 4.4vw, 46px);
         line-height: 1.14;
         letter-spacing: -0.022em;
         font-weight: 800;
@@ -243,6 +243,8 @@
       }
 
       .direction {
+        display: flex;
+        flex-direction: column;
         padding-top: 20px;
         border-top: 1px solid var(--ink);
       }
@@ -272,7 +274,7 @@
         line-height: 1.68;
       }
 
-      .direction-more { margin: 14px 0 0 !important; font-size: 15px; }
+      .direction-more { margin: auto 0 0 !important; padding-top: 14px; font-size: 15px; }
       .direction-more a {
         color: var(--brand-green-deep);
         font-weight: 700;
@@ -417,7 +419,7 @@
 
     <main>
       <section class="hero wrap">
-        <h1>Signal processing for software-defined radio — from the radio wave to the coordinate</h1>
+        <h1>Signal processing for software-defined radio — from an analogue wave to detailed emitter context</h1>
         <p class="tagline">Algorithms, embedded software, operator interfaces.</p>
         <div class="hero-cta">
           <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
