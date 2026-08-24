@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Investors — ELINTIR LLC</title>
+    <meta
+      name="description"
+      content="ELINTIR angel round. A data room with measurements, the protocol specification and an honest list of what is not confirmed yet. Access is granted person by person."
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Investors — ELINTIR LLC">
+    <meta property="og:description" content="The ELINTIR data room: access granted person by person, under NDA.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="/assets/elintir-hero.png">
+    <link rel="canonical" href="https://elintir.com/en/investors/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/investors/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/investors/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/investors/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/investors/">
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+        --display: "Montserrat", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --brand-green: #3e6b1f;
+        --brand-green-deep: #2f4b19;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+
+      /* ---------- topbar ---------- */
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+      }
+
+      .brand-mark { width: 36px; height: 36px; display: block; flex: none; }
+
+      .brand-text { display: flex; flex-direction: column; line-height: 1; }
+
+      .brand-name {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--ink);
+      }
+
+      .brand-slogan {
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--brand-green);
+      }
+
+      .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
+      .topbar nav a { text-decoration: none; }
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+      .topbar nav a:hover { color: var(--ink); }
+      .topbar nav a.current { color: var(--ink); font-weight: 700; }
+
+      /* ---------- hero ---------- */
+
+      .hero {
+        padding-top: clamp(48px, 10vw, 100px);
+        padding-bottom: clamp(40px, 7vw, 72px);
+      }
+
+      .eyebrow {
+        margin: 0 0 22px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: var(--display);
+        margin: 0;
+        font-size: clamp(36px, 6.4vw, 60px);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        font-weight: 700;
+      }
+
+      .lead {
+        max-width: 62ch;
+        margin: 26px 0 0;
+        color: var(--muted);
+        font-size: clamp(18px, 2.1vw, 20px);
+        line-height: 1.6;
+      }
+
+      .lead strong { color: var(--ink); font-weight: 700; }
+
+      /* ---------- sections ---------- */
+
+      .section {
+        padding-top: clamp(40px, 6vw, 64px);
+        padding-bottom: clamp(40px, 6vw, 64px);
+        border-top: 1px solid var(--line);
+      }
+
+      .section-label {
+        font-family: var(--display);
+        margin: 0 0 32px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      /* ---------- access ---------- */
+
+      .access {
+        padding: 28px 30px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .access h2 {
+        font-family: var(--display);
+        margin: 0 0 12px;
+        font-size: clamp(21px, 2.6vw, 26px);
+        letter-spacing: -0.01em;
+      }
+
+      .access p { max-width: 62ch; color: var(--muted); font-size: 16px; margin: 0 0 14px; }
+      .access p:last-of-type { margin-bottom: 22px; }
+
+      .access a.btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 700;
+        color: #fff;
+        background: var(--brand-green-deep);
+        padding: 12px 22px;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      .access a.btn:hover { background: var(--brand-green); }
+
+      .access .note {
+        margin-top: 18px;
+        font-size: 13.5px;
+        color: var(--faint);
+      }
+
+      /* ---------- rows ---------- */
+
+      .rows { display: grid; gap: 0; }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+        gap: 8px 32px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .rows .row:first-child { padding-top: 0; }
+      .rows .row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .row .h { font-family: var(--display); font-weight: 700; font-size: 16px; }
+      .row .b { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+      .section h2 {
+        font-family: var(--display);
+        margin: 0 0 18px;
+        max-width: 30ch;
+        font-size: clamp(21px, 2.6vw, 27px);
+        line-height: 1.28;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+
+      .section p.body { max-width: 62ch; margin: 0 0 15px; color: var(--muted); font-size: 16px; }
+      .section p.body:last-child { margin-bottom: 0; }
+
+      /* ---------- what's inside ---------- */
+
+      ul.inside { margin: 0; padding-left: 22px; max-width: 62ch; }
+      ul.inside li { margin: 0 0 10px; color: var(--muted); font-size: 16.5px; line-height: 1.55; }
+      ul.inside li strong { color: var(--ink); }
+
+      /* ---------- footer ---------- */
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+        padding-top: 24px;
+        padding-bottom: 40px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 14px;
+      }
+
+      @media (max-width: 560px) {
+        .topbar { flex-wrap: wrap; gap: 14px 18px; }
+        .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
+        .brand-mark { width: 30px; height: 30px; }
+        .brand-name { font-size: 18px; }
+        .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
+        .topbar nav a.hide-sm { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, home">
+        <svg class="brand-mark" viewBox="0 0 512 512" role="img" aria-hidden="true">
+          <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">ELINTIR</span>
+          <span class="brand-slogan">ML/RF MAPPER</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="hide-sm" href="/en/#directions">Directions</a>
+        <a href="/en/company/">Company</a>
+        <a href="/en/hardware/">Hardware</a>
+        <a href="/en/#contacts">Contacts</a>
+        <a class="current" href="/en/investors/">Investors</a>
+              <a class="lang" href="/investors/" hreflang="uk" lang="uk">UA</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <p class="eyebrow">Angel round</p>
+        <h1>elintir.com/investors</h1>
+        <p class="lead">
+          The site is the short version of everything: three directions, the
+          company, the hardware, contacts. <strong>The data room behind it is
+          the long version</strong> — with measurements, the protocol
+          specification, and the results that did not hold up.
+        </p>
+      </section>
+
+
+      <section class="section wrap" id="access">
+        <p class="section-label">Data room access</p>
+        <div class="access">
+          <h2>Granted person by person</h2>
+          <p>
+            The data room is not public and does not open from a direct link.
+            Write to us and we will send the materials personally, agreeing
+            NDA terms by mail.
+          </p>
+          <p>
+            Please include your name, organisation and the context of your
+            interest — round, partnership, procurement. It speeds up the
+            reply.
+          </p>
+          <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20data%20room%20access">
+            Request access at info@elintir.com
+          </a>
+          <p class="note">
+            An automated single-use code and self-service entry to the data
+            room are in development. Today the process is manual, and we say
+            so plainly rather than pretending the automation exists.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="edge">
+        <p class="section-label">Where the edge is</p>
+        <h2>Value compounds in the data, not only in the hardware</h2>
+        <p class="body">
+          The station does not have to carry the whole analysis. It writes
+          <strong>multichannel coherent raw IQ</strong> in a standard format
+          with provenance metadata, and the heavy processing happens on the
+          ground. This is a proven capability, not a plan.
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">A cheap node feeds an expensive analysis</div><div class="b">The carrier only has to receive and record. Signature processing, classification and training stay where there is compute and power.</div></div>
+          <div class="row"><div class="h">A recording outlives the algorithm</div><div class="b">When the processing improves, the same archive is run again. Getting a new result needs no second flight — and the flight is the expensive part.</div></div>
+          <div class="row"><div class="h">A recording is evidence</div><div class="b">Provenance metadata travels with the samples, so a measurement can be checked rather than merely reported. That is what separates a result from a claim.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="homework">
+        <p class="section-label">What was done before asking for money</p>
+        <h2>We already know what the expensive board will compute</h2>
+        <p class="body">
+          Buying an RFSoC and working it out afterwards is the most expensive
+          approach available. So the arithmetic was done first, and it starts
+          from an inconvenient fact: <strong>the raw stream off such a board
+          fits nowhere</strong>.
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">Raw converter stream</div><div class="b">393 Gbit/s across eight channels. The fastest interface on the board gives 262 — the stream overruns the budget by <strong>3.9×</strong>. There is no "just stream it to a computer", whatever the board costs.</div></div>
+          <div class="row"><div class="h">So the fabric computes rather than forwards</div><div class="b">The programmable logic accumulates the <strong>covariance matrix</strong>, and that is what leaves the board instead of the stream. This is not a compromise: for the direction-finding algorithm the matrix is a <strong>sufficient statistic</strong> — it looks at nothing else. Thousands of times less data, with the task itself intact.</div></div>
+          <div class="row"><div class="h">And it fits — checked by arithmetic</div><div class="b">An 8×8 covariance at full rate needs 590 GMAC/s against a capacity of 1709 — <strong>34.5% loading</strong>. Accumulators for 1024 subbands take 1.16% of block memory. What remains is enough for the rest of the chain.</div></div>
+          <div class="row"><div class="h">One bank covers the whole band</div><div class="b">A polyphase channeliser splits the band into subbands but does not change the total rate — so a single covariance bank serves every subband at once rather than one each. That property is what makes the arithmetic work out.</div></div>
+          <div class="row"><div class="h">What it costs, stated</div><div class="b">The matrix discards time, phase, and the ability to listen to a capture again. So raw IQ stays a separate path: the matrix for the live bearing, the recording for signatures and re-analysis. Two paths, not one instead of the other.</div></div>
+        </div>
+        <p class="body" style="margin-top:26px">
+          That is the difference between "give us money for boards" and "give
+          us money for boards for which it is already worked out what goes in
+          them and how much stays free".
+        </p>
+      </section>
+
+      <section class="section wrap" id="ask">
+        <p class="section-label">What the round is for</p>
+        <h2>Not only boards — drones and airborne trials</h2>
+        <p class="body">
+          The next step in range runs into geometry rather than the receiver:
+          altitude and position move the radio horizon from single kilometres
+          into tens. So the round has to cover more than components.
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">Boards and instruments</div><div class="b">The RFSoC chain, analysers and a generator — without them a measurement stays a claim.</div></div>
+          <div class="row"><div class="h">Airborne carriers</div><div class="b">Platforms built for the array: clearance from motors and power runs, fibreglass near the phase elements, attitude synchronised from the flight controller.</div></div>
+          <div class="row"><div class="h">A flight test programme</div><div class="b">A fixed beacon at 5, 10 and 20 km, heights of 50/100/150 m, band by band, plus passes over the beacon to check the nadir cone. This is exactly the measurement missing today before range can be stated as a number.</div></div>
+        </div>
+        <p class="body" style="margin-top:24px">
+          Allocation, valuation and deal structure are in the deck and the data room.
+        </p>
+      </section>
+
+      <section class="section wrap" id="inside">
+        <p class="section-label">What is inside</p>
+        <ul class="inside">
+          <li><strong>The pitch deck</strong> — angel round, three directions, the team, the ask and the deal structure.</li>
+          <li><strong>Measured characteristics</strong> — with conditions, a script to reproduce them and the spread stated, including what did not hold up.</li>
+          <li><strong>The s.Link protocol specification</strong> — physical and link layers, encryption, throughput.</li>
+          <li><strong>The technical wiki</strong> — 156 articles linking to code and raw data.</li>
+          <li><strong>A code provenance audit</strong> — what is licensed and what was written from scratch.</li>
+        </ul>
+      </section>
+
+      <section class="section wrap" id="more">
+        <p class="section-label">Before that</p>
+        <p style="max-width:62ch;color:var(--muted);font-size:16.5px;margin:0">
+          The public half of the same material — the station specifications
+          and the measured numbers — is already on the
+          <a href="/en/hardware/" style="color:var(--brand-green-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--brand-green-deep)">hardware page</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>© 2026 ELINTIR LLC</span>
+      <span>Data room access under NDA</span>
+    </footer>
+  </body>
+</html>

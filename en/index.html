@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="uk">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ТОВ «ЕЛІНТІР» — програмне забезпечення для SDR, RF SoC і FPGA</title>
+    <title>ELINTIR LLC — signal processing software for SDR, RF SoC and FPGA</title>
     <meta
       name="description"
-      content="ТОВ «ЕЛІНТІР» розробляє програмне забезпечення нового покоління для SDR, RF SoC і FPGA: фазово когерентна пеленгація, власні радіо дата лінк протоколи, сигнатурне розпізнавання цілей."
+      content="ELINTIR LLC builds signal processing software for SDR, RF SoC and FPGA: phase-coherent direction finding, in-house radio data link protocols, signature-based emitter recognition."
     >
     <meta name="theme-color" content="#ffffff">
-    <meta property="og:title" content="ТОВ «ЕЛІНТІР»">
-    <meta property="og:description" content="Програмне забезпечення нового покоління для SDR, RF SoC і FPGA: пеленгація, радіолінки, розпізнавання сигнатур.">
+    <meta property="og:title" content="ELINTIR LLC">
+    <meta property="og:description" content="Signal processing for SDR, RF SoC and FPGA: direction finding, radio links, signature recognition.">
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="uk_UA">
+    <meta property="og:locale" content="en_US">
     <meta property="og:image" content="/assets/elintir-hero.png">
-    <link rel="canonical" href="https://elintir.com/">
+    <link rel="canonical" href="https://elintir.com/en/">
     <link rel="alternate" hreflang="uk" href="https://elintir.com/">
     <link rel="alternate" hreflang="en" href="https://elintir.com/en/">
     <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
@@ -212,7 +212,7 @@
         font-weight: 700;
       }
 
-      /* ---------- напрями ---------- */
+      /* ---------- directions ---------- */
 
       .section {
         padding-top: clamp(48px, 8vw, 80px);
@@ -275,7 +275,7 @@
       }
       .direction-more a:hover { border-bottom-color: var(--brand-green-deep); }
 
-      /* ---------- компанія ---------- */
+      /* ---------- company ---------- */
 
       .about {
         display: grid;
@@ -305,7 +305,7 @@
         margin-bottom: 0;
       }
 
-      /* ---------- контакти ---------- */
+      /* ---------- contacts ---------- */
 
       .contacts {
         display: grid;
@@ -388,7 +388,7 @@
   </head>
   <body>
     <header class="topbar wrap">
-      <a class="brand" href="/" aria-label="ELINTIR — ML/RF MAPPER, на початок">
+      <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, home">
         <svg class="brand-mark" viewBox="0 0 512 512" role="img" aria-hidden="true">
           <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
           <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
@@ -399,111 +399,112 @@
           <span class="brand-slogan">ML/RF MAPPER</span>
         </span>
       </a>
-      <nav aria-label="Основна навігація">
-        <a href="#directions">Напрями</a>
-        <a href="/company/">Компанія</a>
-        <a href="/hardware/">Апаратура</a>
-        <a href="#contacts">Контакти</a>
-        <a class="cta" href="/investors/">Інвесторам</a>
-              <a class="lang" href="/en/" hreflang="en" lang="en">EN</a>
+      <nav aria-label="Main navigation">
+        <a href="#directions">Directions</a>
+        <a href="/en/company/">Company</a>
+        <a href="/en/hardware/">Hardware</a>
+        <a href="#contacts">Contacts</a>
+        <a class="cta" href="/en/investors/">Investors</a>
+              <a class="lang" href="/" hreflang="uk" lang="uk">UA</a>
       </nav>
     </header>
 
     <main>
       <section class="hero wrap">
-        <h1>Сигнальна обробка для програмованого радіо — від радіохвилі до координати</h1>
-        <p class="tagline">Алгоритми, вбудоване ПЗ, операторські інтерфейси.</p>
+        <h1>Signal processing for software-defined radio — from the radio wave to the coordinate</h1>
+        <p class="tagline">Algorithms, embedded software, operator interfaces.</p>
         <div class="hero-cta">
-          <a class="btn" href="mailto:info@elintir.com?subject=%D0%97%D0%B0%D0%BF%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8E%20ELINTIR">Замовити демо</a>
-          <a class="btn-ghost" href="/hardware/">Дивитись апаратуру</a>
+          <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+          <a class="btn-ghost" href="/en/hardware/">See the hardware</a>
         </div>
       </section>
 
       <section class="section wrap" id="directions">
-        <p class="section-label">Напрями</p>
+        <p class="section-label">Directions</p>
         <div class="directions">
           <article class="direction">
             <span class="no">01</span>
-            <h3>Фазово когерентна пеленгація</h3>
+            <h3>Phase-coherent direction finding</h3>
             <p>
-              Багатоканальні когерентні приймальні тракти: синхронізація
-              каналів, калібрування фази, оцінка напрямку на джерело за
-              різницею фаз між елементами антенної решітки. Від сирого IQ до
-              пеленга — і до засічки за кількома рознесеними позиціями.
+              Multichannel coherent receive chains: channel synchronisation,
+              phase calibration, and direction estimation from the phase
+              differences between array elements. From raw IQ to a bearing —
+              and on to a fix from several separated positions.
             </p>
-            <p class="direction-more"><a href="/hardware/#specs">Як це працює →</a></p>
+            <p class="direction-more"><a href="/en/hardware/#specs">How it works →</a></p>
           </article>
           <article class="direction">
             <span class="no">02</span>
-            <h3>Власні радіо дата лінк протоколи</h3>
+            <h3>In-house radio data link protocols</h3>
             <p>
-              Свій фізичний і канальний рівень: модуляція, завадостійке
-              кодування, синхронізація, шифрування. Лінки, розраховані на
-              роботу за низького відношення сигнал/шум, у вузькій смузі та з
-              низькою помітністю в ефірі.
+              Our own physical and link layers: modulation, forward error
+              correction, synchronisation, encryption. Links designed to work
+              at low signal-to-noise ratio, in a narrow band, and with a low
+              signature on the air.
             </p>
-            <p class="direction-more"><a href="/hardware/#slink">Паспорт s.Link →</a></p>
+            <p class="direction-more"><a href="/en/hardware/#slink">s.Link datasheet →</a></p>
           </article>
           <article class="direction">
             <span class="no">03</span>
-            <h3>Сигнатурне розпізнавання цілей</h3>
+            <h3>Signature-based emitter recognition</h3>
             <p>
-              Виділення ознак сигналу — часових, спектральних, структурних — і
-              класифікація випромінювача за ними. Розпізнавання типу джерела
-              без демодуляції корисного навантаження.
+              Extracting signal features — temporal, spectral, structural —
+              and classifying the emitter by them. Identifying the type of
+              source without demodulating its payload.
             </p>
-            <p class="direction-more"><a href="/hardware/#signatures">Метод розпізнавання →</a></p>
+            <p class="direction-more"><a href="/en/hardware/#signatures">The method →</a></p>
           </article>
         </div>
       </section>
 
       <section class="section wrap" id="company">
-        <p class="section-label">Компанія</p>
+        <p class="section-label">Company</p>
         <div class="about">
-          <h2>Код, який перетворює радіоефір на дані.</h2>
+          <h2>Code that turns the spectrum into data.</h2>
           <div>
             <p>
-              ЕЛІНТІР працює на стику цифрової обробки сигналів і прикладної
-              інженерії: алгоритми, вбудоване програмне забезпечення,
-              операторські інтерфейси. Ми доводимо рішення від математики та
-              стендового макета до перевіреної роботи на реальній апаратурі.
+              ELINTIR works where digital signal processing meets applied
+              engineering: algorithms, embedded software, operator interfaces.
+              We carry a solution from the mathematics and a bench mock-up
+              through to verified operation on real hardware.
             </p>
             <p>
-              Розробляємо як власні продукти, так і замовні модулі, що
-              вбудовуються в наявні системи замовника.
+              We build both our own products and custom modules that embed
+              into a customer's existing system.
             </p>
             <p>
-              <a href="/company/" style="color:var(--brand-green-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--brand-green-deep)">Докладніше про компанію</a>
+              <a href="/en/company/" style="color:var(--brand-green-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--brand-green-deep)">More about the company</a>
             </p>
           </div>
         </div>
       </section>
 
       <section class="section wrap" id="contacts">
-        <p class="section-label">Контакти</p>
+        <p class="section-label">Contacts</p>
         <div class="contacts">
           <div class="contact">
-            <span class="key">Пошта</span>
-            <!-- ⚠ НЕПІДТВЕРДЖЕНО: це єдиний вхід у дата-рум (кнопка на /investors,
-                 слайд 13 деку UA+EN). Якщо адреса не робоча — інвесторська
-                 воронка обривається мовчки. Перевірити перш ніж дек піде далі. -->
+            <span class="key">Mail</span>
+            <!-- WARNING UNVERIFIED: this is the only way into the data room
+                 (the /investors button, slide 13 of the deck in both languages).
+                 If the address does not receive mail the investor funnel fails
+                 silently. Test it before the deck goes anywhere. -->
             <a class="val" href="mailto:info@elintir.com">info@elintir.com</a>
           </div>
           <div class="contact">
-            <span class="key">Компанія</span>
-            <span class="val">ТОВ «ЕЛІНТІР»<br>Київ, Україна</span>
+            <span class="key">Company</span>
+            <span class="val">ELINTIR LLC<br>Kyiv, Ukraine</span>
           </div>
           <div class="contact">
-            <span class="key">Інвесторам</span>
-            <a class="val" href="/investors/">elintir.com/investors</a>
+            <span class="key">Investors</span>
+            <a class="val" href="/en/investors/">elintir.com/en/investors</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="footer wrap">
-      <span>© 2026 ТОВ «ЕЛІНТІР»</span>
-      <span>Програмне забезпечення для SDR</span>
+      <span>© 2026 ELINTIR LLC</span>
+      <span>Software for SDR</span>
     </footer>
   </body>
 </html>

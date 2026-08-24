@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ELINTIR">
+  <title>ELINTIR — favicon 16 px (тюнінг: лише ψ, товсті штрихи — п'ятикутник у 16 px не читається)</title>
+  <rect x="1" y="1" width="62" height="62" rx="10" fill="#0a0c08" stroke="#2f4b19" stroke-width="2"/>
+  <path d="M19 15 V30 A13 13 0 0 0 45 30 V15 M32 12 V52"
+        fill="none" stroke="#4f7f28" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

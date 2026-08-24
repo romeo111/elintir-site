@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Company — ELINTIR LLC</title>
+    <meta
+      name="description"
+      content="ELINTIR LLC: signal processing algorithms, embedded software, operator interfaces. Kyiv, a team of four, self-funded. How we prove that it works."
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Company — ELINTIR LLC">
+    <meta property="og:description" content="Who we are, what we can do, and how we prove it works.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="/assets/elintir-hero.png">
+    <link rel="canonical" href="https://elintir.com/en/company/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/company/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/company/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/company/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/company/">
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+        --display: "Montserrat", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --brand-green: #3e6b1f;
+        --brand-green-deep: #2f4b19;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+
+      /* ---------- topbar ---------- */
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+      }
+
+      .brand-mark { width: 36px; height: 36px; display: block; flex: none; }
+
+      .brand-text { display: flex; flex-direction: column; line-height: 1; }
+
+      .brand-name {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--ink);
+      }
+
+      .brand-slogan {
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--brand-green);
+      }
+
+      .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
+      .topbar nav a { text-decoration: none; }
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+      .topbar nav a:hover { color: var(--ink); }
+      .topbar nav a.current { color: var(--ink); }
+      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
+      .topbar nav a.cta:hover { color: var(--brand-green); }
+
+      /* ---------- hero ---------- */
+
+      .hero {
+        padding-top: clamp(48px, 10vw, 96px);
+        padding-bottom: clamp(44px, 7vw, 76px);
+      }
+
+      .eyebrow {
+        margin: 0 0 20px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: var(--display);
+        margin: 0;
+        max-width: 17ch;
+        font-size: clamp(32px, 5.4vw, 54px);
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        font-weight: 800;
+      }
+
+      .lead {
+        max-width: 60ch;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.9vw, 19px);
+        line-height: 1.6;
+      }
+
+      .lead strong { color: var(--ink); font-weight: 700; }
+
+      /* ---------- sections ---------- */
+
+      .section {
+        padding-top: clamp(44px, 7vw, 72px);
+        padding-bottom: clamp(44px, 7vw, 72px);
+        border-top: 1px solid var(--line);
+      }
+
+      .section-label {
+        font-family: var(--display);
+        margin: 0 0 32px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .section h2 {
+        font-family: var(--display);
+        margin: 0 0 18px;
+        max-width: 28ch;
+        font-size: clamp(21px, 2.6vw, 27px);
+        line-height: 1.28;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+
+      .section p.body {
+        max-width: 62ch;
+        margin: 0 0 15px;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .section p.body:last-child { margin-bottom: 0; }
+
+      .sub-h {
+        font-family: var(--display);
+        margin: 40px 0 14px;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
+
+      /* ---------- stack ---------- */
+
+      .stack {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px 26px;
+      }
+
+      .stack.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      .stack-card { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+      .stack-card .k {
+        font-family: var(--display);
+        display: block;
+        margin-bottom: 9px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      .stack-card .v { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+      /* ---------- stages ---------- */
+
+      .stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 28px; }
+
+      .stage { padding-top: 18px; border-top: 1px solid var(--ink); }
+      .stage .no {
+        display: block;
+        margin-bottom: 12px;
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--faint);
+      }
+      .stage .t {
+        font-family: var(--display);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        color: var(--brand-green-deep);
+      }
+      .stage .d { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+      /* ---------- rows ---------- */
+
+      .rows { display: grid; gap: 0; }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+        gap: 8px 32px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .rows .row:first-child { padding-top: 0; }
+      .rows .row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .row .h { font-family: var(--display); font-weight: 700; font-size: 16px; }
+      .row .b { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+      /* ---------- team facts ---------- */
+
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 28px;
+        margin-bottom: 30px;
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      /* ---------- callout ---------- */
+
+      .callout {
+        margin: 30px 0 0;
+        padding: 22px 26px;
+        background: #f7f8f4;
+        border-left: 3px solid var(--brand-green);
+        border-radius: 0 4px 4px 0;
+      }
+      .callout-h {
+        font-family: var(--display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+        margin-bottom: 12px;
+      }
+      .callout p { max-width: 64ch; margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+
+      /* ---------- cta ---------- */
+
+      .cta-block {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px 24px;
+      }
+
+      a.btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 700;
+        color: #fff;
+        background: var(--brand-green-deep);
+        padding: 12px 22px;
+        border-radius: 4px;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      a.btn:hover { background: var(--brand-green); }
+
+      /* ---------- footer ---------- */
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+        padding-top: 24px;
+        padding-bottom: 40px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .stack, .stack.two, .stages { grid-template-columns: 1fr; }
+        .row { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 560px) {
+        .topbar { flex-wrap: wrap; gap: 14px 18px; }
+        .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
+        .brand-mark { width: 30px; height: 30px; }
+        .brand-name { font-size: 18px; }
+        .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
+        .topbar nav a.hide-sm { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, home">
+        <svg class="brand-mark" viewBox="0 0 512 512" role="img" aria-hidden="true">
+          <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">ELINTIR</span>
+          <span class="brand-slogan">ML/RF MAPPER</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="hide-sm" href="/en/#directions">Directions</a>
+        <a class="current" href="/en/company/">Company</a>
+        <a href="/en/hardware/">Hardware</a>
+        <a href="/en/#contacts">Contacts</a>
+        <a class="cta" href="/en/investors/">Investors</a>
+              <a class="lang" href="/company/" hreflang="uk" lang="uk">UA</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <p class="eyebrow">Company</p>
+        <h1>Code that turns the spectrum into data</h1>
+        <p class="lead">
+          ELINTIR works where digital signal processing meets applied
+          engineering. We carry a solution <strong>from the mathematics and a
+          bench mock-up through to verified operation on real hardware</strong>
+          — and we quote only the numbers that have made that journey.
+        </p>
+      </section>
+
+      <section class="section wrap" id="what">
+        <p class="section-label">What we do</p>
+        <div class="stack">
+          <div class="stack-card">
+            <span class="k">Algorithms</span>
+            <div class="v">The mathematics of signal processing: estimation, synchronisation, classification. What decides whether a system works at all.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Embedded software</span>
+            <div class="v">Code that lives on the board next to the radio and keeps up with real time.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Operator interfaces</span>
+            <div class="v">What a person actually operates this through, in the field rather than the lab.</div>
+          </div>
+        </div>
+
+        <h3 class="sub-h">Two ways this sells</h3>
+        <div class="stack two">
+          <div class="stack-card">
+            <span class="k">Own products</span>
+            <div class="v">Complete systems we build, test and deliver ourselves. For example the <a href="/en/hardware/" style="color:var(--brand-green-deep);font-weight:600">passive SIGINT station</a>.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Custom modules</span>
+            <div class="v">The same stack embedded into a customer's existing system as part of their product.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="proof">
+        <p class="section-label">How we prove it works</p>
+        <h2>Three stages, and none is skipped</h2>
+        <div class="stages">
+          <div class="stage">
+            <span class="no">01</span>
+            <div class="t">Mathematics</div>
+            <div class="d">A model, and the limits of what is possible at all on this geometry and in this band.</div>
+          </div>
+          <div class="stage">
+            <span class="no">02</span>
+            <div class="t">Bench</div>
+            <div class="d">Controlled conditions, a known source, a repeatable run.</div>
+          </div>
+          <div class="stage">
+            <span class="no">03</span>
+            <div class="t">Real hardware</div>
+            <div class="d">The open air, real interference — and numbers that often turn out different.</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-h">Every number carries a provenance tag</div>
+          <p>
+            Measured on hardware, calculated, or assumed are different things,
+            and we do not mix them. When a measurement refutes one of our own
+            earlier results we publish the new one and say the old was wrong.
+            A project's technical risk is set not by how many optimistic
+            numbers it holds, but by how fast it catches its own.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="team">
+        <p class="section-label">Team</p>
+        <div class="facts">
+          <span>Kyiv</span>
+          <span>Four · full time</span>
+          <span>Self-funded</span>
+        </div>
+        <div class="rows">
+          <div class="row"><div class="h">Technical</div><div class="b">Founder and CTO: signal processing, architecture, protocols.</div></div>
+          <div class="row"><div class="h">Production and finance</div><div class="b">Scaling assembly, supply, the economics of a node.</div></div>
+          <div class="row"><div class="h">Testing and hardware</div><div class="b">Assembly, field trials, power, 3D-printed tooling.</div></div>
+          <div class="row"><div class="h">Legal and IP</div><div class="b">Intellectual property audit, legal matters, export classification.</div></div>
+        </div>
+        <p class="body" style="margin-top:26px">
+          Everything built so far has been funded out of the team's own
+          pockets. Not someone else's money that will run out, but our own,
+          already committed.
+        </p>
+      </section>
+
+      <section class="section wrap" id="toolbox">
+        <p class="section-label">What else we can use</p>
+        <p class="body" style="margin-bottom:28px">
+          These are not separate products. They decide which problems we can
+          take on at all — and how quickly.
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">FPGA utilisation checking</div><div class="b">We work out what actually fits in the die and with how much headroom, before the board becomes the project's constraint.</div></div>
+          <div class="row"><div class="h">Antenna array analysis</div><div class="b">Array geometry and the Fresnel zone — what decides whether the problem has a solution at all.</div></div>
+          <div class="row"><div class="h">Protocol integration</div><div class="b">MAVLink and others, when our module has to talk to whatever it was embedded into.</div></div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-h">AMD export permission for the RFSoC toolchain</div>
+          <p>
+            We hold our own export permission, agreed with AMD, for the RFSoC
+            <strong>design software</strong>. The bottleneck here is the
+            toolchain rather than the board: without legal access to it there
+            is no development for this part at all. The boards themselves
+            come from China.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="cta">
+        <div class="cta-block">
+          <p class="body" style="margin:0">
+            Full measurements, the protocol specification and the code
+            provenance audit are in the data room.
+          </p>
+          <a class="btn" href="/en/investors/">Investors</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>© 2026 ELINTIR LLC</span>
+      <span>Kyiv, Ukraine</span>
+    </footer>
+  </body>
+</html>

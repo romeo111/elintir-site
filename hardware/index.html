@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Апаратура — ТОВ «ЕЛІНТІР»</title>
+    <meta
+      name="description"
+      content="Станція пасивної радіоелектронної розвідки ЕЛІНТІР: п'ятиканальна когерентна решітка, MUSIC DoA, власний радіолінк s.Link. Приймач, що ніколи не передає."
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Апаратура — ТОВ «ЕЛІНТІР»">
+    <meta property="og:description" content="Станція пасивної радіорозвідки і власний радіолінк s.Link: специфікації, виміряні характеристики, чесний перелік обмежень.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:image" content="/assets/elintir-hero.png">
+    <link rel="canonical" href="https://elintir.com/hardware/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/hardware/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/hardware/">
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+        --display: "Montserrat", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --brand-green: #3e6b1f;
+        --brand-green-deep: #2f4b19;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+
+      /* ---------- topbar ---------- */
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+      }
+
+      .brand-mark { width: 36px; height: 36px; display: block; flex: none; }
+
+      .brand-text { display: flex; flex-direction: column; line-height: 1; }
+
+      .brand-name {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--ink);
+      }
+
+      .brand-slogan {
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--brand-green);
+      }
+
+      .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
+      .topbar nav a { text-decoration: none; }
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+      .topbar nav a:hover { color: var(--ink); }
+      .topbar nav a.current { color: var(--ink); }
+      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
+      .topbar nav a.cta:hover { color: var(--brand-green); }
+
+      /* ---------- hero ---------- */
+
+      .hero {
+        padding-top: clamp(48px, 10vw, 96px);
+        padding-bottom: clamp(44px, 7vw, 76px);
+      }
+
+      .eyebrow {
+        margin: 0 0 20px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: var(--display);
+        margin: 0;
+        font-size: clamp(34px, 6vw, 58px);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        font-weight: 700;
+        max-width: 16ch;
+      }
+
+      .lead {
+        max-width: 60ch;
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.9vw, 19px);
+        line-height: 1.6;
+      }
+
+      .lead strong { color: var(--ink); font-weight: 700; }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: 36px;
+        align-items: center;
+      }
+
+      .hero-fig svg { width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; }
+      .hero-fig .cap {
+        margin-top: 8px;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+        color: var(--faint);
+      }
+
+      /* ---------- sections ---------- */
+
+      .section {
+        padding-top: clamp(44px, 7vw, 72px);
+        padding-bottom: clamp(44px, 7vw, 72px);
+        border-top: 1px solid var(--line);
+      }
+
+      .section-label {
+        font-family: var(--display);
+        margin: 0 0 32px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .section h2 {
+        font-family: var(--display);
+        margin: 0 0 18px;
+        max-width: 28ch;
+        font-size: clamp(21px, 2.6vw, 27px);
+        line-height: 1.28;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+
+      .section p.body {
+        max-width: 62ch;
+        margin: 0 0 15px;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .section p.body:last-child { margin-bottom: 0; }
+
+      /* ---------- пасивність + діаграма решітки ---------- */
+
+      .passive-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .array-fig { text-align: center; }
+      .array-fig svg { width: 100%; max-width: 240px; height: auto; }
+      .array-fig .cap {
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--faint);
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- спектр ---------- */
+
+      .spectrum { margin-bottom: 34px; }
+      .spectrum-note {
+        max-width: 66ch;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .spectrum svg { width: 100%; height: auto; display: block; }
+      .spectrum-legend {
+        display: flex;
+        gap: 22px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .spectrum-legend .dot {
+        display: inline-block;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        margin-right: 6px;
+        vertical-align: 1px;
+      }
+      .spectrum-legend .dot.coherent { background: var(--brand-green); }
+      .spectrum-legend .dot.wide { background: var(--line); border: 1px solid var(--faint); }
+
+      /* ---------- specs (стек) ---------- */
+
+      .stack {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px 26px;
+      }
+
+      .stack-card { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+      .stack-card .k {
+        font-family: var(--display);
+        display: block;
+        margin-bottom: 9px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      .stack-card .v { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+      /* ---------- рядковий список (works / limits) ---------- */
+
+      .rows { display: grid; gap: 0; }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+        gap: 8px 32px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .rows .row:first-child { padding-top: 0; }
+      .rows .row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .row .h { font-family: var(--display); font-weight: 700; font-size: 16px; }
+      .row .b { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+      /* ---------- виміряно (таблиця) ---------- */
+
+      .proof-table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+      .proof-table th {
+        text-align: left;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--faint);
+        padding: 0 12px 10px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .proof-table td {
+        padding: 13px 12px 13px 0;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .proof-table td.num { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+      .proof-table td.ctx { color: var(--faint); font-size: 13.5px; white-space: nowrap; }
+      .proof-table tr:last-child td { border-bottom: 0; }
+
+      /* ---------- метод роботи з числами (diff) ---------- */
+
+      /* ---------- сигнатурний аналіз ---------- */
+
+      .sub-h {
+        font-family: var(--display);
+        margin: 40px 0 14px;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
+
+      .callout {
+        margin: 30px 0 0;
+        padding: 22px 26px;
+        background: #f7f8f4;
+        border-left: 3px solid var(--brand-green);
+        border-radius: 0 4px 4px 0;
+      }
+      .callout-h {
+        font-family: var(--display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+        margin-bottom: 12px;
+      }
+      .callout p { max-width: 64ch; margin: 0 0 14px; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+      .callout p:last-child { margin-bottom: 0; }
+      .callout em { color: var(--ink); font-style: italic; }
+      .callout-punch {
+        font-weight: 700;
+        color: var(--ink) !important;
+        font-size: 16px !important;
+      }
+
+      /* ---------- s.Link TDMA-діаграма ---------- */
+
+      .slink-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .figwide { margin: 26px 0 30px; }
+      .figwide svg { width: 100%; max-width: 660px; height: auto; display: block; }
+
+      .waterfall { margin: 0; }
+      .waterfall svg { width: 100%; max-width: 660px; height: auto; display: block; }
+      .waterfall figcaption {
+        max-width: 62ch;
+        margin-top: 12px;
+        color: var(--faint);
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      /* ---------- cta ---------- */
+
+      .cta-block {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px 24px;
+      }
+
+      a.btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 700;
+        color: #fff;
+        background: var(--brand-green-deep);
+        padding: 12px 22px;
+        border-radius: 4px;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      a.btn:hover { background: var(--brand-green); }
+
+      .cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+
+      a.btn-ghost {
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--brand-green-deep);
+        border-bottom: 1px solid var(--brand-green-deep);
+        padding-bottom: 2px;
+        white-space: nowrap;
+      }
+      a.btn-ghost:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
+
+      /* ---------- footer ---------- */
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+        padding-top: 24px;
+        padding-bottom: 40px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .hero-grid, .passive-grid, .slink-grid { grid-template-columns: 1fr; }
+        .hero-fig { order: -1; }
+        .hero-fig svg { max-width: 280px; }
+        .row { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 560px) {
+        .topbar { flex-wrap: wrap; gap: 14px 18px; }
+        .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
+        .brand-mark { width: 30px; height: 30px; }
+        .brand-name { font-size: 18px; }
+        .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
+        .topbar nav a.hide-sm { display: none; }
+        .stack { grid-template-columns: 1fr; }
+        .proof-table { display: block; overflow-x: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/" aria-label="ELINTIR — ML/RF MAPPER, на початок">
+        <svg class="brand-mark" viewBox="0 0 512 512" role="img" aria-hidden="true">
+          <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">ELINTIR</span>
+          <span class="brand-slogan">ML/RF MAPPER</span>
+        </span>
+      </a>
+      <nav aria-label="Основна навігація">
+        <a class="hide-sm" href="/#directions">Напрями</a>
+        <a href="/company/">Компанія</a>
+        <a class="current" href="/hardware/">Апаратура</a>
+        <a href="/#contacts">Контакти</a>
+        <a class="cta" href="/investors/">Інвесторам</a>
+              <a class="lang" href="/en/hardware/" hreflang="en" lang="en">EN</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Власний продукт</p>
+            <h1>Станція пасивної радіорозвідки</h1>
+            <p class="lead">
+              Станція слухає ефір і показує, <strong>звідки</strong> йде передача —
+              оператор дрона, радіостанція, ретранслятор. Вона <strong>ніколи не
+              передає</strong> й нічого не випромінює, тож сама лишається
+              невидимою.
+            </p>
+          </div>
+          <div class="hero-fig">
+            <svg viewBox="0 0 360 300" role="img" aria-label="115 реальних пеленгів на CW-маяк 868,000 МГц: розкид 5–8 градусів при істинному 0">
+              <circle cx="180" cy="195" r="55" fill="none" stroke="#ededed" stroke-width="1"/>
+              <circle cx="180" cy="195" r="105" fill="none" stroke="#ededed" stroke-width="1"/>
+              <circle cx="180" cy="195" r="155" fill="none" stroke="#ededed" stroke-width="1"/>
+              <g stroke="#f4f4f4" stroke-width="1">
+                <line x1="180" y1="195" x2="180" y2="40"/>
+                <line x1="180" y1="195" x2="180" y2="350"/>
+                <line x1="180" y1="195" x2="25" y2="195"/>
+                <line x1="180" y1="195" x2="335" y2="195"/>
+              </g>
+
+              <line x1="180" y1="195" x2="180" y2="27" stroke="#9a9a9a" stroke-width="1.4" stroke-dasharray="4 4"/>
+              <text x="180" y="18" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#6e6e6e" text-anchor="middle">маяк 0°</text>
+
+              <g stroke="#3e6b1f" stroke-linecap="round">
+                <line x1="180" y1="195" x2="184.0" y2="149.7" stroke-width="2.6" stroke-opacity="0.35"/>
+                <line x1="180" y1="195" x2="188.2" y2="117.1" stroke-width="4.2" stroke-opacity="0.6"/>
+                <line x1="180" y1="195" x2="199.5" y2="36.2" stroke-width="4.6"/>
+                <line x1="180" y1="195" x2="187.9" y2="138.7" stroke-width="2.6" stroke-opacity="0.45"/>
+              </g>
+              <circle cx="180" cy="195" r="3" fill="#6e6e6e"/>
+
+              <text x="232" y="52" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" fill="#2f4b19" font-weight="700">6,9°</text>
+              <text x="232" y="66" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">81 зі 115</text>
+
+              <g font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#a8a8a8">
+                <text x="344" y="198" text-anchor="end">90°</text>
+                <text x="180" y="366" text-anchor="middle">180°</text>
+                <text x="16" y="198" text-anchor="start">270°</text>
+              </g>
+            </svg>
+            <p class="cap">CW-маяк 868,000 МГц · 115 пеленгів · запас 69,9 дБ · 22.08.2026</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="why-passive">
+        <p class="section-label">Платформа</p>
+        <div class="passive-grid">
+          <div>
+            <h2>Електромагнітна карта, а не список виявлень</h2>
+            <p class="body">
+              Ми будуємо не прилад, що показує напрямок, а платформу, яка
+              зводить <strong>довільну кількість фізичних сенсорів</strong> в
+              одну картину. Когерентна решітка, широкосмуговий оглядовий
+              приймач, чужий приймач у складі системи замовника — платформі
+              байдуже, що саме приймає. Важливо, що з цього виходить.
+            </p>
+            <p class="body">
+              А виходить не перелік сплесків, а карта з контекстом: яка це
+              смуга частотного плану, чий оператор нею володіє, чи законний
+              це користувач і чи той самий випромінювач уже був тут учора.
+              Виявлення зливаються в джерела за частотою, гармоніками,
+              спільним розташуванням і когерентністю модуляції — і лише тоді
+              потрапляють оператору.
+            </p>
+            <p class="body">
+              Війна рухається саме туди. <strong>Контроль радіоспектра — її
+              наступний технологічний цикл</strong>, і виграє його не той, хто
+              голосніше глушить, а той, хто бачить більше й раніше. Станція
+              при цьому ніколи не передає: вона лишається невидимою — і це ж
+              проводить її через експортний контроль там, де засіб придушення
+              застрягає на місяці.
+            </p>
+            <p class="body">
+              Під капотом: п'ятиканальна когерентна решітка й алгоритм MUSIC
+              дають напрямок за різницею фаз між елементами. Кожна станція
+              звітує оператору власним лінком; консоль перетинає пеленги від
+              кількох станцій — виходить точка на карті.
+            </p>
+          </div>
+          <div class="array-fig">
+            <svg viewBox="0 0 240 200" role="img" aria-label="Плоский фронт хвилі проходить п'ятиелементну решітку: елементи зустрічають його в різні моменти">
+              <defs>
+                <clipPath id="arrClip"><circle cx="120" cy="95" r="104"/></clipPath>
+              </defs>
+
+              <g clip-path="url(#arrClip)" stroke="#3e6b1f" fill="none" stroke-linecap="round">
+                <line x1="143.7" y1="-6.3" x2="221.3" y2="71.3" stroke-width="1.6" stroke-opacity="0.5"/>
+                <line x1="106.8" y1="-8.2" x2="223.2" y2="108.2" stroke-width="1.6" stroke-opacity="0.38"/>
+                <line x1="79.3" y1="-0.7" x2="215.7" y2="135.7" stroke-width="1.6" stroke-opacity="0.26"/>
+                <line x1="57.1" y1="12.1" x2="202.9" y2="157.9" stroke-width="1.6" stroke-opacity="0.15"/>
+              </g>
+
+              <polygon points="120,15 196.1,70.3 167,159.7 73,159.7 43.9,70.3"
+                       fill="none" stroke="#101010" stroke-width="1.4" stroke-linejoin="round"/>
+
+              <g fill="#3e6b1f">
+                <circle cx="120" cy="15" r="6"/>
+                <circle cx="167" cy="159.7" r="6"/>
+                <circle cx="73" cy="159.7" r="6"/>
+                <circle cx="43.9" cy="70.3" r="6"/>
+              </g>
+              <circle cx="196.1" cy="70.3" r="8.5" fill="none" stroke="#3e6b1f" stroke-width="1.6" stroke-opacity="0.55"/>
+              <circle cx="196.1" cy="70.3" r="6" fill="#2f4b19"/>
+              <circle cx="120" cy="95" r="2.5" fill="#9a9a9a"/>
+
+              <path d="M212,34 L188,58" stroke="#3e6b1f" stroke-width="1.6" marker-end="url(#wvArrow)"/>
+              <defs>
+                <marker id="wvArrow" viewBox="0 0 10 10" refX="8" refY="5"
+                        markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M0,1 L9,5 L0,9 z" fill="#3e6b1f"/>
+                </marker>
+              </defs>
+              <text x="215" y="26" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="end">фронт</text>
+              <text x="196" y="192" font-family="JetBrains Mono, Consolas, monospace" font-size="9" fill="#2f4b19" text-anchor="end">перший приймає</text>
+            </svg>
+            <p class="cap">Різниця ходу між елементами — це і є пеленг</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="tempo">
+        <p class="section-label">Темп і межі</p>
+        <h2>Що станція встигає за тридцять секунд</h2>
+
+        <div class="stack" style="margin-bottom:34px">
+          <div class="stack-card">
+            <span class="k">Вікно накопичення</span>
+            <div class="v">109,2 мс — з нього MUSIC будує одну кореляційну матрицю.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Кадрів за 30 с</span>
+            <div class="v">277 — темп DAQ 9,25 кадр/с, зміряно за 24,7 с прогону.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Пеленгів за 30 с</span>
+            <div class="v">близько 60 — на консоль іде ~2 пеленги за секунду.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Розкид пеленга</span>
+            <div class="v">±0,5° — повторено в багатьох прогонах одного дня.</div>
+          </div>
+        </div>
+
+        <h3 class="sub-h">Рухома ціль на дальності 1 км</h3>
+        <p class="body">
+          Станція міряє напрямок, а не відстань, тому її межа задана в
+          градусах за секунду й однакова на всіх дистанціях — відстань лише
+          перераховує її в метри. Рахується тільки тангенціальна складова:
+          рух прямо на станцію кутової швидкості не дає.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">До 80 м/с — повна точність</div>
+            <div class="b">Це ≈290 км/год на кілометрі. Ціль зсувається за вікно накопичення менш ніж на розкид, тож пік псевдоспектра не розмазується.</div>
+          </div>
+          <div class="row">
+            <div class="h">До 280 м/с — стеження без розривів</div>
+            <div class="b">≈1000 км/год. Тут в'яже вже не накопичення, а асоціація між оновленнями: кожен п'ятий кадр порожній, тож найгірший проміжок між придатними пеленгами ≈0,62 с.</div>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="callout-h">Це розрахунок, а не вимір</div>
+          <p>
+            Він спирається на виміряні вікно накопичення, темп кадрів і
+            розкид — але маяка в русі ми <strong>жодного разу не
+            проганяли</strong>. Перевірка пряма: пронести маяк по дузі
+            відомого радіуса з відомою кутовою швидкістю й подивитись, за
+            якої швидкості починає рости розкид. Доти таблиця —
+            гіпотеза з правильними вхідними даними.
+          </p>
+        </div>
+
+        <h3 class="sub-h">Що несе кожен запис</h3>
+        <p class="body">
+          Пеленг сам собою — одне число. Аналіз спирається на все, що
+          записано разом із ним:
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">Геометрія</div><div class="b">Сирий кут решітки й компасний пеленг окремо, курс станції з його власною точністю, координати й висота.</div></div>
+          <div class="row"><div class="h">Якість оцінки</div><div class="b">Розкид, впевненість, критерій за власними числами кореляційної матриці, підсумкова оцінка якості, який саме алгоритм і яке розкорелювання дали результат.</div></div>
+          <div class="row"><div class="h">Енергія</div><div class="b">Оцінка потужності, відношення сигнал/шум, запас над шумовою підлогою, ознака перевантаження тракту.</div></div>
+          <div class="row"><div class="h">Сигнатура</div><div class="b">Клас модуляції з власною впевненістю — CW, AM, FM, PSK, OFDM, FHSS, чирп — і оцінка циклостаціонарності, яка ловить приховану періодичність там, де спектр виглядає як шум.</div></div>
+          <div class="row"><div class="h">Контекст</div><div class="b">Смуга частотного плану й оператор, якому вона належить; фільтр промислових завад; злиття кількох виявлень в одне джерело за частотою, гармоніками, розташуванням і когерентністю модуляції.</div></div>
+          <div class="row"><div class="h">Походження</div><div class="b">Мітка «ефір / повтор / демонстрація» на кожному запису — щоб синтетика ніколи не могла видати себе за реальний вимір.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="specs">
+        <p class="section-label">Специфікація</p>
+
+        <div class="spectrum">
+          <svg viewBox="0 0 640 132" role="img" aria-label="Діапазон приймачів і робочі межі антенної решітки Ø195 мм">
+            <text x="20" y="12" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">ПРИЙМАЧІ</text>
+            <rect x="20" y="20" width="600" height="8" rx="4" fill="#e2e2e2"/>
+            <rect x="20" y="20" width="467" height="8" rx="4" fill="#3e6b1f"/>
+            <line x1="20" y1="14" x2="20" y2="34" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="487" y1="14" x2="487" y2="34" stroke="#9a9a9a" stroke-width="1"/>
+            <line x1="620" y1="14" x2="620" y2="34" stroke="#c8c8c8" stroke-width="1"/>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" fill="#6e6e6e">
+              <text x="20" y="46">24 МГц</text>
+              <text x="487" y="46" text-anchor="middle">1766 МГц</text>
+              <text x="620" y="46" text-anchor="end">6 ГГц</text>
+            </g>
+
+            <text x="20" y="74" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">РЕШІТКА Ø195 мм</text>
+            <rect x="20" y="82" width="63.7" height="8" fill="#d8d8d8"/>
+            <rect x="83.7" y="82" width="105.3" height="8" fill="#a9c48f"/>
+            <rect x="189" y="82" width="175.4" height="8" fill="#3e6b1f"/>
+            <rect x="364.4" y="82" width="122.6" height="8" fill="#c9a24a" fill-opacity="0.55"/>
+            <rect x="487" y="82" width="133" height="8" fill="#f2f2f2"/>
+            <g stroke="#9a9a9a" stroke-width="1">
+              <line x1="83.7" y1="78" x2="83.7" y2="94"/>
+              <line x1="189" y1="78" x2="189" y2="94"/>
+              <line x1="364.4" y1="78" x2="364.4" y2="94"/>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#6e6e6e">
+              <text x="83.7" y="106" text-anchor="middle">262</text>
+              <text x="189" y="106" text-anchor="middle">654</text>
+              <text x="364.4" y="106" text-anchor="middle">1309</text>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9" fill="#9a9a9a">
+              <text x="51" y="122" text-anchor="middle">лише енергія</text>
+              <text x="136" y="122" text-anchor="middle">грубо</text>
+              <text x="276" y="122" text-anchor="middle">робоча зона</text>
+              <text x="425" y="122" text-anchor="middle">дзеркальна неоднозначність</text>
+            </g>
+          </svg>
+          <div class="spectrum-legend">
+            <span><span class="dot coherent"></span>когерентний прийом (KrakenSDR)</span>
+            <span><span class="dot wide"></span>широкосмуговий приймач (AD9363/HackRF)</span>
+          </div>
+          <p class="spectrum-note">
+            Решітка й приймачі мають <strong>різні межі</strong>. Кільце Ø195 мм
+            дає хорду 114,6 мм між сусідніми елементами, і з неї випливає все
+            інше: нижче <strong>262 МГц</strong> решітка замала й дає лише
+            енергію, вище <strong>1309 МГц</strong> крок перевищує пів довжини
+            хвилі — з’являється дзеркальний двійник. Тобто приймачі
+            перестроюються до 1766 МГц, але <strong>однозначний пеленг
+            закінчується на 1309</strong>, і ми позначаємо такі виміри як
+            неоднозначні, а не видаємо за чисті.
+          </p>
+        </div>
+
+        <div class="stack">
+          <div class="stack-card">
+            <span class="k">Решітка</span>
+            <div class="v">П'ять елементів у кільці Ø195 мм, рознос перераховується на кожен ретюн.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Приймачі</span>
+            <div class="v">24–1766 МГц когерентно (5×RTL2838), плюс огляд до 6 ГГц.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Обчислювач</span>
+            <div class="v">Обробка й каталогізація на вузлі — Raspberry Pi 5, живе в полі від павербанка.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Лінк</span>
+            <div class="v">s.Link — власний PHY і канальний рівень, 872 МГц, шифрування ChaCha20-Poly1305.</div>
+          </div>
+        </div>
+
+        <h3 class="sub-h">Пеленгація</h3>
+        <div class="rows">
+          <div class="row"><div class="h">Надроздільний метод</div><div class="b">Напрямок рахується алгоритмом MUSIC із <strong>сирого багатоканального IQ</strong>, а не з рівнів сигналу. Тому пеленг лишається гострим і тоді, коли джерел у смузі кілька.</div></div>
+          <div class="row"><div class="h">Фаза тримається на кожній частоті</div><div class="b">Рознос елементів до довжини хвилі перераховується на <strong>кожен ретюн</strong>. Це не дрібниця: зіпсоване значення не дає помилки — воно тихо фабрикує пеленг 0,0°, і це задокументований у нас польовий інцидент.</div></div>
+          <div class="row"><div class="h">Цілі, ширші за смугу тракту</div><div class="b">LTE і DVB-T пеленгуються попри те, що їхня смуга ширша за миттєву смугу приймача. Рухомі джерела супроводжуються, а не лише фіксуються.</div></div>
+          <div class="row"><div class="h">Два числа, а не одне</div><div class="b">Сирий кут решітки й компасний пеленг зберігаються окремо, разом із джерелом курсу та його власною точністю. Плутанина між ними — класичне джерело дзеркальних помилок, і ми її розвели на рівні запису.</div></div>
+          <div class="row"><div class="h">Достовірність рахується, а не припускається</div><div class="b">Впевненість береться з власних чисел кореляційної матриці, а не з амплітуди. Слабкий, але чистий сигнал отримає високу оцінку; сильний, але розмазаний — низьку.</div></div>
+        </div>
+
+        <h3 class="sub-h">Плати, на яких ми працюємо</h3>
+        <div class="rows">
+          <div class="row"><div class="h">Zynq-7010 — лінк і телеметрія</div><div class="b">ADALM-Pluto і сумісні: 17 600 логічних блоків, 80 блоків DSP. Зайнято 12 456 блоків (71 %) і <strong>72 з 80 DSP</strong> — саме DSP і є тіснина, через яку швидкісний режим лінка не влазить.</div></div>
+          <div class="row"><div class="h">Zynq-7020 — широкосмуговий бік</div><div class="b">Плата класом вище: 1 ГБ DDR3, гігабітна мережа, термостабільний генератор 0,5 ppm із входом зовнішньої опори, два приймальні канали. Драйвер розблокований на повний діапазон 70 МГц – 6 ГГц.</div></div>
+          <div class="row"><div class="h">Що зміряно на них, а не взято з даташита</div><div class="b">12 біт дають близько 60 дБ динамічного діапазону. Зі смуги 56 МГц рівною лишається 48–52 МГц; по краях завал. Стійкий потік через мережу — близько 9 МВідл/с за типових буферів, тож безперервний максимальний темп неможливий за жодного лінку: працює захоплення пачками.</div></div>
+          <div class="row"><div class="h">Чого на них немає</div><div class="b">Малошумного підсилювача на прийомі немає в жодному варіанті, а вище ~2 ГГц тракт помітно глухне — балун оптимізований під 2,4 ГГц і преселектора немає. Для слабких цілей у верхніх смугах потрібні зовнішній LNA і смуговий фільтр.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="slink">
+        <p class="section-label">s.Link — власний радіолінк</p>
+        <div class="slink-grid">
+          <div>
+        <h2>Канал, який ми спроєктували під задачу</h2>
+        <p class="body">
+          Ми пишемо фізичний і канальний рівень самі, тому характеристики
+          каналу задає задача, а не каталог постачальника. s.Link зв'язує
+          станцію з оператором: телеметрія пеленгів туди, команди назад.
+        </p>
+        <p class="body">
+          Станція в ефірі <strong>2,3 % часу</strong> — 83 секунди за
+          годину. У спектрограмі такий сплеск читається як побутовий
+          датчик на 872 МГц, а не як військовий канал.
+        </p>
+          </div>
+
+          <figure class="waterfall">
+          <svg viewBox="0 0 660 300" role="img" aria-label="Водоспад спектру: звичайний канал світиться суцільною смугою весь час, s.Link — три короткі риски, по одній на секунду">
+            <defs>
+              <filter id="wfNoise" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.92 0.38" numOctaves="3" seed="7"/>
+                <feColorMatrix type="matrix"
+                  values="0 0 0 0 0.30
+                          0 0 0 0 0.44
+                          0 0 0 0 0.24
+                          1 0 0 0 -0.44"/>
+              </filter>
+              <filter id="wfGlow" x="-300%" y="-300%" width="700%" height="700%">
+                <feGaussianBlur stdDeviation="5"/>
+              </filter>
+              <clipPath id="wfClip"><rect x="46" y="16" width="566" height="222"/></clipPath>
+            </defs>
+
+            <rect x="46" y="16" width="566" height="222" fill="#0d1008"/>
+            <g clip-path="url(#wfClip)">
+              <rect x="46" y="16" width="566" height="222" filter="url(#wfNoise)" opacity="0.85"/>
+
+              <!-- звичайний безперервний канал: широкий і завжди в ефірі -->
+              <rect x="150" y="16" width="30" height="222" fill="#d4a843" opacity="0.30" filter="url(#wfGlow)"/>
+              <rect x="159" y="16" width="12" height="222" fill="#eec25c"/>
+              <rect x="162" y="16" width="6" height="222" fill="#fff3d0"/>
+
+              <!-- s.Link: вузький, 26 кГц, 77 мс раз на секунду -->
+              <g>
+                <rect x="432" y="46" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="47" width="5" height="5" fill="#b6f5a2"/>
+                <rect x="432" y="120" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="121" width="5" height="5" fill="#b6f5a2"/>
+                <rect x="432" y="194" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="195" width="5" height="5" fill="#b6f5a2"/>
+              </g>
+            </g>
+            <rect x="46" y="16" width="566" height="222" fill="none" stroke="#2c3319" stroke-width="1"/>
+
+            <!-- вісь часу -->
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
+              <text x="40" y="53" text-anchor="end">0 с</text>
+              <text x="40" y="127" text-anchor="end">1 с</text>
+              <text x="40" y="201" text-anchor="end">2 с</text>
+            </g>
+            <g stroke="#d8d8d8" stroke-width="1">
+              <line x1="43" y1="49.5" x2="46" y2="49.5"/>
+              <line x1="43" y1="123.5" x2="46" y2="123.5"/>
+              <line x1="43" y1="197.5" x2="46" y2="197.5"/>
+            </g>
+
+            <!-- підписи -->
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <line x1="165" y1="238" x2="165" y2="256" stroke="#c8a24a" stroke-width="1"/>
+              <text x="165" y="272" fill="#8a6c1f" text-anchor="middle">звичайний канал</text>
+              <text x="165" y="287" fill="#a8a08a" text-anchor="middle">в ефірі завжди</text>
+
+              <line x1="436" y1="238" x2="436" y2="256" stroke="#5f9c46" stroke-width="1"/>
+              <text x="436" y="272" fill="#2f4b19" text-anchor="middle" font-weight="700">s.Link</text>
+              <text x="436" y="287" fill="#a8a08a" text-anchor="middle">77 мс на секунду</text>
+            </g>
+          </svg>
+          <figcaption>
+            Водоспад спектру, синтетична ілюстрація. Ширина смуги і
+            шпаруватість — паспортні: 26 кГц і 2,3 %.
+          </figcaption>
+          </figure>
+        </div>
+
+        <div class="stack" style="margin-top:34px">
+          <div class="stack-card">
+            <span class="k">Радіо</span>
+            <div class="v">872 МГц, GMSK BT=0.5, 25 000 сим/с. Займана смуга 26 кГц.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Кодування</span>
+            <div class="v">Згортковий код 1/2, K=7, Вітербі з м'яким рішенням, блокове перемежування.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Шифрування</span>
+            <div class="v">ChaCha20-Poly1305 AEAD, 256 біт. Кадр приймається за автентифікацією, не за кореляцією.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Доступ</span>
+            <div class="v">TDMA, період 1 с, синхронізація за піром — без опори на системний час і GNSS.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="works">
+        <p class="section-label">Що вже працює як виріб</p>
+        <div class="rows">
+          <div class="row"><div class="h">Станція</div><div class="b">Raspberry Pi 5 — автозапуск, працює від павербанка, живе в полі.</div></div>
+          <div class="row"><div class="h">Пеленгація в реальному часі</div><div class="b">П'ятиканальний когерентний прийом і MUSIC по кільцевій решітці: азимут на джерело кілька разів на секунду, без демодуляції корисного навантаження. Відношення d/λ перераховується на кожному перестроюванні — інакше пеленг брехав би нулем і не скаржився.</div></div>
+          <div class="row"><div class="h">12 сканерів</div><div class="b">Кожен знає, що шукає у своїй смузі: зв'язок, радіолокація, супутникові канали, навігаційні завади. Частотні мітки беруться з єдиного атласу, а не з коду сканера.</div></div>
+          <div class="row"><div class="h">s.Link</div><div class="b">Власний шифрований радіолінк станція ↔ оператор: пеленги туди, команди назад.</div></div>
+          <div class="row"><div class="h">Сигнатурний векторний аналіз</div><div class="b">Із сирого IQ виділяється вектор ознак — часових, спектральних, структурних — і за ним визначається тип випромінювача. Каталог упізнає передавач, коли той повертається. Без демодуляції корисного навантаження.</div></div>
+          <div class="row"><div class="h">Запис сирих IQ</div><div class="b">Багатоканальні когерентні відліки лягають у стандартний формат із метаданими походження — короткими фрагментами під подію або суцільним архівом кадрів. Аналіз потім іде на землі, скільки завгодно разів.</div></div>
+          <div class="row"><div class="h">Оновлення «по повітрю»</div><div class="b">З криптопідписом: нові частотні плани доїжджають на станції самі, код — ні.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="measured">
+        <p class="section-label">Що вже зміряно — у полі, з датою</p>
+        <div style="overflow-x:auto">
+          <table class="proof-table">
+            <thead>
+              <tr><th>Зміряно</th><th>Значення</th><th>Коли</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Пеленг на CW-маяк 868.000, розкид</td><td class="num">0,2–1,5° на 90-секундних відрізках, 107 пеленгів</td><td class="ctx">22.08 · поле</td></tr>
+              <tr><td>Джерело доведене частотною вибірковістю</td><td class="num">69,6 дБ на 868,0 проти ~16 дБ поруч — падіння 53,1 дБ</td><td class="ctx">22.08 · поле</td></tr>
+              <tr><td>Перенос маяка 0° → 30°</td><td class="num">пеленг пішов на +35,9° при істинних +30°</td><td class="ctx">22.08 · поле</td></tr>
+              <tr><td>Власний радіолінк, наскрізно</td><td class="num">92/92 кадрів, SNR 26.0 дБ</td><td class="ctx">15.08 · стенд</td></tr>
+              <tr><td>Поріг декодування в ефірі</td><td class="num">+2.27 дБ</td><td class="ctx">15.08 · ефір</td></tr>
+              <tr><td>Чутливість приймача, приріст</td><td class="num">+3.47 дБ узгодженим фільтром</td><td class="ctx">16.08 · вимір</td></tr>
+              <tr><td>Швидкість передавача, приріст</td><td class="num">×10.2, сигнал бітово незмінний</td><td class="ctx">17.08 · вимір</td></tr>
+              <tr><td>s.Link, безперервний сеанс</td><td class="num">5 год 20 хв, 4863 кадри</td><td class="ctx">стенд</td></tr>
+              <tr><td>s.Link, відмови автентифікації</td><td class="num">0 з 4863</td><td class="ctx">стенд</td></tr>
+              <tr><td>s.Link, шпаруватість <strong>віддаленої станції</strong></td><td class="num">2,3 % — 83 с ефіру за годину</td><td class="ctx">вимір</td></tr>
+              <tr><td>s.Link, шпаруватість <strong>оператора</strong></td><td class="num">0 % у спокої</td><td class="ctx">константа коду</td></tr>
+              <tr><td>Відео 640×480 крізь увесь ланцюг</td><td class="num">60 з 60 кадрів побайтово</td><td class="ctx">22.08 · стенд</td></tr>
+              <tr><td>Автотестів проходить</td><td class="num">14 863 / 717 файлів, ~5,5 хв</td><td class="ctx">23.08 · CI</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section wrap" id="pending">
+        <p class="section-label">Готове в коді — чекає на ефір</p>
+        <p class="body" style="margin-bottom:28px">
+          Це не плани й не наміри: код написаний, ланцюг замикається на
+          стенді, тести зелені. Бракує рівно одного — прогону в ефірі.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Відеоканал 640×480</div>
+            <div class="b">Увесь ланцюг з'єднано вперше: H.265 → фрагментер → зовнішній код Ріда–Соломона → PHY → і назад. 60 із 60 кадрів побайтово, ffmpeg програв результат. Радіо ще не задіяне.</div>
+          </div>
+          <div class="row">
+            <div class="h">Дальність «оператор ↔ дрон» із таймкодів лінка</div>
+            <div class="b">Два пеленги MUSIC дають напрямки, але не відстань. TDD-лінк ворога віддає її задарма: борт відповідає через сталий оборот, і надлишок шляху читається з нашого ж такту — без GPS. Математика закрита 47 тестами. Різниця між «ударний профіль» і «хтось літає над лісосмугою».</div>
+          </div>
+          <div class="row">
+            <div class="h">Керування дроном через s.Link</div>
+            <div class="b">Стиснена підмножина MAVLink, ~72 біт/с у дальнобійному режимі. Код готовий і протестований, в ефірі ще не був.</div>
+          </div>
+          <div class="row">
+            <div class="h">s.Link4k — кореневий меш під 4K-відео</div>
+            <div class="b">Ретрансляція відео без довіри до ретранслятора: він пересилає автентифікований пакет 1024 Б <strong>не розбираючи H.265 і не розшифровуючи</strong>. Маршрут і слоти роздає наземний приймач, флудинг заборонений за конструкцією — кожен дублікат з'їв би повний сплеск на кожному наступному прольоті. Раніше за інші рядки цього списку: формат і модель місткості реалізовані поза ефіром, живого радіотракту ще нема. Далі — пакетний FEC, тоді симулятор планувальника.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="limits">
+        <p class="section-label">Де межа сьогодні — чесно</p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Абсолютна похибка пеленга ще не заміряна</div>
+            <div class="b">Розкид і напрямок доведені маяком, але істинні азимути в тих дослідах ставилися рукою, «приблизно», а курс кільця на станції — нуль. Якщо решітка змонтована не на північ, усі азимути зсунуті на цей кут разом, і жоден внутрішній тест цього не побачить. Число похибки назвемо після прогону з відомою геодезією, не раніше.</div>
+          </div>
+          <div class="row">
+            <div class="h">Дальність пеленгації не доведена до межі</div>
+            <div class="b">На найдальшій перевіреній точці сигнал ще мав великий запас над шумом — вимір упирався в майданчик, а не в систему. Число дальності назвемо після спеціального виміру, а не з бюджету лінка.</div>
+          </div>
+          <div class="row">
+            <div class="h">Стеля сьогодні — радіогоризонт, а не приймач</div>
+            <div class="b">Коли і станція, і джерело стоять біля землі, межу задає кривина Землі, а не чутливість тракту. Це не лікується підсилювачем — лише висотою й позицією.</div>
+          </div>
+          <div class="row">
+            <div class="h">Дальність s.Link не виміряна</div>
+            <div class="b">Розрахунок дає одиниці кілометрів за реалістичних висот антен, але спирається на невиміряну вихідну потужність. Поки це розрахунок, ми його дальністю не називаємо — див. нижче, чому підсилювач тут не є простою відповіддю.</div>
+          </div>
+          <div class="row">
+            <div class="h">Швидкісний режим лінка не влазить у нинішню ПЛІС</div>
+            <div class="b">Зайнято 12 456 із 17 600 логічних блоків і 72 з 80 блоків DSP — саме DSP і є тіснина. Лікується іншою платою, не софтом; вибір деталі відкрито заново.</div>
+          </div>
+          <div class="row">
+            <div class="h">Вище 6 ГГц — лише із зовнішнім конвертером</div>
+            <div class="b">Недодискретизація не рятує: обмежений сам ВЧ-тракт, а не АЦП. До 12 ГГц дотягує змішувач із преселектором — окреме залізо, якого поки нема.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="airborne">
+        <p class="section-label">Куди рухається межа</p>
+        <h2>Станція на повітряному носії</h2>
+        <p class="body">
+          Той самий приймач, піднятий на висоту, працює в іншому порядку
+          дальностей — бо змінюється не чутливість, а геометрія. Для
+          наземного джерела радіогоризонт рахується прямо з висоти:
+        </p>
+
+        <div class="stack" style="margin-bottom:30px">
+          <div class="stack-card">
+            <span class="k">50 м</span>
+            <div class="v">29,6 км прямої видимості.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">100 м</span>
+            <div class="v">40,1 км — і це інженерна солодка точка.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">150 м</span>
+            <div class="v">48,1 км за помірних вимог до платформи.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">200 м</span>
+            <div class="v">54,9 км — підйом зі 100 до 200 м додає лише ~15 км, а вимоги до носія піднімає значно більше.</div>
+          </div>
+        </div>
+
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 300" role="img" aria-label="Схема радіогоризонту: з землі — одиниці кілометрів, зі 100 метрів — десятки">
+            <path d="M0,281.4 L60,271.0 L120,262.6 L180,256.4 L240,252.3 L300,250.3 L330,250.0 L360,250.3 L420,252.3 L480,256.4 L540,262.6 L600,271.0 L660,281.4"
+                  fill="none" stroke="#c8c8c8" stroke-width="1.6"/>
+            <path d="M0,281.4 L60,271.0 L120,262.6 L180,256.4 L240,252.3 L300,250.3 L330,250.0 L360,250.3 L420,252.3 L480,256.4 L540,262.6 L600,271.0 L660,281.4 L660,300 L0,300 Z"
+                  fill="#f2f2f0"/>
+
+            <line x1="250" y1="251.8" x2="250" y2="132" stroke="#c8c8c8" stroke-width="1" stroke-dasharray="3 3"/>
+
+            <line x1="250" y1="251.8" x2="352" y2="250.1" stroke="#9a9a9a" stroke-width="1.6" stroke-dasharray="4 3"/>
+            <circle cx="250" cy="251.8" r="4" fill="#101010"/>
+            <circle cx="352" cy="250.1" r="3" fill="#9a9a9a"/>
+
+            <line x1="250" y1="132" x2="628" y2="275.6" stroke="#3e6b1f" stroke-width="1.8" stroke-dasharray="5 3"/>
+            <g transform="translate(250,132)">
+              <line x1="-13" y1="0" x2="13" y2="0" stroke="#2f4b19" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="0" cy="0" r="4.5" fill="#2f4b19"/>
+              <circle cx="-13" cy="-3" r="2.6" fill="#3e6b1f"/>
+              <circle cx="13" cy="-3" r="2.6" fill="#3e6b1f"/>
+            </g>
+            <circle cx="628" cy="275.6" r="4" fill="#3e6b1f"/>
+
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <text x="272" y="118" fill="#2f4b19" font-weight="700">100 м</text>
+              <text x="470" y="205" fill="#2f4b19" text-anchor="middle" font-weight="700">40 км</text>
+              <text x="301" y="240" fill="#8a8a8a" text-anchor="middle">одиниці км</text>
+              <text x="250" y="272" fill="#6e6e6e" text-anchor="middle">станція</text>
+            </g>
+            <text x="330" y="296" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#b4b4b4" text-anchor="middle">висота перебільшена — схема, не масштаб</text>
+          </svg>
+        </figure>
+        <p class="body">
+          Друга половина задачі — <strong>позиція</strong>. Пеленгатор
+          виграє від наближення до зони розмежування рівно так само, як від
+          висоти: обидва рухають той самий горизонт. Разом вони переводять
+          станцію з одиниць кілометрів у десятки.
+        </p>
+
+        <div class="callout">
+          <div class="callout-h">Що вже відомо про цей шлях, і чого він коштує</div>
+          <p>
+            Наведені числа — <strong>геометрична пряма видимість</strong>, а
+            не обіцяна дальність пеленга: впевнений bearing планується
+            консервативніше, приблизно на половині-двох третинах від меншої з
+            цих двох меж. Повітряний носій приносить і власні задачі, які ми
+            вже розібрали, а не відкриємо в польоті: плаский масив не дає
+            стабільного азимуту прямо під носієм, помилка орієнтації на 1°
+            дає такий самий градус помилки пеленга, центр решітки треба
+            рознести з двигунами й силовими проводами, а базові прогони
+            знімати окремо з вимкненими та ввімкненими моторами.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="amps">
+        <p class="section-label">Дослідження підсилювачів</p>
+        <h2>Чому «поставити ват» не додає дальності</h2>
+        <p class="body">
+          Найочевидніша відповідь на дальність — підсилювач. Ми її
+          порахували й перевірили, і вона виявилась переважно пасткою.
+          Публікуємо, бо це та частина інженерії, за якою видно, чи людина
+          працювала з залізом.
+        </p>
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 236" role="img" aria-label="Приріст дальності від доданої потужності: біля землі показник 4, тож 12 децибел лише подвоюють дальність">
+            <rect x="420" y="26" width="54" height="164" fill="#3e6b1f" fill-opacity="0.07"/>
+            <text x="447" y="20" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="middle">+20…+23 дБм</text>
+
+            <g stroke="#efefef" stroke-width="1">
+              <line x1="60" y1="150.2" x2="600" y2="150.2"/>
+              <line x1="60" y1="110" x2="600" y2="110"/>
+              <line x1="60" y1="70" x2="600" y2="70"/>
+            </g>
+            <line x1="60" y1="16" x2="60" y2="190" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="60" y1="190" x2="600" y2="190" stroke="#c8c8c8" stroke-width="1"/>
+
+            <path d="M60.0,190.0 L96.0,179.6 L132.0,166.6 L168.0,150.2 L204.0,129.5 L240.0,103.5 L276.0,70.8 L306.0,36.0" fill="none" stroke="#c8c8c8" stroke-width="1.8" stroke-dasharray="5 4"/>
+            <path d="M60.0,190.0 L96.0,185.1 L132.0,179.6 L168.0,173.5 L204.0,166.6 L240.0,158.9 L276.0,150.2 L312.0,140.5 L348.0,129.5 L384.0,117.3 L420.0,103.5 L456.0,88.1 L492.0,70.8 L528.0,51.3 L560.0,33.0" fill="none" stroke="#3e6b1f" stroke-width="2.4"/>
+
+            <circle cx="276" cy="150.2" r="4.5" fill="#2f4b19"/>
+            <circle cx="546" cy="40.7" r="4.5" fill="#2f4b19"/>
+
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <text x="286" y="146" fill="#2f4b19" font-weight="700">+12 дБ → ×2</text>
+              <text x="540" y="36" fill="#2f4b19" text-anchor="end" font-weight="700">2 Вт → ×4,7</text>
+              <text x="316" y="52" fill="#a8a8a8">вільний простір</text>
+              <text x="452" y="126" fill="#2f4b19">біля землі</text>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
+              <text x="60" y="206" text-anchor="middle">0</text>
+              <text x="330" y="206" text-anchor="middle">+15 дБ</text>
+              <text x="600" y="206" text-anchor="end">+30 дБ</text>
+              <text x="52" y="194" text-anchor="end">×1</text>
+              <text x="52" y="34" text-anchor="end">×5</text>
+              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">приріст дальності від доданої потужності</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Біля землі показник 4, а не 2</div>
+            <div class="b">У двопроменевій моделі дальність росте значно повільніше за потужність: 2 Вт (+27 дБм) дають лише <strong>×4,7</strong>, а не ×22. Подвоєння дальності коштує 12 дБ, а не 6. Солодка точка — <strong>+20…+23 дБм, а не ват</strong>.</div>
+          </div>
+          <div class="row">
+            <div class="h">Незатворений підсилювач глушить власний приймач</div>
+            <div class="b">Він тримає підняту шумову підлогу постійно, бо гетеродин не встигає вимикатись між сплесками. Рознесення антен 1 м коштує <strong>−4,8 дБ власної чутливості</strong>, 0,5 м — <strong>−9,5 дБ</strong>. Малошумний підсилювач робить це <em>гіршим</em>, а не кращим. Висновок: затвор треба комутувати разом зі сплеском.</div>
+          </div>
+          <div class="row">
+            <div class="h">Головний блокер — власна решітка</div>
+            <div class="b">Потужний передавач поруч кладе KrakenSDR у кліп, і відстань не рятує. Маяк одиниць міліват <strong>уже</strong> це робить. Потрібне бланкування решітки на час сплеску й обмежувач — без них кожен кадр пеленга забруднений.</div>
+          </div>
+          <div class="row">
+            <div class="h">~9 дБ лежать безкоштовно</div>
+            <div class="b">Цифрова шкала передавача стоїть на −12 дБ від повної. GMSK має сталу обвідну, тож такого запасу їй не треба — <strong>+8…+9 дБ можна взяти без жодного заліза</strong>. Зворотний бік того самого факту: рядок бюджету «+6 дБм» імовірно завищений на ті ж 12 дБ, тому розрахунок дальності може бути оптимістичним удвічі. Перший вимір — потужність на роз'ємі.</div>
+          </div>
+          <div class="row">
+            <div class="h">Цінність LNA — не шум-фактор, а фідер</div>
+            <div class="b">За шум-фактором він дає лише ~3,6 дБ. Але він знімає з розрахунку втрати кабелю, а вони й вирішують: щогла 10 м дає +14 дБ, тоді як RG58 на 866 МГц з'їдає 6 дБ на десяти метрах і 26 дБ на сорока чотирьох.</div>
+          </div>
+          <div class="row">
+            <div class="h">Асиметрія ролей уже в коді</div>
+            <div class="b">Консоль оператора не має бути знайденою ніким, тому вона шле лише те, що оператор свідомо надіслав. Звідси й розподіл: підсилювач потужності — <strong>тільки на станції</strong>, малошумний — на операторі. Підсилювач на боці оператора був би найгіршою з чотирьох комбінацій.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="signatures">
+        <p class="section-label">Сигнатурний аналіз</p>
+        <h2>Впізнати випромінювач, не демодулюючи його</h2>
+        <p class="body">
+          Ми визначаємо, <strong>що це за передавач</strong>, за ознаками
+          сигналу — часовими, спектральними, структурними, — а не за вмістом
+          переданого. Це принципово: система лишається приймальною і не
+          потребує ані ключів, ані права на корисне навантаження. Саме тому
+          її можна ставити туди, куди систему з демодуляцією не пустять.
+        </p>
+
+        <h3 class="sub-h">Родину видає поведінка, а не модуляція</h3>
+        <p class="body">
+          Задача не «розпізнати ELRS», а виявити <strong>родину цілком</strong>
+          — включно з варіантами, чиї канали й параметри нам поки невідомі:
+          форки mLRS, MILELRS, Кузнечик, закритий Crossfire. Тому ловимо за
+          інваріантами, які диктує фізика й чипсет, а не за списком відомих
+          сигнатур.
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">Смуга одного сплеску</div><div class="b">0,5–1,6 МГц — ряди LoRa фіксовані, FLRC ≈ 1,3 МГц.</div></div>
+          <div class="row"><div class="h">Темп стрибків</div><div class="b">Дорівнює темпу пакетів, 25–1000 Гц: стрибок на кадр — правило родини.</div></div>
+          <div class="row"><div class="h">Періодичність</div><div class="b">Строго регулярна. Це керування, а не дані — інтервал сталий.</div></div>
+          <div class="row"><div class="h">Асиметрія дуплексу</div><div class="b">Пачки вниз, короткі телеметричні вгору — за конструкцією.</div></div>
+          <div class="row"><div class="h">Зайнятість смуги</div><div class="b">Розріджена, одиниці % часу на каналі. Це й вирізняє її з Wi-Fi та LTE.</div></div>
+        </div>
+
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 236" role="img" aria-label="Сплески керування стрибають по сітці каналів зі сталим інтервалом">
+            <line x1="56" y1="30.5" x2="616" y2="30.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="50.5" x2="616" y2="50.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="70.5" x2="616" y2="70.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="90.5" x2="616" y2="90.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="110.5" x2="616" y2="110.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="130.5" x2="616" y2="130.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="150.5" x2="616" y2="150.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="170.5" x2="616" y2="170.5" stroke="#efefef" stroke-width="1"/>
+            <line x1="56" y1="16" x2="56" y2="196" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="56" y1="196" x2="616" y2="196" stroke="#c8c8c8" stroke-width="1"/>
+            <rect x="64" y="86" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="104" y="146" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="144" y="46" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="184" y="166" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="224" y="106" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="264" y="26" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="304" y="146" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="344" y="66" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="384" y="166" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="424" y="86" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="464" y="126" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="504" y="46" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="544" y="146" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="584" y="106" width="9" height="9" rx="1.5" fill="#3e6b1f"/>
+            <g stroke="#9a9a9a" stroke-width="1">
+              <line x1="64" y1="206" x2="104" y2="206"/>
+              <line x1="64" y1="202" x2="64" y2="210"/>
+              <line x1="104" y1="202" x2="104" y2="210"/>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8a8a8a">
+              <text x="110" y="210">сталий інтервал — стрибок на кадр</text>
+              <text x="48" y="106" text-anchor="end" transform="rotate(-90 48 106)">сітка каналів</text>
+              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">схема поведінки родини, не запис</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="callout">
+          <div class="callout-h">Одну редакцію цієї таблиці ми відкликали самі</div>
+          <p>
+            Спершу в інваріантах стояло «чирп або FLRC, не OFDM». Для ELRS і
+            mLRS це правда — і як <em>родинна</em> ознака це хибно: воно
+            відсікає FrSky ACCST/ACCESS, Flysky AFHDS, Futaba FASST, Spektrum
+            DSMX і телеметрію SiK/RFD900. Усі вони FHSS з тією самою
+            поведінкою на рівні пачок, але на GFSK або DSSS — детектор,
+            побудований на чирпі, <strong>не побачив би половини популярного
+            парку</strong>.
+          </p>
+          <p class="callout-punch">
+            Інваріант родини — не модуляція, а поведінка. Модуляція вирізняє
+            гілку всередині родини, не саму родину.
+          </p>
+        </div>
+
+        <h3 class="sub-h">Сучасні стандарти — за структурою преамбули</h3>
+        <p class="body">
+          Окремий детектор розрізняє сімейства сучасних стандартів трьома
+          кореляторами — DVB-T2 P1, 5G NR PSS (три m-послідовності за
+          3GPP TS 38.211) і Wi-Fi. На виході — родина, впевненість і оцінка
+          по кожному корелятору. Демодуляції немає й тут.
+        </p>
+
+        <h3 class="sub-h">Чим міряємо</h3>
+        <p class="body">
+          Миттєва смуга 56 МГц і 65 536-точкове перетворення дають роздільну
+          здатність <strong>854 Гц</strong>. Увесь набір стрибків влазить у
+          миттєву смугу цілком, тому крок сітки каналів ми <strong>міряємо, а
+          не вгадуємо</strong>: сітку 525 кГц ця роздільна здатність ділить на
+          615 комірок.
+        </p>
+        <p class="body">
+          Чесне обмеження: це працює <strong>в режимі паркування</strong>. У
+          режимі огляду двел коротший за період стрибків — свіп проти FHSS
+          приречений, і ми на нього не розраховуємо.
+        </p>
+      </section>
+
+      <section class="section wrap" id="cta">
+        <div class="cta-block">
+          <p class="body" style="margin:0">
+            Показати станцію в роботі можемо особисто. Повний технічний вікі
+            і специфікація протоколу — у дата-румі.
+          </p>
+          <div class="cta-actions">
+            <a class="btn" href="mailto:info@elintir.com?subject=%D0%97%D0%B0%D0%BF%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8E%20ELINTIR">Замовити демо</a>
+            <a class="btn-ghost" href="/investors/">Дата-рум</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>© 2026 ТОВ «ЕЛІНТІР»</span>
+      <span>Дані станом на 23.08.2026</span>
+    </footer>
+  </body>
+</html>

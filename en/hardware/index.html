@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hardware — ELINTIR LLC</title>
+    <meta
+      name="description"
+      content="The ELINTIR passive SIGINT station: a five-channel coherent array, MUSIC direction finding, and the s.Link radio. A receiver that never transmits."
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Hardware — ELINTIR LLC">
+    <meta property="og:description" content="A passive SIGINT station and the s.Link radio: specifications, measured characteristics, and an honest list of limits.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="/assets/elintir-hero.png">
+    <link rel="canonical" href="https://elintir.com/en/hardware/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/hardware/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/hardware/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/hardware/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/hardware/">
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+        --display: "Montserrat", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --brand-green: #3e6b1f;
+        --brand-green-deep: #2f4b19;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+
+      /* ---------- topbar ---------- */
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+      }
+
+      .brand-mark { width: 36px; height: 36px; display: block; flex: none; }
+
+      .brand-text { display: flex; flex-direction: column; line-height: 1; }
+
+      .brand-name {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--ink);
+      }
+
+      .brand-slogan {
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--brand-green);
+      }
+
+      .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
+      .topbar nav a { text-decoration: none; }
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+      .topbar nav a:hover { color: var(--ink); }
+      .topbar nav a.current { color: var(--ink); }
+      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
+      .topbar nav a.cta:hover { color: var(--brand-green); }
+
+      /* ---------- hero ---------- */
+
+      .hero {
+        padding-top: clamp(48px, 10vw, 96px);
+        padding-bottom: clamp(44px, 7vw, 76px);
+      }
+
+      .eyebrow {
+        margin: 0 0 20px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: var(--display);
+        margin: 0;
+        font-size: clamp(34px, 6vw, 58px);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        font-weight: 700;
+        max-width: 16ch;
+      }
+
+      .lead {
+        max-width: 60ch;
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.9vw, 19px);
+        line-height: 1.6;
+      }
+
+      .lead strong { color: var(--ink); font-weight: 700; }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: 36px;
+        align-items: center;
+      }
+
+      .hero-fig svg { width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; }
+      .hero-fig .cap {
+        margin-top: 8px;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+        color: var(--faint);
+      }
+
+      /* ---------- sections ---------- */
+
+      .section {
+        padding-top: clamp(44px, 7vw, 72px);
+        padding-bottom: clamp(44px, 7vw, 72px);
+        border-top: 1px solid var(--line);
+      }
+
+      .section-label {
+        font-family: var(--display);
+        margin: 0 0 32px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .section h2 {
+        font-family: var(--display);
+        margin: 0 0 18px;
+        max-width: 28ch;
+        font-size: clamp(21px, 2.6vw, 27px);
+        line-height: 1.28;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+
+      .section p.body {
+        max-width: 62ch;
+        margin: 0 0 15px;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .section p.body:last-child { margin-bottom: 0; }
+
+      /* ---------- platform + array diagram ---------- */
+
+      .passive-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .array-fig { text-align: center; }
+      .array-fig svg { width: 100%; max-width: 240px; height: auto; }
+      .array-fig .cap {
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--faint);
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- coverage bar ---------- */
+
+      .spectrum { margin-bottom: 34px; }
+      .spectrum-note {
+        max-width: 66ch;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .spectrum svg { width: 100%; height: auto; display: block; }
+      .spectrum-legend {
+        display: flex;
+        gap: 22px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .spectrum-legend .dot {
+        display: inline-block;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        margin-right: 6px;
+        vertical-align: 1px;
+      }
+      .spectrum-legend .dot.coherent { background: var(--brand-green); }
+      .spectrum-legend .dot.wide { background: var(--line); border: 1px solid var(--faint); }
+
+      /* ---------- specs (stack) ---------- */
+
+      .stack {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px 26px;
+      }
+
+      .stack-card { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+      .stack-card .k {
+        font-family: var(--display);
+        display: block;
+        margin-bottom: 9px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      .stack-card .v { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+      /* ---------- row list (works / limits) ---------- */
+
+      .rows { display: grid; gap: 0; }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+        gap: 8px 32px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .rows .row:first-child { padding-top: 0; }
+      .rows .row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .row .h { font-family: var(--display); font-weight: 700; font-size: 16px; }
+      .row .b { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+      /* ---------- measured (table) ---------- */
+
+      .proof-table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+      .proof-table th {
+        text-align: left;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--faint);
+        padding: 0 12px 10px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .proof-table td {
+        padding: 13px 12px 13px 0;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .proof-table td.num { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+      .proof-table td.ctx { color: var(--faint); font-size: 13.5px; white-space: nowrap; }
+      .proof-table tr:last-child td { border-bottom: 0; }
+
+      /* ---------- signature analysis ---------- */
+
+      /* ---------- callout ---------- */
+
+      .sub-h {
+        font-family: var(--display);
+        margin: 40px 0 14px;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
+
+      .callout {
+        margin: 30px 0 0;
+        padding: 22px 26px;
+        background: #f7f8f4;
+        border-left: 3px solid var(--brand-green);
+        border-radius: 0 4px 4px 0;
+      }
+      .callout-h {
+        font-family: var(--display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+        margin-bottom: 12px;
+      }
+      .callout p { max-width: 64ch; margin: 0 0 14px; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+      .callout p:last-child { margin-bottom: 0; }
+      .callout em { color: var(--ink); font-style: italic; }
+      .callout-punch {
+        font-weight: 700;
+        color: var(--ink) !important;
+        font-size: 16px !important;
+      }
+
+      /* ---------- s.Link waterfall ---------- */
+
+      .slink-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .figwide { margin: 26px 0 30px; }
+      .figwide svg { width: 100%; max-width: 660px; height: auto; display: block; }
+
+      .waterfall { margin: 0; }
+      .waterfall svg { width: 100%; max-width: 660px; height: auto; display: block; }
+      .waterfall figcaption {
+        max-width: 62ch;
+        margin-top: 12px;
+        color: var(--faint);
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      /* ---------- cta ---------- */
+
+      .cta-block {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px 24px;
+      }
+
+      a.btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 700;
+        color: #fff;
+        background: var(--brand-green-deep);
+        padding: 12px 22px;
+        border-radius: 4px;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      a.btn:hover { background: var(--brand-green); }
+
+      .cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+
+      a.btn-ghost {
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--brand-green-deep);
+        border-bottom: 1px solid var(--brand-green-deep);
+        padding-bottom: 2px;
+        white-space: nowrap;
+      }
+      a.btn-ghost:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
+
+      /* ---------- footer ---------- */
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+        padding-top: 24px;
+        padding-bottom: 40px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .hero-grid, .passive-grid, .slink-grid { grid-template-columns: 1fr; }
+        .hero-fig { order: -1; }
+        .hero-fig svg { max-width: 280px; }
+        .row { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 560px) {
+        .topbar { flex-wrap: wrap; gap: 14px 18px; }
+        .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
+        .brand-mark { width: 30px; height: 30px; }
+        .brand-name { font-size: 18px; }
+        .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
+        .topbar nav a.hide-sm { display: none; }
+        .stack { grid-template-columns: 1fr; }
+        .proof-table { display: block; overflow-x: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, home">
+        <svg class="brand-mark" viewBox="0 0 512 512" role="img" aria-hidden="true">
+          <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">ELINTIR</span>
+          <span class="brand-slogan">ML/RF MAPPER</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="hide-sm" href="/en/#directions">Directions</a>
+        <a href="/en/company/">Company</a>
+        <a class="current" href="/en/hardware/">Hardware</a>
+        <a href="/en/#contacts">Contacts</a>
+        <a class="cta" href="/en/investors/">Investors</a>
+              <a class="lang" href="/hardware/" hreflang="uk" lang="uk">UA</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Our own product</p>
+            <h1>Passive SIGINT station</h1>
+            <p class="lead">
+              The station listens to the spectrum and shows <strong>where</strong>
+              a transmission comes from — a drone operator, a radio, a relay.
+              It <strong>never transmits</strong> and emits nothing, so it
+              stays invisible itself.
+            </p>
+          </div>
+          <div class="hero-fig">
+            <svg viewBox="0 0 360 300" role="img" aria-label="115 real bearings on an 868.000 MHz CW beacon: 5-8 degrees of spread against a true 0">
+              <circle cx="180" cy="195" r="55" fill="none" stroke="#ededed" stroke-width="1"/>
+              <circle cx="180" cy="195" r="105" fill="none" stroke="#ededed" stroke-width="1"/>
+              <circle cx="180" cy="195" r="155" fill="none" stroke="#ededed" stroke-width="1"/>
+              <g stroke="#f4f4f4" stroke-width="1">
+                <line x1="180" y1="195" x2="180" y2="40"/>
+                <line x1="180" y1="195" x2="180" y2="350"/>
+                <line x1="180" y1="195" x2="25" y2="195"/>
+                <line x1="180" y1="195" x2="335" y2="195"/>
+              </g>
+
+              <line x1="180" y1="195" x2="180" y2="27" stroke="#9a9a9a" stroke-width="1.4" stroke-dasharray="4 4"/>
+              <text x="180" y="18" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#6e6e6e" text-anchor="middle">beacon 0°</text>
+
+              <g stroke="#3e6b1f" stroke-linecap="round">
+                <line x1="180" y1="195" x2="184.0" y2="149.7" stroke-width="2.6" stroke-opacity="0.35"/>
+                <line x1="180" y1="195" x2="188.2" y2="117.1" stroke-width="4.2" stroke-opacity="0.6"/>
+                <line x1="180" y1="195" x2="199.5" y2="36.2" stroke-width="4.6"/>
+                <line x1="180" y1="195" x2="187.9" y2="138.7" stroke-width="2.6" stroke-opacity="0.45"/>
+              </g>
+              <circle cx="180" cy="195" r="3" fill="#6e6e6e"/>
+
+              <text x="232" y="52" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" fill="#2f4b19" font-weight="700">6.9°</text>
+              <text x="232" y="66" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">81 of 115</text>
+
+              <g font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#a8a8a8">
+                <text x="344" y="198" text-anchor="end">90°</text>
+                <text x="180" y="366" text-anchor="middle">180°</text>
+                <text x="16" y="198" text-anchor="start">270°</text>
+              </g>
+            </svg>
+            <p class="cap">CW beacon 868.000 MHz · 115 bearings · 69.9 dB margin · 22.08.2026</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="why-passive">
+        <p class="section-label">Platform</p>
+        <div class="passive-grid">
+          <div>
+            <h2>An electromagnetic map, not a list of detections</h2>
+            <p class="body">
+              We are not building an instrument that shows a direction but a
+              platform that folds <strong>an arbitrary number of physical
+              sensors</strong> into one picture. A coherent array, a wideband
+              survey receiver, someone else's receiver inside a customer's
+              system — the platform does not care what does the receiving.
+              What matters is what comes out.
+            </p>
+            <p class="body">
+              And what comes out is not a list of bursts but a map with
+              context: which band of the frequency plan this is, which
+              operator holds it, whether this is a legitimate user, and
+              whether the same emitter was already here yesterday. Detections
+              are fused into sources by frequency, harmonics, shared location
+              and modulation coherence — and only then reach the operator.
+            </p>
+            <p class="body">
+              War is moving exactly there. <strong>Control of the spectrum is
+              its next technological cycle</strong>, and it will be won not by
+              whoever jams loudest but by whoever sees more and sooner. The
+              station never transmits while doing it: it stays invisible — and
+              that same property carries it through export control where a
+              jammer stalls for months.
+            </p>
+            <p class="body">
+              Under the hood: a five-channel coherent array and the MUSIC
+              algorithm give the direction from the phase differences between
+              elements. Each station reports to the operator over its own
+              link; the console crosses bearings from several stations, and a
+              point on the map falls out.
+            </p>
+          </div>
+          <div class="array-fig">
+            <svg viewBox="0 0 240 200" role="img" aria-label="A plane wavefront crossing the five-element array: elements meet it at different moments">
+              <defs>
+                <clipPath id="arrClip"><circle cx="120" cy="95" r="104"/></clipPath>
+              </defs>
+
+              <g clip-path="url(#arrClip)" stroke="#3e6b1f" fill="none" stroke-linecap="round">
+                <line x1="143.7" y1="-6.3" x2="221.3" y2="71.3" stroke-width="1.6" stroke-opacity="0.5"/>
+                <line x1="106.8" y1="-8.2" x2="223.2" y2="108.2" stroke-width="1.6" stroke-opacity="0.38"/>
+                <line x1="79.3" y1="-0.7" x2="215.7" y2="135.7" stroke-width="1.6" stroke-opacity="0.26"/>
+                <line x1="57.1" y1="12.1" x2="202.9" y2="157.9" stroke-width="1.6" stroke-opacity="0.15"/>
+              </g>
+
+              <polygon points="120,15 196.1,70.3 167,159.7 73,159.7 43.9,70.3"
+                       fill="none" stroke="#101010" stroke-width="1.4" stroke-linejoin="round"/>
+
+              <g fill="#3e6b1f">
+                <circle cx="120" cy="15" r="6"/>
+                <circle cx="167" cy="159.7" r="6"/>
+                <circle cx="73" cy="159.7" r="6"/>
+                <circle cx="43.9" cy="70.3" r="6"/>
+              </g>
+              <circle cx="196.1" cy="70.3" r="8.5" fill="none" stroke="#3e6b1f" stroke-width="1.6" stroke-opacity="0.55"/>
+              <circle cx="196.1" cy="70.3" r="6" fill="#2f4b19"/>
+              <circle cx="120" cy="95" r="2.5" fill="#9a9a9a"/>
+
+              <path d="M212,34 L188,58" stroke="#3e6b1f" stroke-width="1.6" marker-end="url(#wvArrow)"/>
+              <defs>
+                <marker id="wvArrow" viewBox="0 0 10 10" refX="8" refY="5"
+                        markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M0,1 L9,5 L0,9 z" fill="#3e6b1f"/>
+                </marker>
+              </defs>
+              <text x="215" y="26" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="end">wavefront</text>
+              <text x="196" y="192" font-family="JetBrains Mono, Consolas, monospace" font-size="9" fill="#2f4b19" text-anchor="end">reached first</text>
+            </svg>
+            <p class="cap">The path difference between elements is the bearing</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="tempo">
+        <p class="section-label">Rate and limits</p>
+        <h2>What the station gets through in thirty seconds</h2>
+
+        <div class="stack" style="margin-bottom:34px">
+          <div class="stack-card">
+            <span class="k">Coherent window</span>
+            <div class="v">109.2 ms — MUSIC builds one covariance matrix from it.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Frames in 30 s</span>
+            <div class="v">277 — an acquisition rate of 9.25 frames/s, counted over a 24.7 s run.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Bearings in 30 s</span>
+            <div class="v">about 60 — roughly 2 bearings a second reach the console.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Bearing spread</span>
+            <div class="v">±0.5° — repeated across many runs in one day.</div>
+          </div>
+        </div>
+
+        <h3 class="sub-h">A moving target at 1 km</h3>
+        <p class="body">
+          The station measures direction, not distance, so its limit is set
+          in degrees per second and is the same at every range — distance only
+          converts it into metres. Only the tangential component counts:
+          motion straight at the station produces no angular rate.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Up to 80 m/s — full accuracy</div>
+            <div class="b">That is ≈290 km/h at a kilometre. The target moves less than the spread within one coherent window, so the pseudospectrum peak does not smear.</div>
+          </div>
+          <div class="row">
+            <div class="h">Up to 280 m/s — tracking without gaps</div>
+            <div class="b">≈1000 km/h. Here the binding constraint is no longer the window but association between updates: every fifth frame is empty, so the worst gap between usable bearings is ≈0.62 s.</div>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="callout-h">This is a calculation, not a measurement</div>
+          <p>
+            It rests on a measured coherent window, frame rate and spread —
+            but we have <strong>never once run the beacon in motion</strong>.
+            The check is direct: carry the beacon along an arc of known radius
+            at a known angular rate and watch the speed at which the spread
+            starts to grow. Until then the table is a hypothesis with the
+            right inputs.
+          </p>
+        </div>
+
+        <h3 class="sub-h">What each record carries</h3>
+        <p class="body">
+          A bearing on its own is one number. The analysis rests on
+          everything recorded alongside it:
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">Geometry</div><div class="b">The raw array angle and the compass bearing kept apart, the station heading with its own accuracy, coordinates and altitude.</div></div>
+          <div class="row"><div class="h">Estimate quality</div><div class="b">Spread, confidence, the eigenvalue criterion of the covariance matrix, an overall quality grade, and which algorithm and decorrelation produced the result.</div></div>
+          <div class="row"><div class="h">Energy</div><div class="b">A power estimate, signal-to-noise ratio, margin over the noise floor, and a flag for front-end overload.</div></div>
+          <div class="row"><div class="h">Signature</div><div class="b">A modulation class with its own confidence — CW, AM, FM, PSK, OFDM, FHSS, chirp — and a cyclostationarity score, which catches hidden periodicity where the spectrum looks like noise.</div></div>
+          <div class="row"><div class="h">Context</div><div class="b">The band of the frequency plan and the operator it belongs to; an industrial-interference filter; and the fusion of several detections into one source by frequency, harmonics, location and modulation coherence.</div></div>
+          <div class="row"><div class="h">Provenance</div><div class="b">A live / replay / demo tag on every record, so synthetic data can never pass itself off as a real measurement.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="specs">
+        <p class="section-label">Specification</p>
+
+        <div class="spectrum">
+          <svg viewBox="0 0 640 132" role="img" aria-label="Receiver coverage and the working limits of the Ø195 mm antenna array">
+            <text x="20" y="12" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">RECEIVERS</text>
+            <rect x="20" y="20" width="600" height="8" rx="4" fill="#e2e2e2"/>
+            <rect x="20" y="20" width="467" height="8" rx="4" fill="#3e6b1f"/>
+            <line x1="20" y1="14" x2="20" y2="34" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="487" y1="14" x2="487" y2="34" stroke="#9a9a9a" stroke-width="1"/>
+            <line x1="620" y1="14" x2="620" y2="34" stroke="#c8c8c8" stroke-width="1"/>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" fill="#6e6e6e">
+              <text x="20" y="46">24 MHz</text>
+              <text x="487" y="46" text-anchor="middle">1766 MHz</text>
+              <text x="620" y="46" text-anchor="end">6 GHz</text>
+            </g>
+
+            <text x="20" y="74" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">ARRAY Ø195 mm</text>
+            <rect x="20" y="82" width="63.7" height="8" fill="#d8d8d8"/>
+            <rect x="83.7" y="82" width="105.3" height="8" fill="#a9c48f"/>
+            <rect x="189" y="82" width="175.4" height="8" fill="#3e6b1f"/>
+            <rect x="364.4" y="82" width="122.6" height="8" fill="#c9a24a" fill-opacity="0.55"/>
+            <rect x="487" y="82" width="133" height="8" fill="#f2f2f2"/>
+            <g stroke="#9a9a9a" stroke-width="1">
+              <line x1="83.7" y1="78" x2="83.7" y2="94"/>
+              <line x1="189" y1="78" x2="189" y2="94"/>
+              <line x1="364.4" y1="78" x2="364.4" y2="94"/>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#6e6e6e">
+              <text x="83.7" y="106" text-anchor="middle">262</text>
+              <text x="189" y="106" text-anchor="middle">654</text>
+              <text x="364.4" y="106" text-anchor="middle">1309</text>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9" fill="#9a9a9a">
+              <text x="51" y="122" text-anchor="middle">energy only</text>
+              <text x="136" y="122" text-anchor="middle">coarse</text>
+              <text x="276" y="122" text-anchor="middle">working zone</text>
+              <text x="425" y="122" text-anchor="middle">mirror ambiguity</text>
+            </g>
+          </svg>
+          <div class="spectrum-legend">
+            <span><span class="dot coherent"></span>coherent reception (KrakenSDR)</span>
+            <span><span class="dot wide"></span>wideband receiver (AD9363/HackRF)</span>
+          </div>
+          <p class="spectrum-note">
+            The array and the receivers have <strong>different limits</strong>.
+            A Ø195 mm ring gives a 114.6 mm chord between adjacent elements,
+            and everything else follows from it: below <strong>262 MHz</strong>
+            the array is too small and yields energy only; above
+            <strong>1309 MHz</strong> the spacing exceeds half a wavelength and
+            a mirror twin appears. So the receivers tune to 1766 MHz but
+            <strong>an unambiguous bearing ends at 1309</strong>, and we mark
+            such measurements ambiguous rather than passing them off as clean.
+          </p>
+        </div>
+
+        <div class="stack">
+          <div class="stack-card">
+            <span class="k">Array</span>
+            <div class="v">Five elements in a Ø195 mm ring; spacing is recomputed on every retune.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Receivers</span>
+            <div class="v">24-1766 MHz coherent (5×RTL2838), plus survey to 6 GHz.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Compute</span>
+            <div class="v">Processing and cataloguing on the node — a Raspberry Pi 5, running in the field off a power bank.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Link</span>
+            <div class="v">s.Link — our own PHY and link layer, 872 MHz, ChaCha20-Poly1305 encryption.</div>
+          </div>
+        </div>
+
+        <h3 class="sub-h">Direction finding</h3>
+        <div class="rows">
+          <div class="row"><div class="h">A superresolution method</div><div class="b">Direction is computed by MUSIC from <strong>raw multichannel IQ</strong> rather than from signal levels. That keeps the bearing sharp even when several sources share the band.</div></div>
+          <div class="row"><div class="h">Phase holds at every frequency</div><div class="b">Element spacing against wavelength is recomputed on <strong>every retune</strong>. This is not a detail: a corrupted value does not raise an error — it quietly fabricates a bearing of 0.0°, and that is a documented field incident here.</div></div>
+          <div class="row"><div class="h">Targets wider than the front end</div><div class="b">LTE and DVB-T are direction-found despite occupying more bandwidth than the receiver sees at once. Moving sources are tracked, not merely detected.</div></div>
+          <div class="row"><div class="h">Two numbers, not one</div><div class="b">The raw array angle and the compass bearing are stored separately, together with the heading source and its own accuracy. Confusing the two is the classic cause of mirrored errors, and we separated them at the record level.</div></div>
+          <div class="row"><div class="h">Confidence is computed, not assumed</div><div class="b">It comes from the eigenvalues of the covariance matrix rather than from amplitude. A weak but clean signal scores high; a strong but smeared one scores low.</div></div>
+        </div>
+
+        <h3 class="sub-h">The boards we work on</h3>
+        <div class="rows">
+          <div class="row"><div class="h">Zynq-7010 — link and telemetry</div><div class="b">ADALM-Pluto and compatibles: 17 600 logic cells, 80 DSP slices. 12 456 cells (71%) and <strong>72 of 80 DSP</strong> are already used — DSP is the pinch that keeps the fast link mode out.</div></div>
+          <div class="row"><div class="h">Zynq-7020 — the wideband side</div><div class="b">A class above: 1 GB DDR3, gigabit networking, a 0.5 ppm temperature-stable oscillator with an external reference input, two receive channels. The driver is unlocked across the full 70 MHz - 6 GHz range.</div></div>
+          <div class="row"><div class="h">Measured on them, not taken from a datasheet</div><div class="b">12 bits give roughly 60 dB of dynamic range. Of the nominal 56 MHz, 48-52 MHz stay flat; the edges roll off. Sustained throughput over the network is about 9 MS/s with typical buffers, so a continuous maximum rate is impossible over any link: capture works in bursts.</div></div>
+          <div class="row"><div class="h">What they do not have</div><div class="b">No receive LNA in any variant, and above ~2 GHz the front end goes noticeably deaf — the balun is tuned for 2.4 GHz and there is no preselector. Weak targets in the upper bands need an external LNA and a bandpass filter.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="slink">
+        <p class="section-label">s.Link — our own radio</p>
+        <div class="slink-grid">
+          <div>
+        <h2>A channel we designed for the job</h2>
+        <p class="body">
+          We write the physical and link layers ourselves, so the channel's
+          characteristics are set by the job rather than by a supplier's
+          catalogue. s.Link connects the station to the operator: bearing
+          telemetry out, commands back.
+        </p>
+        <p class="body">
+          The station is on the air <strong>2.3% of the time</strong> — 83
+          seconds an hour. In a spectrogram a burst like that reads as a
+          domestic sensor at 872 MHz, not as a military channel.
+        </p>
+          </div>
+
+          <figure class="waterfall">
+          <svg viewBox="0 0 660 300" role="img" aria-label="Spectrum waterfall: a conventional channel burns as a solid stripe throughout while s.Link is three short dashes, one per second">
+            <defs>
+              <filter id="wfNoise" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.92 0.38" numOctaves="3" seed="7"/>
+                <feColorMatrix type="matrix"
+                  values="0 0 0 0 0.30
+                          0 0 0 0 0.44
+                          0 0 0 0 0.24
+                          1 0 0 0 -0.44"/>
+              </filter>
+              <filter id="wfGlow" x="-300%" y="-300%" width="700%" height="700%">
+                <feGaussianBlur stdDeviation="5"/>
+              </filter>
+              <clipPath id="wfClip"><rect x="46" y="16" width="566" height="222"/></clipPath>
+            </defs>
+
+            <rect x="46" y="16" width="566" height="222" fill="#0d1008"/>
+            <g clip-path="url(#wfClip)">
+              <rect x="46" y="16" width="566" height="222" filter="url(#wfNoise)" opacity="0.85"/>
+
+              <!-- a conventional continuous channel: wide and always on the air -->
+              <rect x="150" y="16" width="30" height="222" fill="#d4a843" opacity="0.30" filter="url(#wfGlow)"/>
+              <rect x="159" y="16" width="12" height="222" fill="#eec25c"/>
+              <rect x="162" y="16" width="6" height="222" fill="#fff3d0"/>
+
+              <!-- s.Link: narrow, 26 kHz, 77 ms once a second -->
+              <g>
+                <rect x="432" y="46" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="47" width="5" height="5" fill="#b6f5a2"/>
+                <rect x="432" y="120" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="121" width="5" height="5" fill="#b6f5a2"/>
+                <rect x="432" y="194" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="195" width="5" height="5" fill="#b6f5a2"/>
+              </g>
+            </g>
+            <rect x="46" y="16" width="566" height="222" fill="none" stroke="#2c3319" stroke-width="1"/>
+
+            <!-- time axis -->
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
+              <text x="40" y="53" text-anchor="end">0 s</text>
+              <text x="40" y="127" text-anchor="end">1 s</text>
+              <text x="40" y="201" text-anchor="end">2 s</text>
+            </g>
+            <g stroke="#d8d8d8" stroke-width="1">
+              <line x1="43" y1="49.5" x2="46" y2="49.5"/>
+              <line x1="43" y1="123.5" x2="46" y2="123.5"/>
+              <line x1="43" y1="197.5" x2="46" y2="197.5"/>
+            </g>
+
+            <!-- labels -->
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <line x1="165" y1="238" x2="165" y2="256" stroke="#c8a24a" stroke-width="1"/>
+              <text x="165" y="272" fill="#8a6c1f" text-anchor="middle">a conventional channel</text>
+              <text x="165" y="287" fill="#a8a08a" text-anchor="middle">always on the air</text>
+
+              <line x1="436" y1="238" x2="436" y2="256" stroke="#5f9c46" stroke-width="1"/>
+              <text x="436" y="272" fill="#2f4b19" text-anchor="middle" font-weight="700">s.Link</text>
+              <text x="436" y="287" fill="#a8a08a" text-anchor="middle">77 ms per second</text>
+            </g>
+          </svg>
+          <figcaption>
+            A spectrum waterfall, synthetic illustration. The bandwidth and
+            duty cycle are the datasheet ones: 26 kHz and 2.3%.
+          </figcaption>
+          </figure>
+        </div>
+
+        <div class="stack" style="margin-top:34px">
+          <div class="stack-card">
+            <span class="k">Radio</span>
+            <div class="v">872 MHz, GMSK BT=0.5, 25 000 sym/s. Occupied bandwidth 26 kHz.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Coding</span>
+            <div class="v">Convolutional code rate 1/2, K=7, soft-decision Viterbi, block interleaving.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Encryption</span>
+            <div class="v">ChaCha20-Poly1305 AEAD, 256-bit. A frame is accepted on authentication, not on a correlation metric.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Access</span>
+            <div class="v">TDMA on a 1 s period, synchronised to the peer — with no reliance on system time or GNSS.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="works">
+        <p class="section-label">What already works as a product</p>
+        <div class="rows">
+          <div class="row"><div class="h">The station</div><div class="b">A Raspberry Pi 5 — starts by itself, runs off a power bank, lives in the field.</div></div>
+          <div class="row"><div class="h">Real-time direction finding</div><div class="b">Five-channel coherent reception and MUSIC over a circular array: an azimuth on the source several times a second, with no demodulation of payload. The d/λ ratio is recomputed on every retune — otherwise the bearing would lie with a zero and never complain.</div></div>
+          <div class="row"><div class="h">12 scanners</div><div class="b">Each one knows what it is looking for in its own band: communications, radar, satellite channels, navigation jamming. Frequency labels come from a single atlas, not from the scanner's own code.</div></div>
+          <div class="row"><div class="h">s.Link</div><div class="b">Our own encrypted station-to-operator radio: bearings out, commands back.</div></div>
+          <div class="row"><div class="h">Signature vector analysis</div><div class="b">A feature vector — temporal, spectral, structural — is pulled from raw IQ and the emitter type is determined from it. The catalogue recognises a transmitter when it comes back. No demodulation of payload.</div></div>
+          <div class="row"><div class="h">Raw IQ capture</div><div class="b">Multichannel coherent samples are written to a standard format with provenance metadata — either short event-scoped snippets or a continuous frame archive. The analysis then happens on the ground, as many times as needed.</div></div>
+          <div class="row"><div class="h">Over-the-air updates</div><div class="b">Cryptographically signed: new frequency plans reach the stations by themselves; code does not.</div></div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="measured">
+        <p class="section-label">What is already measured — in the field, with a date</p>
+        <div style="overflow-x:auto">
+          <table class="proof-table">
+            <thead>
+              <tr><th>Measured</th><th>Value</th><th>When</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Bearing on an 868.000 CW beacon, spread</td><td class="num">0.2–1.5° over 90-second legs, 107 bearings</td><td class="ctx">22.08 · field</td></tr>
+              <tr><td>Source proven by frequency selectivity</td><td class="num">69.6 dB at 868.0 vs ~16 dB either side — a 53.1 dB drop</td><td class="ctx">22.08 · field</td></tr>
+              <tr><td>Beacon moved 0° → 30°</td><td class="num">the bearing moved +35.9° for a true +30°</td><td class="ctx">22.08 · field</td></tr>
+              <tr><td>Our own radio, end to end</td><td class="num">92/92 frames, SNR 26.0 dB</td><td class="ctx">15.08 · bench</td></tr>
+              <tr><td>Decode threshold on the air</td><td class="num">+2.27 dB</td><td class="ctx">15.08 · on air</td></tr>
+              <tr><td>Receiver sensitivity, gain</td><td class="num">+3.47 dB from a matched filter</td><td class="ctx">16.08 · measured</td></tr>
+              <tr><td>Transmitter speed, gain</td><td class="num">×10.2, the signal bit-identical</td><td class="ctx">17.08 · measured</td></tr>
+              <tr><td>s.Link, continuous session</td><td class="num">5 h 20 min, 4863 frames</td><td class="ctx">bench</td></tr>
+              <tr><td>s.Link, authentication failures</td><td class="num">0 of 4863</td><td class="ctx">bench</td></tr>
+              <tr><td>s.Link duty cycle, <strong>remote station</strong></td><td class="num">2.3% — 83 s of air per hour</td><td class="ctx">measured</td></tr>
+              <tr><td>s.Link duty cycle, <strong>operator</strong></td><td class="num">0% when idle</td><td class="ctx">code constant</td></tr>
+              <tr><td>640×480 video through the whole chain</td><td class="num">60 of 60 frames byte-exact</td><td class="ctx">22.08 · bench</td></tr>
+              <tr><td>Automated tests passing</td><td class="num">14 863 across 717 files, ~5.5 min</td><td class="ctx">23.08 · CI</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section wrap" id="pending">
+        <p class="section-label">Ready in code — waiting for the air</p>
+        <p class="body" style="margin-bottom:28px">
+          These are not plans or intentions: the code is written, the chain
+          closes on the bench, the tests are green. Exactly one thing is
+          missing — a run on the air.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">640×480 video channel</div>
+            <div class="b">The whole chain joined for the first time: H.265 → fragmenter → outer Reed-Solomon code → PHY → and back. 60 of 60 frames byte-exact, and ffmpeg played the result. The radio is not involved yet.</div>
+          </div>
+          <div class="row">
+            <div class="h">Operator-to-drone range from link timing</div>
+            <div class="b">Two MUSIC bearings give directions but not distance. A hostile TDD link gives it away for free: the airframe replies after a fixed turnaround, and the excess path length reads off our own clock — no GPS involved. The mathematics is closed by 47 tests. This is the difference between a strike profile and somebody flying over their own treeline.</div>
+          </div>
+          <div class="row">
+            <div class="h">Drone control over s.Link</div>
+            <div class="b">A compressed subset of MAVLink, ~72 bit/s in long-range mode. The code is written and tested, but has never been on the air.</div>
+          </div>
+          <div class="row">
+            <div class="h">s.Link4k — a rooted mesh for 4K video</div>
+            <div class="b">Video relaying without trusting the relay: it forwards the authenticated 1024-byte packet <strong>without parsing H.265 or decrypting it</strong>. Routes and slots are handed out by the ground sink, and flooding is forbidden by design — every duplicate would consume a full burst on every subsequent hop. Earlier than the other rows here: the wire format and capacity model are implemented off-air, with no live radio path yet. Next comes packet FEC, then the scheduler simulator.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="limits">
+        <p class="section-label">Where the limit is today — honestly</p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Absolute bearing error is not measured yet</div>
+            <div class="b">Spread and direction are proven against the beacon, but the true azimuths in those runs were set by hand, "roughly", and the array heading on the station is zero. If the ring is not mounted to north, every azimuth is offset by that same angle together, and no internal test would see it. We will state an error figure after a run with surveyed geometry, not before.</div>
+          </div>
+          <div class="row">
+            <div class="h">DF range has not been pushed to its limit</div>
+            <div class="b">At the furthest point tested the signal still had a large margin over noise — the measurement was bounded by the site, not by the system. We will state a range figure after a dedicated measurement, not from a link budget.</div>
+          </div>
+          <div class="row">
+            <div class="h">The ceiling today is the radio horizon, not the receiver</div>
+            <div class="b">When both station and source sit near the ground, the limit is set by the curvature of the Earth rather than front-end sensitivity. No amplifier fixes that — only altitude and position do.</div>
+          </div>
+          <div class="row">
+            <div class="h">s.Link range is not measured</div>
+            <div class="b">The calculation gives single kilometres at realistic antenna heights, but rests on an unmeasured output power. While it is a calculation we do not call it range — see below for why an amplifier is not the simple answer here.</div>
+          </div>
+          <div class="row">
+            <div class="h">The fast link mode does not fit the current FPGA</div>
+            <div class="b">12 456 of 17 600 logic cells and 72 of 80 DSP slices are in use — DSP is the pinch. It is cured by a different board, not by software; the part choice has been reopened.</div>
+          </div>
+          <div class="row">
+            <div class="h">Above 6 GHz — only with an external converter</div>
+            <div class="b">Undersampling does not save it: the RF front end is the limit, not the converter. Reaching 12 GHz takes a mixer with a preselector — separate hardware we do not have yet.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="airborne">
+        <p class="section-label">Where the limit moves next</p>
+        <h2>The station on an airborne carrier</h2>
+        <p class="body">
+          The same receiver, lifted to altitude, works in a different order of
+          ranges — because what changes is geometry, not sensitivity. For a
+          ground-level source the radio horizon follows straight from height:
+        </p>
+
+        <div class="stack" style="margin-bottom:30px">
+          <div class="stack-card">
+            <span class="k">50 m</span>
+            <div class="v">29.6 km of line of sight.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">100 m</span>
+            <div class="v">40.1 km — and this is the engineering sweet spot.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">150 m</span>
+            <div class="v">48.1 km with moderate demands on the platform.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">200 m</span>
+            <div class="v">54.9 km — going from 100 to 200 m buys only ~15 km while raising the demands on the carrier far more.</div>
+          </div>
+        </div>
+
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 300" role="img" aria-label="Radio horizon schematic: single kilometres from the ground, tens from 100 metres">
+            <path d="M0,281.4 L60,271.0 L120,262.6 L180,256.4 L240,252.3 L300,250.3 L330,250.0 L360,250.3 L420,252.3 L480,256.4 L540,262.6 L600,271.0 L660,281.4"
+                  fill="none" stroke="#c8c8c8" stroke-width="1.6"/>
+            <path d="M0,281.4 L60,271.0 L120,262.6 L180,256.4 L240,252.3 L300,250.3 L330,250.0 L360,250.3 L420,252.3 L480,256.4 L540,262.6 L600,271.0 L660,281.4 L660,300 L0,300 Z"
+                  fill="#f2f2f0"/>
+
+            <line x1="250" y1="251.8" x2="250" y2="132" stroke="#c8c8c8" stroke-width="1" stroke-dasharray="3 3"/>
+
+            <line x1="250" y1="251.8" x2="352" y2="250.1" stroke="#9a9a9a" stroke-width="1.6" stroke-dasharray="4 3"/>
+            <circle cx="250" cy="251.8" r="4" fill="#101010"/>
+            <circle cx="352" cy="250.1" r="3" fill="#9a9a9a"/>
+
+            <line x1="250" y1="132" x2="628" y2="275.6" stroke="#3e6b1f" stroke-width="1.8" stroke-dasharray="5 3"/>
+            <g transform="translate(250,132)">
+              <line x1="-13" y1="0" x2="13" y2="0" stroke="#2f4b19" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="0" cy="0" r="4.5" fill="#2f4b19"/>
+              <circle cx="-13" cy="-3" r="2.6" fill="#3e6b1f"/>
+              <circle cx="13" cy="-3" r="2.6" fill="#3e6b1f"/>
+            </g>
+            <circle cx="628" cy="275.6" r="4" fill="#3e6b1f"/>
+
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <text x="272" y="118" fill="#2f4b19" font-weight="700">100 m</text>
+              <text x="470" y="205" fill="#2f4b19" text-anchor="middle" font-weight="700">40 km</text>
+              <text x="301" y="240" fill="#8a8a8a" text-anchor="middle">single km</text>
+              <text x="250" y="272" fill="#6e6e6e" text-anchor="middle">station</text>
+            </g>
+            <text x="330" y="296" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#b4b4b4" text-anchor="middle">altitude exaggerated — schematic, not to scale</text>
+          </svg>
+        </figure>
+        <p class="body">
+          The other half of the problem is <strong>position</strong>. A
+          direction finder gains from closing on the line of contact exactly
+          as it gains from altitude: both move the same horizon. Together they
+          take the station from single kilometres into tens.
+        </p>
+
+        <div class="callout">
+          <div class="callout-h">What is already known about this path, and what it costs</div>
+          <p>
+            The figures above are <strong>geometric line of sight</strong>,
+            not a promised bearing range: a confident bearing is planned more
+            conservatively, at roughly half to two thirds of the lesser of the
+            two limits. An airborne carrier also brings problems of its own,
+            which we have already worked through rather than leaving to be
+            discovered in flight: a planar array gives no stable azimuth
+            directly beneath the carrier, one degree of attitude error costs
+            one degree of bearing error, the array centre has to be kept clear
+            of motors and power runs, and baseline runs must be taken
+            separately with the motors off and on.
+          </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="amps">
+        <p class="section-label">The amplifier study</p>
+        <h2>Why "just add a watt" does not add range</h2>
+        <p class="body">
+          The obvious answer to range is an amplifier. We costed it and
+          checked it, and it turned out to be mostly a trap. We publish it
+          because this is the part of engineering that shows whether someone
+          has actually worked with hardware.
+        </p>
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 236" role="img" aria-label="Range gain from added power: the exponent near the ground is 4, so 12 decibels only double the range">
+            <rect x="420" y="26" width="54" height="164" fill="#3e6b1f" fill-opacity="0.07"/>
+            <text x="447" y="20" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="middle">+20…+23 dBm</text>
+
+            <g stroke="#efefef" stroke-width="1">
+              <line x1="60" y1="150.2" x2="600" y2="150.2"/>
+              <line x1="60" y1="110" x2="600" y2="110"/>
+              <line x1="60" y1="70" x2="600" y2="70"/>
+            </g>
+            <line x1="60" y1="16" x2="60" y2="190" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="60" y1="190" x2="600" y2="190" stroke="#c8c8c8" stroke-width="1"/>
+
+            <path d="M60.0,190.0 L96.0,179.6 L132.0,166.6 L168.0,150.2 L204.0,129.5 L240.0,103.5 L276.0,70.8 L306.0,36.0" fill="none" stroke="#c8c8c8" stroke-width="1.8" stroke-dasharray="5 4"/>
+            <path d="M60.0,190.0 L96.0,185.1 L132.0,179.6 L168.0,173.5 L204.0,166.6 L240.0,158.9 L276.0,150.2 L312.0,140.5 L348.0,129.5 L384.0,117.3 L420.0,103.5 L456.0,88.1 L492.0,70.8 L528.0,51.3 L560.0,33.0" fill="none" stroke="#3e6b1f" stroke-width="2.4"/>
+
+            <circle cx="276" cy="150.2" r="4.5" fill="#2f4b19"/>
+            <circle cx="546" cy="40.7" r="4.5" fill="#2f4b19"/>
+
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <text x="286" y="146" fill="#2f4b19" font-weight="700">+12 dB → ×2</text>
+              <text x="540" y="36" fill="#2f4b19" text-anchor="end" font-weight="700">2 W → ×4.7</text>
+              <text x="316" y="52" fill="#a8a8a8">free space</text>
+              <text x="452" y="126" fill="#2f4b19">near the ground</text>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
+              <text x="60" y="206" text-anchor="middle">0</text>
+              <text x="330" y="206" text-anchor="middle">+15 dB</text>
+              <text x="600" y="206" text-anchor="end">+30 dB</text>
+              <text x="52" y="194" text-anchor="end">×1</text>
+              <text x="52" y="34" text-anchor="end">×5</text>
+              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">range gain from added power</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Near the ground the exponent is 4, not 2</div>
+            <div class="b">In the two-ray model range grows far more slowly than power: 2 W (+27 dBm) buys only <strong>×4.7</strong>, not ×22. Doubling the range costs 12 dB, not 6. The sweet spot is <strong>+20…+23 dBm, not watts</strong>.</div>
+          </div>
+          <div class="row">
+            <div class="h">An ungated amplifier deafens its own receiver</div>
+            <div class="b">It holds the noise floor up permanently, because the local oscillator cannot switch off between bursts. One metre of antenna separation costs <strong>−4.8 dB of our own sensitivity</strong>, half a metre <strong>−9.5 dB</strong>. A low-noise amplifier makes this <em>worse</em>, not better. The conclusion: the gate has to be switched together with the burst.</div>
+          </div>
+          <div class="row">
+            <div class="h">The real blocker is our own array</div>
+            <div class="b">A strong transmitter nearby drives the KrakenSDR into clipping, and distance does not save it. A beacon of a few milliwatts <strong>already</strong> does this. It needs the array blanked for the duration of the burst plus a limiter — without them every bearing frame is contaminated.</div>
+          </div>
+          <div class="row">
+            <div class="h">~9 dB sits there for free</div>
+            <div class="b">The transmitter's digital scale sits 12 dB below full. GMSK has a constant envelope and needs no such headroom — <strong>+8…+9 dB can be taken with no hardware at all</strong>. The flip side of the same fact: the "+6 dBm" budget line is probably overstated by those same 12 dB, so the range calculation may be optimistic by a factor of two. First measurement: power at the connector.</div>
+          </div>
+          <div class="row">
+            <div class="h">An LNA earns its place on feeder loss, not noise figure</div>
+            <div class="b">On noise figure alone it gives only ~3.6 dB. But it takes cable loss out of the budget, and that is what decides: a 10 m mast is worth +14 dB, while RG58 at 866 MHz eats 6 dB over ten metres and 26 dB over forty-four.</div>
+          </div>
+          <div class="row">
+            <div class="h">The asymmetry of roles is already in the code</div>
+            <div class="b">The operator console must be findable by nobody, so it sends only what the operator deliberately sent. Hence the split: the power amplifier goes <strong>on the station only</strong>, the low-noise one on the operator. A power amplifier on the operator side would be the worst of the four combinations.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="signatures">
+        <p class="section-label">Signature analysis</p>
+        <h2>Recognising an emitter without demodulating it</h2>
+        <p class="body">
+          We determine <strong>what kind of transmitter this is</strong> from
+          features of the signal — temporal, spectral, structural — rather
+          than from what it carries. This is a matter of principle: the system
+          stays receive-only and needs neither keys nor any right to the
+          payload. That is precisely why it can be placed where a system that
+          demodulates would not be allowed.
+        </p>
+
+        <h3 class="sub-h">Behaviour gives the family away, not modulation</h3>
+        <p class="body">
+          The task is not "recognise ELRS" but to detect <strong>the whole
+          family</strong> — including variants whose channels and parameters
+          we do not yet know: mLRS forks, MILELRS, Kuznechik, closed
+          Crossfire. So we catch it by the invariants that physics and the
+          chipset dictate, not by a list of known signatures.
+        </p>
+        <div class="rows">
+          <div class="row"><div class="h">Bandwidth of a single burst</div><div class="b">0.5-1.6 MHz — the LoRa series are fixed, FLRC is about 1.3 MHz.</div></div>
+          <div class="row"><div class="h">Hop rate</div><div class="b">Equal to the packet rate, 25-1000 Hz: one hop per frame is the family rule.</div></div>
+          <div class="row"><div class="h">Periodicity</div><div class="b">Strictly regular. This is control, not data — the interval is constant.</div></div>
+          <div class="row"><div class="h">Duplex asymmetry</div><div class="b">Bursts downlink, short telemetry uplink — by design.</div></div>
+          <div class="row"><div class="h">Channel occupancy</div><div class="b">Sparse, a few per cent of the time on channel. That is what separates it from Wi-Fi and LTE.</div></div>
+        </div>
+
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 236" role="img" aria-label="Control bursts hopping across a channel grid at a constant interval">
+            <line x1="56" y1="30.5" x2="616" y2="30.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="50.5" x2="616" y2="50.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="70.5" x2="616" y2="70.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="90.5" x2="616" y2="90.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="110.5" x2="616" y2="110.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="130.5" x2="616" y2="130.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="150.5" x2="616" y2="150.5" stroke="#efefef" stroke-width="1"/><line x1="56" y1="170.5" x2="616" y2="170.5" stroke="#efefef" stroke-width="1"/>
+            <line x1="56" y1="16" x2="56" y2="196" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="56" y1="196" x2="616" y2="196" stroke="#c8c8c8" stroke-width="1"/>
+            <rect x="64" y="86" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="104" y="146" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="144" y="46" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="184" y="166" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="224" y="106" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="264" y="26" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="304" y="146" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="344" y="66" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="384" y="166" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="424" y="86" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="464" y="126" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="504" y="46" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="544" y="146" width="9" height="9" rx="1.5" fill="#3e6b1f"/><rect x="584" y="106" width="9" height="9" rx="1.5" fill="#3e6b1f"/>
+            <g stroke="#9a9a9a" stroke-width="1">
+              <line x1="64" y1="206" x2="104" y2="206"/>
+              <line x1="64" y1="202" x2="64" y2="210"/>
+              <line x1="104" y1="202" x2="104" y2="210"/>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8a8a8a">
+              <text x="110" y="210">constant interval — one hop per frame</text>
+              <text x="48" y="106" text-anchor="end" transform="rotate(-90 48 106)">channel grid</text>
+              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">family behaviour, schematic — not a recording</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="callout">
+          <div class="callout-h">We retracted one edition of this table ourselves</div>
+          <p>
+            The invariants first read "chirp or FLRC, not OFDM". For ELRS and
+            mLRS that is true — and as a <em>family</em> trait it is wrong: it
+            cuts out FrSky ACCST/ACCESS, Flysky AFHDS, Futaba FASST, Spektrum
+            DSMX and SiK/RFD900 telemetry. All of them are FHSS with the same
+            burst-level behaviour but on GFSK or DSSS — a detector built on
+            chirp <strong>would have missed half the popular fleet</strong>.
+          </p>
+          <p class="callout-punch">
+            The family invariant is behaviour, not modulation. Modulation
+            distinguishes a branch within the family, not the family itself.
+          </p>
+        </div>
+
+        <h3 class="sub-h">Modern standards — by preamble structure</h3>
+        <p class="body">
+          A separate detector tells modern standard families apart with three
+          correlators — DVB-T2 P1, 5G NR PSS (three m-sequences per 3GPP TS
+          38.211) and Wi-Fi. The output is a family, a confidence and a score
+          per correlator. There is no demodulation here either.
+        </p>
+
+        <h3 class="sub-h">What we measure with</h3>
+        <p class="body">
+          An instantaneous bandwidth of 56 MHz and a 65 536-point transform
+          give a resolution of <strong>854 Hz</strong>. The entire hop set
+          fits inside the instantaneous band, so we <strong>measure the
+          channel grid step rather than guessing it</strong>: this resolution
+          divides a 525 kHz grid into 615 cells.
+        </p>
+        <p class="body">
+          An honest limitation: this works <strong>in park mode</strong>. In
+          survey mode the dwell is shorter than the hop period — a sweep
+          against FHSS is doomed, and we do not rely on it.
+        </p>
+      </section>
+
+      <section class="section wrap" id="cta">
+        <div class="cta-block">
+          <p class="body" style="margin:0">
+            We can show the station working in person. The full technical
+            wiki and the protocol specification are in the data room.
+          </p>
+          <div class="cta-actions">
+            <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+            <a class="btn-ghost" href="/en/investors/">Data room</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>© 2026 ELINTIR LLC</span>
+      <span>Data as of 23.08.2026</span>
+    </footer>
+  </body>
+</html>
