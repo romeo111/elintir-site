@@ -81,7 +81,7 @@
         text-decoration: none;
       }
 
-      .brand-mark { width: 36px; height: 36px; display: block; flex: none; }
+      .brand-mark { width: 37px; height: 35.3px; display: block; flex: none; }
 
       .brand-text { display: flex; flex-direction: column; line-height: 1; }
 
@@ -223,6 +223,16 @@
         color: var(--faint);
       }
 
+      .figwide { margin: 26px 0 30px; }
+      .figwide svg { width: 100%; max-width: 660px; height: auto; display: block; }
+      .figwide figcaption {
+        max-width: 62ch;
+        margin-top: 12px;
+        color: var(--faint);
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
       /* ---------- rows ---------- */
 
       .rows { display: grid; gap: 0; }
@@ -274,7 +284,7 @@
       @media (max-width: 560px) {
         .topbar { flex-wrap: wrap; gap: 14px 18px; }
         .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
-        .brand-mark { width: 30px; height: 30px; }
+        .brand-mark { width: 31px; height: 29.6px; }
         .brand-name { font-size: 18px; }
         .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
         .topbar nav a.hide-sm { display: none; }
@@ -284,7 +294,7 @@
   <body>
     <header class="topbar wrap">
       <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, home">
-        <svg class="brand-mark" viewBox="0 0 512 512" role="img" aria-hidden="true">
+        <svg class="brand-mark" viewBox="61.3 61 389.4 371.7" role="img" aria-hidden="true">
           <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
           <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
           <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
@@ -331,8 +341,8 @@
             interest — round, partnership, procurement. It speeds up the
             reply.
           </p>
-          <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20data%20room%20access">
-            Request access at info@elintir.com
+          <a class="btn" data-topic="Investment" href="mailto:info@elintir.com?subject=ELINTIR%20data%20room%20access">
+            Request access
           </a>
           <p class="note">
             An automated single-use code and self-service entry to the data
@@ -389,6 +399,38 @@
           altitude and position move the radio horizon from single kilometres
           into tens. So the round has to cover more than components.
         </p>
+        <figure class="figwide">
+          <svg viewBox="0 0 660 300" role="img" aria-label="Radio horizon diagram: from the ground, single kilometres; from 100 metres, tens">
+            <path d="M0,281.4 L60,271.0 L120,262.6 L180,256.4 L240,252.3 L300,250.3 L330,250.0 L360,250.3 L420,252.3 L480,256.4 L540,262.6 L600,271.0 L660,281.4"
+                  fill="none" stroke="#c8c8c8" stroke-width="1.6"/>
+            <path d="M0,281.4 L60,271.0 L120,262.6 L180,256.4 L240,252.3 L300,250.3 L330,250.0 L360,250.3 L420,252.3 L480,256.4 L540,262.6 L600,271.0 L660,281.4 L660,300 L0,300 Z"
+                  fill="#f2f2f0"/>
+
+            <line x1="250" y1="251.8" x2="250" y2="132" stroke="#c8c8c8" stroke-width="1" stroke-dasharray="3 3"/>
+
+            <line x1="250" y1="251.8" x2="352" y2="250.1" stroke="#9a9a9a" stroke-width="1.6" stroke-dasharray="4 3"/>
+            <circle cx="250" cy="251.8" r="4" fill="#101010"/>
+            <circle cx="352" cy="250.1" r="3" fill="#9a9a9a"/>
+
+            <line x1="250" y1="132" x2="628" y2="275.6" stroke="#3e6b1f" stroke-width="1.8" stroke-dasharray="5 3"/>
+            <g transform="translate(250,132)">
+              <line x1="-13" y1="0" x2="13" y2="0" stroke="#2f4b19" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="0" cy="0" r="4.5" fill="#2f4b19"/>
+              <circle cx="-13" cy="-3" r="2.6" fill="#3e6b1f"/>
+              <circle cx="13" cy="-3" r="2.6" fill="#3e6b1f"/>
+            </g>
+            <circle cx="628" cy="275.6" r="4" fill="#3e6b1f"/>
+
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <text x="272" y="118" fill="#2f4b19" font-weight="700">100 m</text>
+              <text x="470" y="205" fill="#2f4b19" text-anchor="middle" font-weight="700">40 km</text>
+              <text x="301" y="240" fill="#8a8a8a" text-anchor="middle">single km</text>
+              <text x="250" y="272" fill="#6e6e6e" text-anchor="middle">station</text>
+            </g>
+            <text x="330" y="296" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#b4b4b4" text-anchor="middle">height exaggerated — a diagram, not to scale</text>
+          </svg>
+          <figcaption>The same geometry as on the Hardware page: from the ground the horizon is single kilometres, from 100 metres it is tens. This is line of sight, not a promised DF range; only flight tests turn one into the other — which is what the round is for.</figcaption>
+        </figure>
         <div class="rows">
           <div class="row"><div class="h">Boards and instruments</div><div class="b">The RFSoC chain, analysers and a generator — without them a measurement stays a claim.</div></div>
           <div class="row"><div class="h">Airborne carriers</div><div class="b">Platforms built for the array: clearance from motors and power runs, fibreglass near the phase elements, attitude synchronised from the flight controller.</div></div>
@@ -424,5 +466,6 @@
       <span>© 2026 ELINTIR LLC</span>
       <span>Data room access under NDA</span>
     </footer>
+    <script src="/assets/contact.js" defer></script>
   </body>
 </html>
