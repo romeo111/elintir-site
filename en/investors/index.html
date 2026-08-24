@@ -446,13 +446,40 @@
         </p>
       </section>
 
+      <section class="section wrap" id="radar">
+        <p class="section-label">Where this grows</p>
+        <h2>Radar — a direction that already has code in it</h2>
+        <p class="body">
+          The station is passive today, and its whole position — from staying
+          unseen to its export category — is built on exactly that. Radar
+          changes that position, which makes it a deliberate decision rather
+          than a default. But it is the direction where the market value may
+          turn out to be larger than everything above — and we would not be
+          starting it from nothing.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Passive radar: the code is written, the physics checked</div>
+            <div class="b">A mode that uses someone else's illumination — a DVB-T2 tower instead of a transmitter of our own. Wiener clutter cancellation and the cross-ambiguity function are written and covered by tests; coherent IQ capture off a live station works. What blocks it is measured too: an omnidirectional array is no good as the reference — the direct path drowns among the elements, and no amount of processing substitutes for it. A directional antenna on the reference channel is required. The strongest illuminator at our site is 698 MHz, direct path +21 dB.</div>
+          </div>
+          <div class="row">
+            <div class="h">Active radar: the same three skills</div>
+            <div class="b">An active mode is waveform generation, coherent multichannel reception and correlation. We already do all three: we write our own physical layer for s.Link, we hold five coherent channels for direction finding, and the correlation maths exists for passive radar. What is missing is not the skill but the decision to radiate, and hardware for the power.</div>
+          </div>
+          <div class="row">
+            <div class="h">What it changes, and why it is the owner's call</div>
+            <div class="b">Radiating makes the station visible and moves the product into a different regulatory category. That runs directly against what makes it valuable today, so radar is not a replacement for the passive station but a second product off the same shelf of skills. We name it as an R&amp;D direction, and not as something that already works.</div>
+          </div>
+        </div>
+      </section>
+
       <section class="section wrap" id="inside">
         <p class="section-label">What is inside</p>
         <ul class="inside">
           <li><strong>The pitch deck</strong> — angel round, three directions, the team, the ask and the deal structure.</li>
           <li><strong>Measured characteristics</strong> — with conditions, a script to reproduce them and the spread stated, including what did not hold up.</li>
           <li><strong>The s.Link protocol specification</strong> — physical and link layers, encryption, throughput.</li>
-          <li><strong>The technical wiki</strong> — 156 articles linking to code and raw data.</li>
+          <li><strong>The research archive</strong> — 103 documented measurement results and 152 worked-through plans, linking to code and raw data.</li>
           <li><strong>A code provenance audit</strong> — what is licensed and what was written from scratch.</li>
         </ul>
       </section>
