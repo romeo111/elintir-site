@@ -132,11 +132,10 @@
 
       .topbar nav a:hover { color: var(--ink); }
       .topbar nav a.current {
-        box-shadow: inset 0 -2px 0 0 var(--brand-green);
+        color: var(--ink);
+        font-weight: 700;
+        box-shadow: inset 0 -3px 0 0 var(--brand-green);
       }
-      .topbar nav a.current:not(.cta) { color: var(--ink); }
-      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
-      .topbar nav a.cta:hover { color: var(--brand-green); }
 
       /* ---------- hero ---------- */
 
@@ -380,6 +379,24 @@
         .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
         .topbar nav a.hide-sm { display: none; }
       }
+
+      /* demo button in the header */
+      .topbar nav { align-items: baseline; }
+      .topbar nav a.demo {
+        color: #fff;
+        background: var(--brand-green-deep);
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 4px;
+      }
+      .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
+
+      /* ---------- контакти ---------- */
+      .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px 36px; }
+      .contact .key { font-family: var(--display); display: block; margin-bottom: 8px; color: var(--faint); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+      .contact .val { font-size: 18px; text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+      .contact span.val { border-bottom: 0; color: var(--muted); font-size: 16px; line-height: 1.45; display: block; }
+      .contact a.val:hover { color: var(--muted); border-bottom-color: var(--muted); }
     </style>
   </head>
   <body>
@@ -397,11 +414,12 @@
       </a>
       <nav aria-label="Main navigation">
         <a class="hide-sm" href="/en/#directions">What we do</a>
+        <a href="/en/hardware/">Products</a>
+        <a href="/en/slink/">s.Link</a>
+        <a href="/en/investors/">Investors</a>
         <a class="current" href="/en/company/" aria-current="page">Company</a>
-        <a href="/en/hardware/">Hardware</a>
-        <a href="/en/#contacts">Contacts</a>
-        <a class="cta" href="/en/investors/">Investors</a>
-              <a class="lang" href="/company/" hreflang="uk" lang="uk">UA</a>
+        <a class="demo" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+        <a class="lang" href="/company/" hreflang="uk" lang="uk">UA</a>
       </nav>
     </header>
 
@@ -520,6 +538,24 @@
             converter configuration with, nothing to build a bitstream with.
             The boards themselves come from China and need no permission.
           </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="contacts">
+        <p class="section-label">Contacts</p>
+        <div class="contacts">
+          <div class="contact">
+            <span class="key">Mail</span>
+            <a class="val" href="mailto:info@elintir.com">info@elintir.com</a>
+          </div>
+          <div class="contact">
+            <span class="key">Company</span>
+            <span class="val">ELINTIR LLC<br>Kyiv, Ukraine</span>
+          </div>
+          <div class="contact">
+            <span class="key">Investors</span>
+            <a class="val" href="/en/investors/">elintir.com/en/investors</a>
+          </div>
         </div>
       </section>
 

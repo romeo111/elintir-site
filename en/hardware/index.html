@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hardware — ELINTIR LLC</title>
+    <title>Products — ELINTIR LLC</title>
     <meta
       name="description"
       content="The ELINTIR passive SIGINT station: a five-channel coherent array, MUSIC direction finding, and the s.Link radio. It listens to the spectrum and jams nothing."
     >
     <meta name="theme-color" content="#ffffff">
-    <meta property="og:title" content="Hardware — ELINTIR LLC">
+    <meta property="og:title" content="Products — ELINTIR LLC">
     <meta property="og:description" content="A passive SIGINT station and the s.Link radio: specifications, measured characteristics, and an honest list of limits.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
@@ -136,11 +136,10 @@
 
       .topbar nav a:hover { color: var(--ink); }
       .topbar nav a.current {
-        box-shadow: inset 0 -2px 0 0 var(--brand-green);
+        color: var(--ink);
+        font-weight: 700;
+        box-shadow: inset 0 -3px 0 0 var(--brand-green);
       }
-      .topbar nav a.current:not(.cta) { color: var(--ink); }
-      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
-      .topbar nav a.cta:hover { color: var(--brand-green); }
 
       /* ---------- hero ---------- */
 
@@ -645,6 +644,17 @@
         .stack { grid-template-columns: 1fr; }
         .proof-table { display: block; overflow-x: auto; }
       }
+
+      /* demo button in the header */
+      .topbar nav { align-items: baseline; }
+      .topbar nav a.demo {
+        color: #fff;
+        background: var(--brand-green-deep);
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 4px;
+      }
+      .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
     </style>
   </head>
   <body>
@@ -662,157 +672,21 @@
       </a>
       <nav aria-label="Main navigation">
         <a class="hide-sm" href="/en/#directions">What we do</a>
+        <a class="current" href="/en/hardware/" aria-current="page">Products</a>
+        <a href="/en/slink/">s.Link</a>
+        <a href="/en/investors/">Investors</a>
         <a href="/en/company/">Company</a>
-        <a class="current" href="/en/hardware/" aria-current="page">Hardware</a>
-        <a href="/en/#contacts">Contacts</a>
-        <a class="cta" href="/en/investors/">Investors</a>
-              <a class="lang" href="/hardware/" hreflang="uk" lang="uk">UA</a>
+        <a class="demo" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+        <a class="lang" href="/hardware/" hreflang="uk" lang="uk">UA</a>
       </nav>
     </header>
 
     <main>
       <section class="hero wrap">
-        <div class="hero-grid">
-          <div>
-            <h1>Passive SIGINT station</h1>
-          </div>
-          <div class="hero-fig">
-      <svg class="track-map" viewBox="0 0 440 380" role="img" aria-label="Passive tracking: a drone at 0.5 km and a vehicle at 1 km are moving, a radar at 2 km stands still; bearings update twice a second">
-        <defs>
-          <radialGradient id="elnt-fade" cx="50%" cy="50%" r="54%">
-            <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
-            <stop offset="60%" stop-color="#fff" stop-opacity="1"/>
-            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-          </radialGradient>
-          <mask id="elnt-fademask"><rect width="440" height="380" fill="url(#elnt-fade)"/></mask>
-        </defs>
-
-        <g class="contours" mask="url(#elnt-fademask)">
-          <path class="c c0" d="M141 184C146 183 153 183 158 184C163 185 167 189 171 192C174 195 177 199 178 204C179 209 179 219 178 224C176 229 173 233 170 236C167 239 164 242 160 245C156 247 150 250 145 252C140 254 134 254 128 254C122 253 116 251 112 249C108 247 105 245 103 240C101 235 101 226 101 220C102 214 105 210 108 206C111 202 114 199 118 196C122 193 126 190 130 188C134 186 137 185 141 184Z"/>
-          <path class="c c0" d="M0 297C1 299 5 307 7 312C8 317 9 322 10 328C11 334 12 341 12 348C12 355 11 363 10 368C10 373 8 378 8 380"/>
-          <path class="c c1" d="M144 164C148 164 159 161 164 162C169 162 173 165 177 168C181 171 185 176 188 179C191 183 193 186 196 189C199 193 202 197 204 201C206 206 210 211 210 216C210 221 207 226 204 230C201 234 198 237 194 240C191 243 188 246 184 249C180 251 176 255 172 257C168 260 163 262 158 264C154 266 149 267 143 268C137 269 130 269 124 268C118 267 113 266 108 264C103 263 100 261 96 258C92 256 89 252 87 248C85 244 84 238 84 232C84 227 86 220 88 215C90 210 93 204 96 200C99 196 101 194 104 190C107 187 112 183 116 180C120 177 124 175 128 172C133 169 141 165 144 164C147 163 141 164 144 164Z"/>
-          <path class="c c1" d="M365 172C371 171 378 171 384 171C390 171 395 171 400 172C405 173 413 175 416 178C419 181 422 186 420 189C418 193 409 197 404 199C399 202 393 202 388 204C383 205 377 207 372 208C368 209 365 210 360 212C355 214 349 218 344 221C339 223 336 226 332 229C328 232 325 235 320 238C315 240 310 244 304 245C298 246 290 245 285 244C280 243 275 240 272 237C269 234 265 228 266 224C267 220 274 215 278 212C282 209 288 207 292 204C296 202 299 201 304 198C309 196 315 193 320 190C325 188 327 186 332 184C337 182 345 178 350 176C356 174 360 173 365 172Z"/>
-          <path class="c c1" d="M0 268C1 269 5 273 8 276C11 279 14 283 17 288C19 293 21 299 23 304C25 309 25 315 26 320C27 325 27 330 28 336C29 342 30 350 31 356C31 362 32 368 33 372C33 376 34 379 34 380"/>
-          <path class="c c2" d="M440 222C437 222 427 222 420 222C413 222 406 222 400 222C394 222 389 223 384 224C378 225 373 226 368 228C363 230 357 233 353 236C348 239 345 241 341 244C338 247 335 249 331 252C328 255 325 258 320 261C315 263 310 266 304 267C298 267 290 266 284 265C278 263 275 262 270 260C266 258 261 256 256 255C251 253 246 251 240 250C234 249 226 249 220 250C214 251 210 254 205 256C200 258 196 261 192 263C188 265 185 268 180 270C175 273 169 276 164 277C159 279 154 280 148 281C142 281 134 281 128 281C122 280 117 280 112 279C107 278 101 276 96 275C91 273 84 271 80 268C76 266 73 264 71 260C68 256 67 249 67 244C67 239 69 233 70 228C72 223 74 217 76 212C78 207 81 202 84 197C87 193 89 190 92 187C95 183 99 179 103 176C106 173 109 171 113 168C116 165 120 162 124 160C128 157 131 154 136 151C141 148 147 143 152 141C157 139 163 137 168 138C173 140 179 145 183 148C187 151 189 154 192 158C195 162 200 168 203 172C207 176 209 178 212 181C215 185 220 189 224 191C228 194 231 196 236 197C241 198 250 198 256 198C262 198 267 196 272 194C277 193 283 190 288 188C293 186 296 185 300 183C304 181 308 178 312 176C317 174 323 170 327 168C332 166 335 164 340 162C345 160 351 158 356 157C361 155 367 154 372 154C377 153 382 152 388 152C394 151 402 150 408 149C414 148 419 147 424 145C429 143 433 139 436 137C439 134 439 132 440 131"/>
-          <path class="c c2" d="M0 248C2 250 8 254 12 257C16 260 20 263 24 266C28 270 31 272 33 276C36 280 37 286 39 292C40 298 40 306 40 312C40 318 40 322 41 328C41 334 42 342 43 348C44 354 45 359 46 364C48 369 50 377 51 380"/>
-          <path class="c c2" d="M204 380C206 379 211 375 216 374C221 373 229 372 236 372C243 372 250 373 256 374C262 375 266 375 272 376C278 377 287 378 292 379C297 379 301 380 303 380"/>
-          <path class="c c3" d="M279 0C277 2 272 8 268 11C264 14 261 16 256 17C251 18 242 18 236 17C230 17 225 15 220 13C215 12 209 10 204 8C199 7 193 5 188 5C183 4 177 3 172 3C167 3 161 4 156 5C151 6 145 9 140 10C135 12 130 14 124 15C118 16 111 15 104 14C97 14 91 12 84 11C77 11 71 10 64 10C57 10 50 10 44 11C38 12 33 14 28 16C23 18 20 21 16 24C12 27 10 31 7 36C4 41 2 49 1 52C-1 55 0 54 0 54"/>
-          <path class="c c3" d="M0 230C2 231 8 236 12 238C16 241 21 243 26 244C30 245 36 246 40 244C44 242 49 236 52 232C56 228 58 222 60 218C62 213 65 208 67 204C69 200 71 196 74 192C77 188 80 183 83 180C86 177 89 174 92 171C95 168 100 164 104 161C108 158 111 155 115 152C119 149 124 144 128 140C132 136 136 132 139 128C143 124 144 121 148 118C152 115 159 110 164 110C169 110 176 115 180 118C184 121 186 124 189 128C192 132 197 140 200 144C203 149 205 152 208 156C211 160 215 164 219 168C223 172 227 175 232 177C237 180 242 182 248 182C254 183 262 182 268 181C274 180 279 178 284 176C289 175 292 173 296 171C300 169 305 166 310 164C314 162 320 158 324 156C328 154 331 152 336 151C341 149 347 147 352 145C357 144 363 143 368 142C373 141 379 140 384 139C389 138 395 137 400 136C405 134 412 132 416 129C420 127 423 124 426 120C429 116 431 113 433 108C435 103 436 98 437 92C438 86 438 79 438 72C438 65 438 58 437 52C437 46 436 41 435 36C434 31 433 25 432 20C430 15 427 7 426 4C425 1 425 1 424 0"/>
-          <path class="c c3" d="M440 244C438 243 432 241 427 240C422 239 415 237 408 237C401 236 395 236 388 237C381 238 373 241 368 243C363 245 360 247 356 250C352 253 348 257 345 260C341 263 339 266 336 269C333 272 329 277 325 280C321 283 317 286 312 287C307 288 298 286 292 284C286 283 281 280 276 278C271 276 265 274 260 272C255 271 249 269 244 268C239 268 233 267 228 268C223 268 217 270 212 272C207 273 204 275 200 277C196 279 193 282 188 284C183 287 177 290 172 292C167 293 162 294 156 294C150 295 142 294 136 293C130 293 126 292 120 292C114 291 106 290 100 289C94 288 89 288 84 288C79 288 72 289 68 291C64 293 62 296 59 300C57 304 56 310 55 316C54 322 54 330 54 336C55 342 55 347 56 352C58 357 59 363 61 368C62 373 65 378 66 380"/>
-          <path class="c c3" d="M182 380C184 378 188 372 192 368C196 365 199 362 204 360C209 359 214 358 220 358C226 357 234 359 240 359C246 360 250 360 256 361C262 361 270 361 276 361C282 361 287 360 292 359C297 358 303 356 308 355C313 354 319 351 324 351C329 351 335 353 340 355C345 356 348 358 352 360C356 363 361 366 366 368C371 370 375 372 380 374C385 376 393 379 396 379C399 380 398 380 398 380"/>
-          <path class="c c4" d="M294 0C293 2 288 9 284 13C280 17 277 21 273 24C269 27 265 30 260 31C255 33 249 33 244 33C239 33 233 31 228 30C223 28 217 26 212 25C207 23 202 21 196 21C190 20 182 20 176 22C170 23 167 25 163 28C159 31 156 36 152 39C148 42 145 47 140 48C135 48 129 45 124 43C119 41 114 38 110 36C105 34 101 32 96 30C91 28 85 27 80 25C75 24 70 23 64 23C58 23 52 23 47 24C41 25 36 27 32 29C28 32 23 36 20 39C17 43 15 47 13 52C11 57 9 63 8 68C7 73 6 78 6 84C5 90 5 97 5 104C4 111 4 118 4 124C4 130 3 136 2 140C1 144 0 147 0 148"/>
-          <path class="c c4" d="M0 205C2 207 6 213 10 216C14 219 19 222 24 223C29 223 36 220 40 218C44 215 46 212 49 208C51 204 54 200 56 196C59 192 61 188 64 184C67 180 71 175 75 172C78 169 80 167 84 164C88 160 94 155 98 152C102 149 105 147 108 144C111 140 116 136 119 132C122 128 125 124 127 120C130 116 131 113 133 108C136 103 138 97 140 92C142 87 142 83 145 80C148 77 156 74 160 75C164 75 168 79 172 82C176 85 180 89 184 92C187 95 189 98 192 102C195 106 198 111 200 115C202 120 204 124 207 128C209 132 210 136 213 140C216 144 220 150 224 154C228 158 232 162 236 164C240 166 243 168 248 169C253 169 262 170 268 169C274 168 279 166 284 164C289 163 292 161 296 159C300 157 304 154 308 152C313 150 319 146 324 144C328 142 331 140 336 139C341 137 347 135 352 134C357 133 363 132 368 131C373 130 379 129 384 127C389 126 395 124 400 122C405 120 409 118 412 115C415 112 418 108 421 104C423 100 425 93 426 88C428 83 428 77 428 72C429 67 428 62 428 56C427 50 426 42 425 36C423 30 422 26 420 21C418 16 416 12 414 8C412 4 410 1 409 0"/>
-          <path class="c c4" d="M440 264C438 262 432 258 427 256C422 254 418 252 412 251C406 250 398 250 392 250C386 251 381 252 376 254C371 256 368 258 364 261C360 264 356 268 353 272C350 276 347 280 345 284C343 288 341 292 340 297C339 303 339 310 340 315C341 320 344 324 347 328C350 332 353 335 356 338C359 341 364 345 368 348C372 351 376 354 380 356C384 358 387 360 392 362C397 364 402 366 408 366C414 367 423 367 428 367C433 366 438 363 440 363"/>
-          <path class="c c4" d="M165 380C166 378 170 371 172 367C174 362 177 356 180 352C182 348 184 343 188 341C192 338 199 337 204 337C209 336 215 339 221 340C227 341 233 343 240 344C247 345 254 346 260 345C266 345 271 344 276 342C281 341 285 339 288 335C291 331 294 325 294 320C294 315 291 311 288 307C285 303 280 300 276 297C272 294 269 293 264 291C259 289 254 286 248 286C242 285 234 284 228 286C222 287 217 290 212 292C207 295 204 298 200 302C196 305 193 309 188 312C183 314 178 315 172 314C166 314 158 311 152 310C146 309 141 308 136 307C131 306 126 304 120 304C114 303 106 302 100 302C94 303 89 303 84 305C79 307 75 311 72 316C69 320 68 327 68 332C67 337 67 343 68 348C69 353 71 359 73 364C75 369 79 376 80 378C81 381 81 380 81 380"/>
-          <path class="c c5" d="M309 0C307 2 303 7 300 11C297 14 295 18 292 22C289 26 284 32 280 36C276 40 273 43 268 45C263 47 258 49 252 50C246 51 238 50 232 49C226 48 222 46 216 45C210 44 201 42 197 44C193 46 190 51 190 56C189 61 194 66 196 71C198 76 201 80 203 84C206 88 207 91 209 96C211 101 214 107 215 112C217 117 218 120 220 124C222 128 225 134 228 138C231 142 233 145 237 148C241 151 247 154 252 155C257 157 263 157 268 156C273 155 279 154 284 152C289 150 295 146 299 144C304 142 308 139 312 137C316 135 319 133 324 131C329 130 335 127 340 126C345 125 351 124 356 122C361 121 366 121 372 119C378 118 387 115 392 113C397 111 401 108 404 105C407 102 410 99 412 95C414 91 416 86 417 80C418 74 419 66 419 60C418 54 417 47 416 42C415 37 414 33 412 28C410 23 406 17 403 12C400 7 395 2 393 0"/>
-          <path class="c c5" d="M56 36C58 36 63 36 68 36C73 37 79 39 84 41C89 43 94 45 98 48C102 51 105 53 108 56C111 59 115 63 117 68C119 73 121 79 121 84C122 89 121 95 120 101C119 106 117 111 115 116C112 121 110 124 107 128C104 132 100 136 96 139C92 143 88 145 85 148C81 151 77 153 73 156C69 159 65 161 61 164C57 167 54 169 51 172C47 175 44 180 40 182C36 185 31 189 28 188C25 187 22 181 21 176C20 171 22 163 22 156C22 149 21 142 21 136C20 130 20 126 19 120C18 114 17 107 17 100C17 93 17 86 18 80C18 74 19 69 21 64C23 59 25 54 28 51C31 47 35 43 40 40C45 38 53 37 56 36C58 35 54 36 56 36Z"/>
-          <path class="c c5" d="M440 288C438 286 434 279 430 276C427 273 422 270 418 268C413 266 408 264 403 264C398 264 393 264 388 265C383 266 378 269 374 272C370 275 366 280 364 284C362 288 360 293 360 298C360 302 360 308 362 312C363 316 365 321 368 325C371 329 375 333 379 336C382 339 386 342 390 344C394 346 398 349 404 350C410 351 419 351 424 350C429 349 434 346 436 344C439 342 439 341 440 340"/>
-          <path class="c c5" d="M144 380C145 378 150 373 152 368C154 363 156 357 156 352C156 347 155 340 153 336C151 332 148 330 144 327C140 325 134 322 128 320C123 318 117 317 112 317C107 317 100 318 95 320C91 322 86 327 84 332C82 337 82 343 83 348C84 353 86 359 88 364C90 369 94 373 96 376C98 378 100 379 101 380"/>
-          <path class="c c6" d="M326 0C325 1 319 5 316 9C313 12 310 16 307 20C304 24 302 28 299 32C297 36 295 40 292 44C289 48 285 53 281 56C278 59 275 62 271 64C267 66 261 69 256 71C251 73 246 73 242 76C238 79 234 84 233 88C231 92 231 96 232 101C233 106 234 113 236 118C238 123 241 128 244 132C247 135 251 138 256 139C261 141 267 141 272 140C277 140 280 138 285 136C290 134 295 131 300 128C305 126 307 124 312 122C317 120 323 118 328 117C333 115 339 115 344 114C349 113 355 112 360 111C365 110 371 109 376 107C381 105 387 103 392 99C397 96 401 90 404 85C407 80 407 77 408 72C409 66 409 58 408 52C407 46 406 41 404 36C403 31 401 28 399 24C396 20 392 14 388 10C384 6 378 3 376 1C374 -1 375 0 374 0"/>
-          <path class="c c6" d="M52 51C49 53 43 55 40 59C37 62 34 67 32 72C30 77 30 82 30 88C30 94 31 102 32 108C33 114 34 118 36 122C38 127 41 132 44 136C47 139 51 141 56 141C61 142 67 141 72 139C77 136 84 132 88 129C92 126 94 124 97 120C99 116 102 111 104 106C106 101 107 94 106 88C105 82 103 76 100 71C97 67 94 63 90 60C86 57 81 54 76 52C71 51 64 50 60 50C56 50 55 50 52 51Z"/>
-          <path class="c c6" d="M392 284C395 284 403 282 408 283C413 284 417 287 420 291C423 294 426 300 428 304C429 308 429 313 428 317C427 321 425 327 420 329C415 331 405 330 400 329C395 327 392 324 388 320C385 316 381 309 381 304C380 299 384 291 386 288C388 285 391 285 392 284C393 283 389 284 392 284Z"/>
-          <path class="c c6" d="M116 343C114 345 110 353 111 356C112 359 120 362 122 360C124 358 125 350 124 347C123 344 118 342 116 343Z"/>
-          <path class="c c7" d="M340 7C337 9 332 11 328 14C324 17 322 20 319 24C316 28 312 35 309 40C307 45 306 47 304 52C302 57 299 63 297 68C294 73 293 76 290 80C288 84 284 88 281 92C278 96 272 101 273 104C273 107 279 108 284 108C289 108 295 105 301 104C307 103 314 103 320 102C326 102 334 102 340 101C346 101 350 101 356 100C362 99 371 97 376 94C381 92 385 90 388 86C391 83 394 78 396 73C398 67 398 61 398 56C398 51 396 45 394 40C393 35 391 31 388 27C385 23 382 19 378 16C374 13 369 10 364 8C358 6 348 7 344 6C340 6 343 6 340 7Z"/>
-          <path class="c c7" d="M56 70C51 72 49 75 48 80C46 85 46 95 47 100C48 105 50 109 53 112C57 115 63 118 68 118C73 118 78 116 81 112C84 108 88 101 89 96C89 91 87 84 85 80C83 76 81 73 76 71C71 70 61 69 56 70Z"/>
-          <path class="c c8" d="M340 24C336 26 333 29 331 32C328 35 326 39 324 44C322 49 319 58 320 64C321 70 325 77 328 80C331 83 335 84 340 85C345 86 355 86 360 85C365 84 369 83 372 80C376 77 381 73 383 68C385 63 385 57 384 52C384 47 382 43 380 39C378 35 376 31 372 28C368 25 361 21 356 21C351 20 344 22 340 24Z"/>
-        </g>
-
-        <circle class="ring" cx="220" cy="200" r="62"/>
-        <text class="ring-lab" x="226" y="150">0.5 km</text>
-        <circle class="ring" cx="220" cy="200" r="112"/>
-        <text class="ring-lab" x="226" y="100">1 km</text>
-        <circle class="ring" cx="220" cy="200" r="162"/>
-        <text class="ring-lab" x="226" y="50">2 km</text>
-        <text class="tick" x="220" y="20" text-anchor="middle">0°</text>
-        <text class="tick" x="403" y="204" text-anchor="start">90°</text>
-        <text class="tick" x="220" y="386" text-anchor="middle">180°</text>
-        <text class="tick" x="37" y="204" text-anchor="end">270°</text>
-
-        <circle class="sweep" cx="220" cy="200" r="162">
-          <animateTransform attributeName="transform" type="rotate"
-            values="0 220 200;360 220 200" dur="24s" repeatCount="indefinite"/>
-        </circle>
-
-        <g class="trk trk-drone">
-          <animateTransform attributeName="transform" type="rotate"
-            values="-64 220 200;-14 220 200;-64 220 200"
-            dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
-          <line class="beam" x1="220" y1="200" x2="220" y2="138"/>
-          <circle class="lock" cx="220" cy="138" r="13"/>
-          <g transform="translate(220,138)">
-            <g class="ico">
-              <animateTransform attributeName="transform" type="rotate"
-                values="64;14;64"
-                dur="22s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
-              <g class="ic-drone"><g class="ic-arm"><line x1="-3.0" y1="-3.0" x2="-7.6" y2="-7.6"/><line x1="3.0" y1="-3.0" x2="7.6" y2="-7.6"/><line x1="3.0" y1="3.0" x2="7.6" y2="7.6"/><line x1="-3.0" y1="3.0" x2="-7.6" y2="7.6"/></g><g class="ic-rot"><circle cx="-7.6" cy="-7.6" r="3.4"/><circle cx="7.6" cy="-7.6" r="3.4"/><circle cx="7.6" cy="7.6" r="3.4"/><circle cx="-7.6" cy="7.6" r="3.4"/></g><rect x="-4.2" y="-4.2" width="8.4" height="8.4" rx="2.2"/></g>
-            </g>
-          </g>
-        </g>
-
-        <g class="trk trk-car">
-          <animateTransform attributeName="transform" type="rotate"
-            values="34 220 200;78 220 200;34 220 200"
-            dur="34s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
-          <line class="beam" x1="220" y1="200" x2="220" y2="88"/>
-          <circle class="lock" cx="220" cy="88" r="13"/>
-          <g transform="translate(220,88)">
-            <g class="ico">
-              <animateTransform attributeName="transform" type="rotate"
-                values="-34;-78;-34"
-                dur="34s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
-              <g class="ic-car"><path d="M-10.5 2.2 L-10.5 -1.2 L-6.2 -1.2 L-3.4 -5.2 L3.6 -5.2 L6.4 -1.2 L10.5 -1.2 L10.5 2.2 Z"/><circle cx="-5.6" cy="2.8" r="2.6"/><circle cx="5.6" cy="2.8" r="2.6"/></g>
-            </g>
-          </g>
-        </g>
-
-        <g class="trk trk-radar">
-          <g transform="rotate(166 220 200)">
-            <line class="beam" x1="220" y1="200" x2="220" y2="38"/>
-            <circle class="lock" cx="220" cy="38" r="13"/>
-            <g transform="translate(220,38)">
-              <g class="ico" transform="rotate(-166)">
-                <g class="ic-radar"><path class="dish" d="M-8.4 3.2 A 9.6 9.6 0 0 1 8.4 3.2 Z"/><line class="mast" x1="0" y1="3.2" x2="0" y2="8.6"/><rect x="-5" y="8.4" width="10" height="2.8" rx="1.2"/><path class="wave w1" d="M-5.6 -1.4 A 6 6 0 0 1 5.6 -1.4"/><path class="wave w2" d="M-8.6 -5.2 A 9.4 9.4 0 0 1 8.6 -5.2"/></g>
-              </g>
-            </g>
-          </g>
-        </g>
-
-        <g class="station">
-          <circle class="halo" cx="220" cy="200" r="9">
-            <animate attributeName="r" values="9;26" dur="0.5s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.5;0" dur="0.5s" repeatCount="indefinite"/>
-          </circle>
-          <path class="core" d="M220.0 189.0L230.5 196.6L226.5 208.9L213.5 208.9L209.5 196.6Z"/>
-          <path class="core-in" d="M220.0 194.6L225.1 198.3L223.2 204.4L216.8 204.4L214.9 198.3Z"/>
-        </g>
-      </svg>
-        <div class="fig-read">
-          <p class="fig-line"><b>≈2 bearings per second</b> · window 109.2 ms · frames 9.25/s · spread ±0.5°<span class="tag m">measured</span></p>
-          <p class="fig-line">The limit is set in <b>degrees per second</b> and is the same at every range — distance only converts it into metres<span class="tag">calculated</span></p>
-          <div class="fig-targets">
-            <div><b>DRONE</b><span class="sig">control link · ~900 MHz</span><span class="geo">0.5 km · up to 40 m/s</span></div>
-            <div><b>VEHICLE</b><span class="sig">radio set · ~450 MHz</span><span class="geo">1 km · up to 80 m/s</span></div>
-            <div><b>RADAR</b><span class="sig">surveillance · ~1300 MHz</span><span class="geo">2 km · stationary</span></div>
-          </div>
-        </div>
-          </div>
-        </div>
+        <h1>Passive SIGINT station</h1>
       </section>
 
       <section class="section wrap" id="product">
-        <p class="section-label">First product</p>
-        <h2>Three boxes: array, receiver, operator</h2>
-        <p class="body product-intro">
-          The set runs as a chain. <strong>UCA-1</strong> — five elements in
-          a ring — is what catches the wave. Five coaxial runs lead to
-          <strong>GR-1</strong>: it receives all five channels coherently, works out the
-          direction and keeps the catalogue on the position itself.
-          <strong>SL-1</strong> stays with the operator and holds the other end of
-          s.Link — bearings in, commands back. Nothing sits between them: no relays and
-          no internet, the channel is our own, point to point. The station is on the air
-          2.3% of the time — 83 seconds an hour.
-        </p>
-
         <div class="product-grid">
           <article class="product">
             <figure class="product-shot">
@@ -892,7 +766,7 @@
               <div><dt>Encryption</dt><dd>ChaCha20-Poly1305 AEAD, <b>256-bit</b></dd></div>
               <div><dt>Topology</dt><dd>point to point, no relaying</dd></div>
             </dl>
-            <p class="product-more"><a href="#slink">s.Link datasheet →</a></p>
+            <p class="product-more"><a href="/en/slink/">s.Link datasheet →</a></p>
           </article>
         </div>
       </section>
@@ -1068,119 +942,13 @@
         </div>
       </section>
 
-      <section class="section wrap" id="slink">
-        <p class="section-label">s.Link — our own radio</p>
-        <div class="slink-grid">
-          <div>
-        <h2>A channel we designed for the job</h2>
-        <p class="body">
-          We write the physical and link layers ourselves, so the channel's
-          characteristics are set by the job rather than by a supplier's
-          catalogue. s.Link connects the station to the operator: bearing
-          telemetry out, commands back.
-        </p>
-        <p class="body">
-          The station is on the air <strong>2.3% of the time</strong> — 83
-          seconds an hour. In a spectrogram a burst like that reads as a
-          domestic sensor at 872 MHz, not as a military channel.
-        </p>
-          </div>
-
-          <figure class="waterfall">
-          <svg viewBox="0 0 660 300" role="img" aria-label="Spectrum waterfall: a conventional channel burns as a solid stripe throughout while s.Link is three short dashes, one per second">
-            <defs>
-              <filter id="wfNoise" x="0" y="0" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.92 0.38" numOctaves="3" seed="7"/>
-                <feColorMatrix type="matrix"
-                  values="0 0 0 0 0.30
-                          0 0 0 0 0.44
-                          0 0 0 0 0.24
-                          1 0 0 0 -0.44"/>
-              </filter>
-              <filter id="wfGlow" x="-300%" y="-300%" width="700%" height="700%">
-                <feGaussianBlur stdDeviation="5"/>
-              </filter>
-              <clipPath id="wfClip"><rect x="46" y="16" width="566" height="222"/></clipPath>
-            </defs>
-
-            <rect x="46" y="16" width="566" height="222" fill="#0d1008"/>
-            <g clip-path="url(#wfClip)">
-              <rect x="46" y="16" width="566" height="222" filter="url(#wfNoise)" opacity="0.85"/>
-
-              <!-- a conventional continuous channel: wide and always on the air -->
-              <rect x="150" y="16" width="30" height="222" fill="#d4a843" opacity="0.30" filter="url(#wfGlow)"/>
-              <rect x="159" y="16" width="12" height="222" fill="#eec25c"/>
-              <rect x="162" y="16" width="6" height="222" fill="#fff3d0"/>
-
-              <!-- s.Link: narrow, 26 kHz, 77 ms once a second -->
-              <g>
-                <rect x="432" y="46" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
-                <rect x="434" y="47" width="5" height="5" fill="#b6f5a2"/>
-                <rect x="432" y="120" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
-                <rect x="434" y="121" width="5" height="5" fill="#b6f5a2"/>
-                <rect x="432" y="194" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
-                <rect x="434" y="195" width="5" height="5" fill="#b6f5a2"/>
-              </g>
-            </g>
-            <rect x="46" y="16" width="566" height="222" fill="none" stroke="#2c3319" stroke-width="1"/>
-
-            <!-- time axis -->
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
-              <text x="40" y="53" text-anchor="end">0 s</text>
-              <text x="40" y="127" text-anchor="end">1 s</text>
-              <text x="40" y="201" text-anchor="end">2 s</text>
-            </g>
-            <g stroke="#d8d8d8" stroke-width="1">
-              <line x1="43" y1="49.5" x2="46" y2="49.5"/>
-              <line x1="43" y1="123.5" x2="46" y2="123.5"/>
-              <line x1="43" y1="197.5" x2="46" y2="197.5"/>
-            </g>
-
-            <!-- labels -->
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
-              <line x1="165" y1="238" x2="165" y2="256" stroke="#c8a24a" stroke-width="1"/>
-              <text x="165" y="272" fill="#8a6c1f" text-anchor="middle">a conventional channel</text>
-              <text x="165" y="287" fill="#a8a08a" text-anchor="middle">always on the air</text>
-
-              <line x1="436" y1="238" x2="436" y2="256" stroke="#5f9c46" stroke-width="1"/>
-              <text x="436" y="272" fill="#2f4b19" text-anchor="middle" font-weight="700">s.Link</text>
-              <text x="436" y="287" fill="#a8a08a" text-anchor="middle">77 ms per second</text>
-            </g>
-          </svg>
-          <figcaption>
-            A spectrum waterfall, synthetic illustration. The bandwidth and
-            duty cycle are the datasheet ones: 26 kHz and 2.3%.
-          </figcaption>
-          </figure>
-        </div>
-
-        <div class="stack" style="margin-top:34px">
-          <div class="stack-card">
-            <span class="k">Radio</span>
-            <div class="v">872 MHz, GMSK BT=0.5, 25 000 sym/s. Occupied bandwidth 26 kHz.</div>
-          </div>
-          <div class="stack-card">
-            <span class="k">Coding</span>
-            <div class="v">Convolutional code rate 1/2, K=7, soft-decision Viterbi, block interleaving.</div>
-          </div>
-          <div class="stack-card">
-            <span class="k">Encryption</span>
-            <div class="v">ChaCha20-Poly1305 AEAD, 256-bit. A frame is accepted on authentication, not on a correlation metric.</div>
-          </div>
-          <div class="stack-card">
-            <span class="k">Access</span>
-            <div class="v">TDMA on a 1 s period, synchronised to the peer — with no reliance on system time or GNSS.</div>
-          </div>
-        </div>
-      </section>
-
       <section class="section wrap" id="works">
         <p class="section-label">What already works as a product</p>
         <div class="rows">
           <div class="row"><div class="h">The station</div><div class="b">A Raspberry Pi 5 — starts by itself, runs off a power bank, lives in the field.</div></div>
           <div class="row"><div class="h">Real-time direction finding</div><div class="b">Five-channel coherent reception and MUSIC over a circular array: an azimuth on the source several times a second, with no demodulation of payload. The d/λ ratio is recomputed on every retune — otherwise the bearing would lie with a zero and never complain.</div></div>
           <div class="row"><div class="h">12 scanners</div><div class="b">Each one knows what it is looking for in its own band: communications, radar, satellite channels, navigation jamming. Frequency labels come from a single atlas, not from the scanner's own code.</div></div>
-          <div class="row"><div class="h">s.Link</div><div class="b">Our own encrypted station-to-operator radio: bearings out, commands back.</div></div>
+          <div class="row"><div class="h">s.Link</div><div class="b">Our own encrypted station-to-operator radio: bearings out, commands back. <a href="/en/slink/" style="color:var(--brand-green-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--brand-green-deep)">Its own page →</a></div></div>
           <div class="row"><div class="h">Signature vector analysis</div><div class="b">A feature vector — temporal, spectral, structural — is pulled from raw IQ and the emitter type is determined from it. The catalogue recognises a transmitter when it comes back. No demodulation of payload.</div></div>
           <div class="row"><div class="h">Raw IQ capture</div><div class="b">Multichannel coherent samples are written to a standard format with provenance metadata — either short event-scoped snippets or a continuous frame archive. The analysis then happens on the ground, as many times as needed.</div></div>
           <div class="row"><div class="h">Over-the-air updates</div><div class="b">Cryptographically signed: new frequency plans reach the stations by themselves; code does not.</div></div>
@@ -1198,15 +966,6 @@
               <tr><td>Bearing on an 868.000 CW beacon, spread</td><td class="num">0.2–1.5° over 90-second legs, 107 bearings</td><td class="ctx">22.08 · field</td></tr>
               <tr><td>Source proven by frequency selectivity</td><td class="num">69.6 dB at 868.0 vs ~16 dB either side — a 53.1 dB drop</td><td class="ctx">22.08 · field</td></tr>
               <tr><td>Beacon moved 0° → 30°</td><td class="num">the bearing moved +35.9° for a true +30°</td><td class="ctx">22.08 · field</td></tr>
-              <tr><td>Our own radio, end to end</td><td class="num">92/92 frames, SNR 26.0 dB</td><td class="ctx">15.08 · bench</td></tr>
-              <tr><td>Decode threshold on the air</td><td class="num">+2.27 dB</td><td class="ctx">15.08 · on air</td></tr>
-              <tr><td>Receiver sensitivity, gain</td><td class="num">+3.47 dB from a matched filter</td><td class="ctx">16.08 · measured</td></tr>
-              <tr><td>Transmitter speed, gain</td><td class="num">×10.2, the signal bit-identical</td><td class="ctx">17.08 · measured</td></tr>
-              <tr><td>s.Link, continuous session</td><td class="num">5 h 20 min, 4863 frames</td><td class="ctx">bench</td></tr>
-              <tr><td>s.Link, authentication failures</td><td class="num">0 of 4863</td><td class="ctx">bench</td></tr>
-              <tr><td>s.Link duty cycle, <strong>remote station</strong></td><td class="num">2.3% — 83 s of air per hour</td><td class="ctx">measured</td></tr>
-              <tr><td>s.Link duty cycle, <strong>operator</strong></td><td class="num">0% when idle</td><td class="ctx">code constant</td></tr>
-              <tr><td>640×480 video through the whole chain</td><td class="num">60 of 60 frames byte-exact</td><td class="ctx">22.08 · bench</td></tr>
               <tr><td>Automated tests passing</td><td class="num">14 863 across 717 files, ~5.5 min</td><td class="ctx">23.08 · CI</td></tr>
             </tbody>
           </table>
@@ -1222,20 +981,8 @@
         </p>
         <div class="rows">
           <div class="row">
-            <div class="h">640×480 video channel</div>
-            <div class="b">The whole chain joined for the first time: H.265 → fragmenter → outer Reed-Solomon code → PHY → and back. 60 of 60 frames byte-exact, and ffmpeg played the result. The radio is not involved yet.</div>
-          </div>
-          <div class="row">
             <div class="h">Operator-to-drone range from link timing</div>
             <div class="b">Two MUSIC bearings give directions but not distance. A hostile TDD link gives it away for free: the airframe replies after a fixed turnaround, and the excess path length reads off our own clock — no GPS involved. The mathematics is closed by 47 tests. This is the difference between a strike profile and somebody flying over their own treeline.</div>
-          </div>
-          <div class="row">
-            <div class="h">Drone control over s.Link</div>
-            <div class="b">A compressed subset of MAVLink, ~72 bit/s in long-range mode. The code is written and tested, but has never been on the air.</div>
-          </div>
-          <div class="row">
-            <div class="h">s.Link4k — a rooted mesh for 4K video</div>
-            <div class="b">Video relaying without trusting the relay: it forwards the authenticated 1024-byte packet <strong>without parsing H.265 or decrypting it</strong>. Routes and slots are handed out by the ground sink, and flooding is forbidden by design — every duplicate would consume a full burst on every subsequent hop. Earlier than the other rows here: the wire format and capacity model are implemented off-air, with no live radio path yet. Next comes packet FEC, then the scheduler simulator.</div>
           </div>
         </div>
       </section>
@@ -1321,79 +1068,6 @@
             of motors and power runs, and baseline runs must be taken
             separately with the motors off and on.
           </p>
-        </div>
-      </section>
-
-      <section class="section wrap" id="amps">
-        <p class="section-label">The amplifier study</p>
-        <h2>Why "just add a watt" does not add range</h2>
-        <p class="body">
-          The obvious answer to range is an amplifier. We costed it and
-          checked it, and it turned out to be mostly a trap. We publish it
-          because this is the part of engineering that shows whether someone
-          has actually worked with hardware.
-        </p>
-
-        <figure class="figwide">
-          <svg viewBox="0 0 660 236" role="img" aria-label="Range gain from added power: the exponent near the ground is 4, so 12 decibels only double the range">
-            <rect x="420" y="26" width="54" height="164" fill="#3e6b1f" fill-opacity="0.07"/>
-            <text x="447" y="20" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="middle">+20…+23 dBm</text>
-
-            <g stroke="#efefef" stroke-width="1">
-              <line x1="60" y1="150.2" x2="600" y2="150.2"/>
-              <line x1="60" y1="110" x2="600" y2="110"/>
-              <line x1="60" y1="70" x2="600" y2="70"/>
-            </g>
-            <line x1="60" y1="16" x2="60" y2="190" stroke="#c8c8c8" stroke-width="1"/>
-            <line x1="60" y1="190" x2="600" y2="190" stroke="#c8c8c8" stroke-width="1"/>
-
-            <path d="M60.0,190.0 L96.0,179.6 L132.0,166.6 L168.0,150.2 L204.0,129.5 L240.0,103.5 L276.0,70.8 L306.0,36.0" fill="none" stroke="#c8c8c8" stroke-width="1.8" stroke-dasharray="5 4"/>
-            <path d="M60.0,190.0 L96.0,185.1 L132.0,179.6 L168.0,173.5 L204.0,166.6 L240.0,158.9 L276.0,150.2 L312.0,140.5 L348.0,129.5 L384.0,117.3 L420.0,103.5 L456.0,88.1 L492.0,70.8 L528.0,51.3 L560.0,33.0" fill="none" stroke="#3e6b1f" stroke-width="2.4"/>
-
-            <circle cx="276" cy="150.2" r="4.5" fill="#2f4b19"/>
-            <circle cx="546" cy="40.7" r="4.5" fill="#2f4b19"/>
-
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
-              <text x="286" y="146" fill="#2f4b19" font-weight="700">+12 dB → ×2</text>
-              <text x="540" y="36" fill="#2f4b19" text-anchor="end" font-weight="700">2 W → ×4.7</text>
-              <text x="316" y="52" fill="#a8a8a8">free space</text>
-              <text x="452" y="126" fill="#2f4b19">near the ground</text>
-            </g>
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
-              <text x="60" y="206" text-anchor="middle">0</text>
-              <text x="330" y="206" text-anchor="middle">+15 dB</text>
-              <text x="600" y="206" text-anchor="end">+30 dB</text>
-              <text x="52" y="194" text-anchor="end">×1</text>
-              <text x="52" y="34" text-anchor="end">×5</text>
-              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">range gain from added power</text>
-            </g>
-          </svg>
-        </figure>
-        <div class="rows">
-          <div class="row">
-            <div class="h">Near the ground the exponent is 4, not 2</div>
-            <div class="b">In the two-ray model range grows far more slowly than power: 2 W (+27 dBm) buys only <strong>×4.7</strong>, not ×22. Doubling the range costs 12 dB, not 6. The sweet spot is <strong>+20…+23 dBm, not watts</strong>.</div>
-          </div>
-          <div class="row">
-            <div class="h">An ungated amplifier deafens its own receiver</div>
-            <div class="b">It holds the noise floor up permanently, because the local oscillator cannot switch off between bursts. One metre of antenna separation costs <strong>−4.8 dB of our own sensitivity</strong>, half a metre <strong>−9.5 dB</strong>. A low-noise amplifier makes this <em>worse</em>, not better. The conclusion: the gate has to be switched together with the burst.</div>
-          </div>
-          <div class="row">
-            <div class="h">The real blocker is our own array</div>
-            <div class="b">A strong transmitter nearby drives the KrakenSDR into clipping, and distance does not save it. A beacon of a few milliwatts <strong>already</strong> does this. It needs the array blanked for the duration of the burst plus a limiter — without them every bearing frame is contaminated.</div>
-          </div>
-          <div class="row">
-            <div class="h">~9 dB sits there for free</div>
-            <div class="b">The transmitter's digital scale sits 12 dB below full. GMSK has a constant envelope and needs no such headroom — <strong>+8…+9 dB can be taken with no hardware at all</strong>. The flip side of the same fact: the "+6 dBm" budget line is probably overstated by those same 12 dB, so the range calculation may be optimistic by a factor of two. First measurement: power at the connector.</div>
-          </div>
-          <div class="row">
-            <div class="h">An LNA earns its place on feeder loss, not noise figure</div>
-            <div class="b">On noise figure alone it gives only ~3.6 dB. But it takes cable loss out of the budget, and that is what decides: a 10 m mast is worth +14 dB, while RG58 at 866 MHz eats 6 dB over ten metres and 26 dB over forty-four.</div>
-          </div>
-          <div class="row">
-            <div class="h">The asymmetry of roles is already in the code</div>
-            <div class="b">The operator console must be findable by nobody, so it sends only what the operator deliberately sent. Hence the split: the power amplifier goes <strong>on the station only</strong>, the low-noise one on the operator. A power amplifier on the operator side would be the worst of the four combinations.</div>
-          </div>
         </div>
       </section>
 

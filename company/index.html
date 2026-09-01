@@ -117,11 +117,10 @@
 
       .topbar nav a:hover { color: var(--ink); }
       .topbar nav a.current {
-        box-shadow: inset 0 -2px 0 0 var(--brand-green);
+        color: var(--ink);
+        font-weight: 700;
+        box-shadow: inset 0 -3px 0 0 var(--brand-green);
       }
-      .topbar nav a.current:not(.cta) { color: var(--ink); }
-      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
-      .topbar nav a.cta:hover { color: var(--brand-green); }
 
       /* ---------- hero ---------- */
 
@@ -365,6 +364,24 @@
         .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
         .topbar nav a.hide-sm { display: none; }
       }
+
+      /* demo button in the header */
+      .topbar nav { align-items: baseline; }
+      .topbar nav a.demo {
+        color: #fff;
+        background: var(--brand-green-deep);
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 4px;
+      }
+      .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
+
+      /* ---------- контакти ---------- */
+      .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px 36px; }
+      .contact .key { font-family: var(--display); display: block; margin-bottom: 8px; color: var(--faint); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+      .contact .val { font-size: 18px; text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+      .contact span.val { border-bottom: 0; color: var(--muted); font-size: 16px; line-height: 1.45; display: block; }
+      .contact a.val:hover { color: var(--muted); border-bottom-color: var(--muted); }
     </style>
   </head>
   <body>
@@ -382,11 +399,12 @@
       </a>
       <nav aria-label="Основна навігація">
         <a class="hide-sm" href="/#directions">Напрями</a>
+        <a href="/hardware/">Продукти</a>
+        <a href="/slink/">s.Link</a>
+        <a href="/investors/">Інвесторам</a>
         <a class="current" href="/company/" aria-current="page">Компанія</a>
-        <a href="/hardware/">Апаратура</a>
-        <a href="/#contacts">Контакти</a>
-        <a class="cta" href="/investors/">Інвесторам</a>
-              <a class="lang" href="/en/company/" hreflang="en" lang="en">EN</a>
+        <a class="demo" href="mailto:info@elintir.com?subject=%D0%97%D0%B0%D0%BF%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8E%20ELINTIR">Замовити демо</a>
+        <a class="lang" href="/en/company/" hreflang="en" lang="en">EN</a>
       </nav>
     </header>
 
@@ -504,6 +522,24 @@
             перетворювачів нічим згенерувати, бітстрім нічим зібрати. Самі
             плати їдуть із Китаю і жодного дозволу не потребують.
           </p>
+        </div>
+      </section>
+
+      <section class="section wrap" id="contacts">
+        <p class="section-label">Контакти</p>
+        <div class="contacts">
+          <div class="contact">
+            <span class="key">Пошта</span>
+            <a class="val" href="mailto:info@elintir.com">info@elintir.com</a>
+          </div>
+          <div class="contact">
+            <span class="key">Компанія</span>
+            <span class="val">ТОВ «ЕЛІНТІР»<br>Київ, Україна</span>
+          </div>
+          <div class="contact">
+            <span class="key">Інвесторам</span>
+            <a class="val" href="/investors/">elintir.com/investors</a>
+          </div>
         </div>
       </section>
 

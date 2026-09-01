@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>s.Link — ELINTIR LLC</title>
+    <meta
+      name="description"
+      content="s.Link, ELINTIR's own radio link: our own physical and link layers, GMSK at 872 MHz, ChaCha20-Poly1305, a 2.3% duty cycle. Measured figures and the development plan: mesh, frequency hopping, video."
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="s.Link — ELINTIR LLC">
+    <meta property="og:description" content="The s.Link radio: specifications, measured characteristics and the development plan — the s.Link4k mesh, frequency hopping, video.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://elintir.com/assets/products/elintir-og-product.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ELINTIR UCA-1, GR-1 and SL-1">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://elintir.com/en/slink/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/slink/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/slink/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/slink/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/slink/">
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+        --display: "Montserrat", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --brand-green: #3e6b1f;
+        --brand-green-deep: #2f4b19;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+
+      /* ---------- topbar ---------- */
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+      }
+
+      .brand-mark { width: 37px; height: 35.3px; display: block; flex: none; }
+
+      .brand-text { display: flex; flex-direction: column; line-height: 1; }
+
+      .brand-name {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        color: var(--ink);
+      }
+
+      .brand-slogan {
+        margin-top: 5px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--brand-green);
+      }
+
+      .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
+      .topbar nav a { text-decoration: none; padding-bottom: 4px; }
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+
+      .topbar nav a.lang {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+      .topbar nav a:hover { color: var(--ink); }
+      .topbar nav a.current {
+        color: var(--ink);
+        font-weight: 700;
+        box-shadow: inset 0 -3px 0 0 var(--brand-green);
+      }
+
+      /* ---------- hero ---------- */
+
+      .hero {
+        padding-top: clamp(48px, 10vw, 96px);
+        padding-bottom: clamp(44px, 7vw, 76px);
+      }
+
+      .eyebrow {
+        margin: 0 0 20px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-family: var(--display);
+        margin: 0;
+        font-size: clamp(34px, 6vw, 58px);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        font-weight: 700;
+        max-width: 16ch;
+      }
+
+      .lead {
+        max-width: 60ch;
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.9vw, 19px);
+        line-height: 1.6;
+      }
+
+      .lead strong { color: var(--ink); font-weight: 700; }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: 36px;
+        align-items: center;
+      }
+
+      .hero-fig svg { width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; }
+      .hero-fig .cap {
+        margin-top: 8px;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        letter-spacing: 0.04em;
+        color: var(--faint);
+      }
+
+      /* ---------- sections ---------- */
+
+      .section {
+        padding-top: clamp(44px, 7vw, 72px);
+        padding-bottom: clamp(44px, 7vw, 72px);
+        border-top: 1px solid var(--line);
+      }
+
+      .section-label {
+        font-family: var(--display);
+        margin: 0 0 32px;
+        color: var(--faint);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .section h2 {
+        font-family: var(--display);
+        margin: 0 0 18px;
+        max-width: 28ch;
+        font-size: clamp(21px, 2.6vw, 27px);
+        line-height: 1.28;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+
+      .section p.body {
+        max-width: 62ch;
+        margin: 0 0 15px;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .section p.body:last-child { margin-bottom: 0; }
+
+      /* ---------- platform + array diagram ---------- */
+
+      .passive-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .array-fig { text-align: center; }
+      .array-fig svg { width: 100%; max-width: 240px; height: auto; }
+      .array-fig .cap {
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--faint);
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- coverage bar ---------- */
+
+      .spectrum { margin-bottom: 34px; }
+      .spectrum-note {
+        max-width: 66ch;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .spectrum svg { width: 100%; height: auto; display: block; }
+      .spectrum-legend {
+        display: flex;
+        gap: 22px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .spectrum-legend .dot {
+        display: inline-block;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        margin-right: 6px;
+        vertical-align: 1px;
+      }
+      .spectrum-legend .dot.coherent { background: var(--brand-green); }
+      .spectrum-legend .dot.wide { background: var(--line); border: 1px solid var(--faint); }
+
+
+
+
+      /* ---------- hero: first product ---------- */
+
+      .hero-fig .track-map { width: 100%; max-width: 470px; height: auto; display: block; margin: 0 auto; }
+
+      .track-map .c { fill: none; stroke: #ebebe8; stroke-width: 1; }
+      .track-map .c0, .track-map .c1 { stroke: #f2f2f0; }
+      .track-map .c7, .track-map .c8 { stroke: #e2e2de; }
+
+      .track-map .ring { fill: none; stroke: #dedede; stroke-width: 1; stroke-dasharray: 2 4; }
+      .track-map .ring-lab, .track-map .tick {
+        font-family: var(--mono); font-size: 9.5px; fill: #a8a8a8; letter-spacing: 0.04em;
+      }
+      .track-map .ring-lab { font-size: 9px; fill: #b6b6b6; }
+
+      .track-map .sweep {
+        fill: none; stroke: var(--brand-green); stroke-width: 1;
+        opacity: 0.16; stroke-dasharray: 3 8;
+      }
+
+      /* the station mark is the array's own pentagon */
+      .track-map .station .core { fill: var(--brand-green-deep); }
+      .track-map .station .core-in { fill: #fff; opacity: 0.9; }
+      .track-map .station .halo { fill: none; stroke: var(--brand-green); stroke-width: 1.4; }
+
+      .track-map .beam { stroke: var(--brand-green); stroke-width: 2.2; stroke-linecap: round; }
+      .track-map .lock { fill: none; stroke: var(--brand-green); stroke-width: 1.2; opacity: 0.5; }
+
+      .track-map .ico { fill: #23241f; stroke: none; }
+      .track-map .ic-arm line { stroke: #23241f; stroke-width: 1.6; stroke-linecap: round; }
+      .track-map .ic-rot circle { fill: none; stroke: #23241f; stroke-width: 1.3; }
+      .track-map .ic-radar .dish { fill: #23241f; }
+      .track-map .ic-radar .mast { stroke: #23241f; stroke-width: 1.8; }
+      .track-map .ic-radar .wave { fill: none; stroke: var(--brand-green); stroke-width: 1.4; opacity: 0.55; }
+
+      /* the bearing refresh — ~2 updates a second, which is the measured rate.
+         Opacity only: no transform, so nothing depends on transform-box. */
+      .track-map .beam, .track-map .lock { animation: elnt-blip 0.5s ease-out infinite; }
+      @keyframes elnt-blip { 0% { opacity: 1; } 70% { opacity: 0.45; } 100% { opacity: 0.35; } }
+
+      .track-map .ic-radar .w1 { animation: elnt-wave 2.2s ease-out infinite; }
+      .track-map .ic-radar .w2 { animation: elnt-wave 2.2s ease-out infinite 0.5s; }
+      @keyframes elnt-wave { 0% { opacity: 0; } 25% { opacity: 0.65; } 100% { opacity: 0; } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .track-map .beam, .track-map .lock,
+        .track-map .ic-radar .w1, .track-map .ic-radar .w2 { animation: none; opacity: 1; }
+      }
+
+      /* readout under the map */
+      .fig-read { margin: 16px 0 0; }
+
+      .fig-line {
+        display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+        margin: 0; padding: 9px 0; border-top: 1px solid var(--line);
+        font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.02em;
+      }
+      .fig-line b { color: var(--ink); font-weight: 700; }
+      .fig-line .tag {
+        margin-left: auto; font-size: 9.5px; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--faint); white-space: nowrap;
+      }
+      .fig-line .tag.m { color: var(--brand-green-deep); }
+
+      .fig-targets {
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+        padding-top: 12px; border-top: 1px solid var(--line);
+      }
+      .fig-targets div { font-family: var(--mono); font-size: 10px; color: var(--faint); line-height: 1.55; }
+      .fig-targets b { display: block; color: var(--ink); font-size: 11px; letter-spacing: 0.08em; margin-bottom: 2px; }
+      .fig-targets .sig { display: block; color: var(--brand-green-deep); }
+      .fig-targets .geo { display: block; color: var(--muted); }
+
+      @media (max-width: 560px) {
+        .fig-targets { grid-template-columns: 1fr 1fr; }
+      }
+
+      /* ---------- first product ---------- */
+
+      .product-intro { max-width: 64ch; }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 44px 34px;
+        margin-top: 40px;
+      }
+
+      .product { display: flex; flex-direction: column; }
+
+      /* Cards share row heights so the spec rules line up across all three,
+         whatever the language or width. Browsers without subgrid keep the
+         flex fallback above and simply stack each card independently. */
+      @supports (grid-template-rows: subgrid) {
+        .product-grid { grid-template-rows: repeat(6, auto); }
+        .product {
+          display: grid;
+          grid-template-rows: subgrid;
+          grid-row: span 6;
+        }
+      }
+
+      .product-shot {
+        margin: 0 0 20px;
+        padding: 8px 0 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .product-shot img {
+        width: 100%;
+        height: clamp(200px, 24vw, 290px);
+        object-fit: contain;
+        display: block;
+      }
+
+      .product-role {
+        font-family: var(--mono);
+        margin: 0 0 9px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      .product h3 {
+        font-family: var(--display);
+        margin: 0 0 13px;
+        font-size: 21px;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+
+      .product-desc {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.62;
+      }
+
+      .product-specs { margin: 0 0 18px; }
+
+      .product-specs > div {
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .product-specs dt {
+        font-family: var(--display);
+        margin-bottom: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+
+      .product-specs dd {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.5;
+      }
+
+      .product-specs dd b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+      .product-more { margin: auto 0 0; padding-top: 4px; font-size: 15px; }
+      .product-more a {
+        color: var(--brand-green-deep);
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .product-more a:hover { border-bottom-color: var(--brand-green-deep); }
+
+      /* ---------- specs (stack) ---------- */
+
+      .stack {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px 26px;
+      }
+
+      .stack-card { padding-top: 16px; border-top: 1px solid var(--ink); }
+
+      .stack-card .k {
+        font-family: var(--display);
+        display: block;
+        margin-bottom: 9px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      .stack-card .v { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+      /* ---------- row list (works / limits) ---------- */
+
+      .rows { display: grid; gap: 0; }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+        gap: 8px 32px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .rows .row:first-child { padding-top: 0; }
+      .rows .row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .row .h { font-family: var(--display); font-weight: 700; font-size: 16px; }
+      .row .b { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+      /* ---------- measured (table) ---------- */
+
+      .proof-table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+      .proof-table th {
+        text-align: left;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--faint);
+        padding: 0 12px 10px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .proof-table td {
+        padding: 13px 12px 13px 0;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .proof-table td.num { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+      .proof-table td.ctx { color: var(--faint); font-size: 13.5px; white-space: nowrap; }
+      .proof-table tr:last-child td { border-bottom: 0; }
+
+      /* ---------- signature analysis ---------- */
+
+      /* ---------- callout ---------- */
+
+      .sub-h {
+        font-family: var(--display);
+        margin: 40px 0 14px;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
+
+      .callout {
+        margin: 30px 0 0;
+        padding: 22px 26px;
+        background: #f7f8f4;
+        border-left: 3px solid var(--brand-green);
+        border-radius: 0 4px 4px 0;
+      }
+      .callout-h {
+        font-family: var(--display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+        margin-bottom: 12px;
+      }
+      .callout p { max-width: 64ch; margin: 0 0 14px; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+      .callout p:last-child { margin-bottom: 0; }
+      .callout em { color: var(--ink); font-style: italic; }
+      .callout-punch {
+        font-weight: 700;
+        color: var(--ink) !important;
+        font-size: 16px !important;
+      }
+
+      /* ---------- s.Link waterfall ---------- */
+
+      .slink-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .figwide { margin: 26px 0 30px; }
+      .figwide svg { width: 100%; max-width: 660px; height: auto; display: block; }
+
+      .waterfall { margin: 0; }
+      .waterfall svg { width: 100%; max-width: 660px; height: auto; display: block; }
+      .waterfall figcaption {
+        max-width: 62ch;
+        margin-top: 12px;
+        color: var(--faint);
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      /* ---------- cta ---------- */
+
+      .cta-block {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px 24px;
+      }
+
+      a.btn {
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 700;
+        color: #fff;
+        background: var(--brand-green-deep);
+        padding: 12px 22px;
+        border-radius: 4px;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      a.btn:hover { background: var(--brand-green); }
+
+      .cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+
+      a.btn-ghost {
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--brand-green-deep);
+        border-bottom: 1px solid var(--brand-green-deep);
+        padding-bottom: 2px;
+        white-space: nowrap;
+      }
+      a.btn-ghost:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
+
+      /* ---------- footer ---------- */
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+        padding-top: 24px;
+        padding-bottom: 40px;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .hero-grid, .passive-grid, .slink-grid { grid-template-columns: 1fr; }
+        .hero-fig { order: -1; }
+        .hero-fig svg { max-width: 280px; }
+        .row { grid-template-columns: 1fr; }
+        .product-grid { grid-template-columns: 1fr; gap: 40px; }
+      }
+
+      @media (max-width: 560px) {
+        .topbar { flex-wrap: wrap; gap: 14px 18px; }
+        .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
+        .brand-mark { width: 31px; height: 29.6px; }
+        .brand-name { font-size: 18px; }
+        .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
+        .topbar nav a.hide-sm { display: none; }
+        .stack { grid-template-columns: 1fr; }
+        .proof-table { display: block; overflow-x: auto; }
+      }
+
+      /* demo button in the header */
+      .topbar nav { align-items: baseline; }
+      .topbar nav a.demo {
+        color: #fff;
+        background: var(--brand-green-deep);
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 4px;
+      }
+      .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, home">
+        <svg class="brand-mark" viewBox="61.3 61 389.4 371.7" role="img" aria-hidden="true">
+          <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">ELINTIR</span>
+          <span class="brand-slogan">ML/RF MAPPER</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="hide-sm" href="/en/#directions">What we do</a>
+        <a href="/en/hardware/">Products</a>
+        <a class="current" href="/en/slink/" aria-current="page">s.Link</a>
+        <a href="/en/investors/">Investors</a>
+        <a href="/en/company/">Company</a>
+        <a class="demo" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+        <a class="lang" href="/slink/" hreflang="uk" lang="uk">UA</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <h1>s.Link — our own radio link</h1>
+        <p class="lead">
+          We write the physical and link layers ourselves. s.Link joins the station to the operator point to point: bearing telemetry out, commands back — no relays and no internet in between.
+        </p>
+      </section>
+
+      <section class="section wrap" id="slink">
+        <p class="section-label">Overview</p>
+        <div class="slink-grid">
+          <div>
+        <h2>A channel we designed for the job</h2>
+        <p class="body">
+          We write the physical and link layers ourselves, so the channel's
+          characteristics are set by the job rather than by a supplier's
+          catalogue. s.Link connects the station to the operator: bearing
+          telemetry out, commands back.
+        </p>
+        <p class="body">
+          The station is on the air <strong>2.3% of the time</strong> — 83
+          seconds an hour. In a spectrogram a burst like that reads as a
+          domestic sensor at 872 MHz, not as a military channel.
+        </p>
+          </div>
+
+          <figure class="waterfall">
+          <svg viewBox="0 0 660 300" role="img" aria-label="Spectrum waterfall: a conventional channel burns as a solid stripe throughout while s.Link is three short dashes, one per second">
+            <defs>
+              <filter id="wfNoise" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.92 0.38" numOctaves="3" seed="7"/>
+                <feColorMatrix type="matrix"
+                  values="0 0 0 0 0.30
+                          0 0 0 0 0.44
+                          0 0 0 0 0.24
+                          1 0 0 0 -0.44"/>
+              </filter>
+              <filter id="wfGlow" x="-300%" y="-300%" width="700%" height="700%">
+                <feGaussianBlur stdDeviation="5"/>
+              </filter>
+              <clipPath id="wfClip"><rect x="46" y="16" width="566" height="222"/></clipPath>
+            </defs>
+
+            <rect x="46" y="16" width="566" height="222" fill="#0d1008"/>
+            <g clip-path="url(#wfClip)">
+              <rect x="46" y="16" width="566" height="222" filter="url(#wfNoise)" opacity="0.85"/>
+
+              <!-- a conventional continuous channel: wide and always on the air -->
+              <rect x="150" y="16" width="30" height="222" fill="#d4a843" opacity="0.30" filter="url(#wfGlow)"/>
+              <rect x="159" y="16" width="12" height="222" fill="#eec25c"/>
+              <rect x="162" y="16" width="6" height="222" fill="#fff3d0"/>
+
+              <!-- s.Link: narrow, 26 kHz, 77 ms once a second -->
+              <g>
+                <rect x="432" y="46" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="47" width="5" height="5" fill="#b6f5a2"/>
+                <rect x="432" y="120" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="121" width="5" height="5" fill="#b6f5a2"/>
+                <rect x="432" y="194" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
+                <rect x="434" y="195" width="5" height="5" fill="#b6f5a2"/>
+              </g>
+            </g>
+            <rect x="46" y="16" width="566" height="222" fill="none" stroke="#2c3319" stroke-width="1"/>
+
+            <!-- time axis -->
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
+              <text x="40" y="53" text-anchor="end">0 s</text>
+              <text x="40" y="127" text-anchor="end">1 s</text>
+              <text x="40" y="201" text-anchor="end">2 s</text>
+            </g>
+            <g stroke="#d8d8d8" stroke-width="1">
+              <line x1="43" y1="49.5" x2="46" y2="49.5"/>
+              <line x1="43" y1="123.5" x2="46" y2="123.5"/>
+              <line x1="43" y1="197.5" x2="46" y2="197.5"/>
+            </g>
+
+            <!-- labels -->
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <line x1="165" y1="238" x2="165" y2="256" stroke="#c8a24a" stroke-width="1"/>
+              <text x="165" y="272" fill="#8a6c1f" text-anchor="middle">a conventional channel</text>
+              <text x="165" y="287" fill="#a8a08a" text-anchor="middle">always on the air</text>
+
+              <line x1="436" y1="238" x2="436" y2="256" stroke="#5f9c46" stroke-width="1"/>
+              <text x="436" y="272" fill="#2f4b19" text-anchor="middle" font-weight="700">s.Link</text>
+              <text x="436" y="287" fill="#a8a08a" text-anchor="middle">77 ms per second</text>
+            </g>
+          </svg>
+          <figcaption>
+            A spectrum waterfall, synthetic illustration. The bandwidth and
+            duty cycle are the datasheet ones: 26 kHz and 2.3%.
+          </figcaption>
+          </figure>
+        </div>
+
+        <div class="stack" style="margin-top:34px">
+          <div class="stack-card">
+            <span class="k">Radio</span>
+            <div class="v">872 MHz, GMSK BT=0.5, 25 000 sym/s. Occupied bandwidth 26 kHz.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Coding</span>
+            <div class="v">Convolutional code rate 1/2, K=7, soft-decision Viterbi, block interleaving.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Encryption</span>
+            <div class="v">ChaCha20-Poly1305 AEAD, 256-bit. A frame is accepted on authentication, not on a correlation metric.</div>
+          </div>
+          <div class="stack-card">
+            <span class="k">Access</span>
+            <div class="v">TDMA on a 1 s period, synchronised to the peer — with no reliance on system time or GNSS.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="measured">
+        <p class="section-label">What is already measured</p>
+        <div style="overflow-x:auto">
+          <table class="proof-table">
+            <thead>
+              <tr><th>Measured</th><th>Value</th><th>When</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Our own radio, end to end</td><td class="num">92/92 frames, SNR 26.0 dB</td><td class="ctx">15.08 · bench</td></tr>
+              <tr><td>Decode threshold on the air</td><td class="num">+2.27 dB</td><td class="ctx">15.08 · on air</td></tr>
+              <tr><td>Receiver sensitivity, gain</td><td class="num">+3.47 dB from a matched filter</td><td class="ctx">16.08 · measured</td></tr>
+              <tr><td>Transmitter speed, gain</td><td class="num">×10.2, the signal bit-identical</td><td class="ctx">17.08 · measured</td></tr>
+              <tr><td>s.Link, continuous session</td><td class="num">5 h 20 min, 4863 frames</td><td class="ctx">bench</td></tr>
+              <tr><td>s.Link, authentication failures</td><td class="num">0 of 4863</td><td class="ctx">bench</td></tr>
+              <tr><td>s.Link duty cycle, <strong>remote station</strong></td><td class="num">2.3% — 83 s of air per hour</td><td class="ctx">measured</td></tr>
+              <tr><td>s.Link duty cycle, <strong>operator</strong></td><td class="num">0% when idle</td><td class="ctx">code constant</td></tr>
+              <tr><td>640×480 video through the whole chain</td><td class="num">60 of 60 frames byte-exact</td><td class="ctx">22.08 · bench</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section wrap" id="pending">
+        <p class="section-label">Ready in code — waiting for the air</p>
+        <p class="body" style="margin-bottom:28px">
+          These are not plans or intentions: the code is written, the chain closes on the bench, the tests are green. Exactly one thing is missing — a run on the air.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">640×480 video channel</div>
+            <div class="b">The whole chain joined for the first time: H.265 → fragmenter → outer Reed-Solomon code → PHY → and back. 60 of 60 frames byte-exact, and ffmpeg played the result. The radio is not involved yet.</div>
+          </div>
+          <div class="row">
+            <div class="h">Drone control over s.Link</div>
+            <div class="b">A compressed subset of MAVLink, ~72 bit/s in long-range mode. The code is written and tested, but has never been on the air.</div>
+          </div>
+          <div class="row">
+            <div class="h">s.Link4k — a rooted mesh for 4K video</div>
+            <div class="b">Video relaying without trusting the relay: it forwards the authenticated 1024-byte packet <strong>without parsing H.265 or decrypting it</strong>. Routes and slots are handed out by the ground sink, and flooding is forbidden by design — every duplicate would consume a full burst on every subsequent hop. Earlier than the other rows here: the wire format and capacity model are implemented off-air, with no live radio path yet. Next comes packet FEC, then the scheduler simulator.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="amps">
+        <p class="section-label">The amplifier study</p>
+        <h2>Why "just add a watt" does not add range</h2>
+        <p class="body">
+          The obvious answer to range is an amplifier. We costed it and
+          checked it, and it turned out to be mostly a trap. We publish it
+          because this is the part of engineering that shows whether someone
+          has actually worked with hardware.
+        </p>
+
+        <figure class="figwide">
+          <svg viewBox="0 0 660 236" role="img" aria-label="Range gain from added power: the exponent near the ground is 4, so 12 decibels only double the range">
+            <rect x="420" y="26" width="54" height="164" fill="#3e6b1f" fill-opacity="0.07"/>
+            <text x="447" y="20" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="middle">+20…+23 dBm</text>
+
+            <g stroke="#efefef" stroke-width="1">
+              <line x1="60" y1="150.2" x2="600" y2="150.2"/>
+              <line x1="60" y1="110" x2="600" y2="110"/>
+              <line x1="60" y1="70" x2="600" y2="70"/>
+            </g>
+            <line x1="60" y1="16" x2="60" y2="190" stroke="#c8c8c8" stroke-width="1"/>
+            <line x1="60" y1="190" x2="600" y2="190" stroke="#c8c8c8" stroke-width="1"/>
+
+            <path d="M60.0,190.0 L96.0,179.6 L132.0,166.6 L168.0,150.2 L204.0,129.5 L240.0,103.5 L276.0,70.8 L306.0,36.0" fill="none" stroke="#c8c8c8" stroke-width="1.8" stroke-dasharray="5 4"/>
+            <path d="M60.0,190.0 L96.0,185.1 L132.0,179.6 L168.0,173.5 L204.0,166.6 L240.0,158.9 L276.0,150.2 L312.0,140.5 L348.0,129.5 L384.0,117.3 L420.0,103.5 L456.0,88.1 L492.0,70.8 L528.0,51.3 L560.0,33.0" fill="none" stroke="#3e6b1f" stroke-width="2.4"/>
+
+            <circle cx="276" cy="150.2" r="4.5" fill="#2f4b19"/>
+            <circle cx="546" cy="40.7" r="4.5" fill="#2f4b19"/>
+
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
+              <text x="286" y="146" fill="#2f4b19" font-weight="700">+12 dB → ×2</text>
+              <text x="540" y="36" fill="#2f4b19" text-anchor="end" font-weight="700">2 W → ×4.7</text>
+              <text x="316" y="52" fill="#a8a8a8">free space</text>
+              <text x="452" y="126" fill="#2f4b19">near the ground</text>
+            </g>
+            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
+              <text x="60" y="206" text-anchor="middle">0</text>
+              <text x="330" y="206" text-anchor="middle">+15 dB</text>
+              <text x="600" y="206" text-anchor="end">+30 dB</text>
+              <text x="52" y="194" text-anchor="end">×1</text>
+              <text x="52" y="34" text-anchor="end">×5</text>
+              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">range gain from added power</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Near the ground the exponent is 4, not 2</div>
+            <div class="b">In the two-ray model range grows far more slowly than power: 2 W (+27 dBm) buys only <strong>×4.7</strong>, not ×22. Doubling the range costs 12 dB, not 6. The sweet spot is <strong>+20…+23 dBm, not watts</strong>.</div>
+          </div>
+          <div class="row">
+            <div class="h">An ungated amplifier deafens its own receiver</div>
+            <div class="b">It holds the noise floor up permanently, because the local oscillator cannot switch off between bursts. One metre of antenna separation costs <strong>−4.8 dB of our own sensitivity</strong>, half a metre <strong>−9.5 dB</strong>. A low-noise amplifier makes this <em>worse</em>, not better. The conclusion: the gate has to be switched together with the burst.</div>
+          </div>
+          <div class="row">
+            <div class="h">The real blocker is our own array</div>
+            <div class="b">A strong transmitter nearby drives the KrakenSDR into clipping, and distance does not save it. A beacon of a few milliwatts <strong>already</strong> does this. It needs the array blanked for the duration of the burst plus a limiter — without them every bearing frame is contaminated.</div>
+          </div>
+          <div class="row">
+            <div class="h">~9 dB sits there for free</div>
+            <div class="b">The transmitter's digital scale sits 12 dB below full. GMSK has a constant envelope and needs no such headroom — <strong>+8…+9 dB can be taken with no hardware at all</strong>. The flip side of the same fact: the "+6 dBm" budget line is probably overstated by those same 12 dB, so the range calculation may be optimistic by a factor of two. First measurement: power at the connector.</div>
+          </div>
+          <div class="row">
+            <div class="h">An LNA earns its place on feeder loss, not noise figure</div>
+            <div class="b">On noise figure alone it gives only ~3.6 dB. But it takes cable loss out of the budget, and that is what decides: a 10 m mast is worth +14 dB, while RG58 at 866 MHz eats 6 dB over ten metres and 26 dB over forty-four.</div>
+          </div>
+          <div class="row">
+            <div class="h">The asymmetry of roles is already in the code</div>
+            <div class="b">The operator console must be findable by nobody, so it sends only what the operator deliberately sent. Hence the split: the power amplifier goes <strong>on the station only</strong>, the low-noise one on the operator. A power amplifier on the operator side would be the worst of the four combinations.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="roadmap">
+        <p class="section-label">Development plan</p>
+        <h2>Where the link grows next</h2>
+        <p class="body">
+          These, by contrast, are plans, and we label them as such. What is already implemented off-air is said plainly; the number still missing before the air is named.
+        </p>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Frequency hopping keyed to the link key</div>
+            <div class="b">The hop order is derived from the key and the clock the two ends already share: nothing extra goes on the air, and without the key the next channel cannot be guessed. The channel set is first filtered against the frequency plan — the key permutes the order, not the placement. A wide set buys up to ~28 dB of processing gain against a barrage jammer. The honest limit: the hop rate is capped by clock synchronisation, so time discipline comes before any radio work — done wrong, hopping makes a working link worse. The hop-order and hop-plan code is already in the tree and under test; it has never been switched on over the air.</div>
+          </div>
+          <div class="row">
+            <div class="h">Mesh — s.Link4k, a rooted relay for 4K</div>
+            <div class="b">A scheduled mesh, not flooding: the ground sink computes the route and the TDMA grants, and a relay forwards the authenticated 1024-byte packet <strong>without decrypting it or parsing H.265</strong>. A direct route carries 2160p30 in the capacity model; every single-frequency relay divides the airtime. Status: the wire format and capacity model are implemented off-air; next comes packet FEC, then the scheduler simulator.</div>
+          </div>
+          <div class="row">
+            <div class="h">Video</div>
+            <div class="b">The 640×480 chain already closes on the bench — 60 of 60 frames byte-exact; only the air remains. The high-rate video profile will be its own named PHY profile with its own budget and tests, not a tuning of narrowband s.Link; 4K rides the mesh above.</div>
+          </div>
+          <div class="row">
+            <div class="h">PHY robustness</div>
+            <div class="b">An interleaver over the convolutional code is a direct win against pulsed jamming, waits on nothing else, and goes first. Then a chirp preamble ahead of the GMSK payload: detection below the noise floor instead of an energy gate, and a carrier-offset measurement that unlocks higher bands. The CSS core and its tests are already in the tree.</div>
+          </div>
+          <div class="row">
+            <div class="h">Operator survivability</div>
+            <div class="b">The operator must not be direction-findable. At idle their emission is zero — measured. Next: commands at the least sufficient power driven by the station's telemetry, a randomised emission instant inside the slot, and re-acquiring a lost link with no fixed rendezvous channel — only the station transmits, the operator just listens.</div>
+          </div>
+          <div class="row">
+            <div class="h">30 km of range</div>
+            <div class="b">The order of work is costed: directional antennas at both ends first (+8…12 dBi — they help both directions at once), then the console's local noise — a measured ~29 dB above the receiver's own floor — and only then an amplifier. Every existing number was taken on one site; a 1–3 km field run comes before any money is spent on range.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" id="cta">
+        <div class="cta-block">
+          <p class="body" style="margin:0">
+            We can show the link working in person. The full technical wiki and the protocol specification live in the data room.
+          </p>
+          <div class="cta-actions">
+            <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+            <a class="btn-ghost" href="/en/investors/">Data room</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer wrap">
+      <span>© 2026 ELINTIR LLC</span>
+      <span>Data as of 23.08.2026</span>
+    </footer>
+    <script src="/assets/contact.js" defer></script>
+  </body>
+</html>

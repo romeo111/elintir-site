@@ -117,11 +117,10 @@
 
       .topbar nav a:hover { color: var(--ink); }
       .topbar nav a.current {
-        box-shadow: inset 0 -2px 0 0 var(--brand-green);
+        color: var(--ink);
+        font-weight: 700;
+        box-shadow: inset 0 -3px 0 0 var(--brand-green);
       }
-      .topbar nav a.current:not(.cta) { color: var(--ink); }
-      .topbar nav a.cta { color: var(--brand-green-deep); font-weight: 700; }
-      .topbar nav a.cta:hover { color: var(--brand-green); }
 
       /* ---------- hero ---------- */
 
@@ -279,6 +278,17 @@
         .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
         .topbar nav a.hide-sm { display: none; }
       }
+
+      /* demo button in the header */
+      .topbar nav { align-items: baseline; }
+      .topbar nav a.demo {
+        color: #fff;
+        background: var(--brand-green-deep);
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 4px;
+      }
+      .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
     </style>
   </head>
   <body>
@@ -296,11 +306,12 @@
       </a>
       <nav aria-label="Основна навігація">
         <a class="hide-sm" href="/#directions">Напрями</a>
+        <a href="/hardware/">Продукти</a>
+        <a href="/slink/">s.Link</a>
+        <a class="current" href="/investors/" aria-current="page">Інвесторам</a>
         <a href="/company/">Компанія</a>
-        <a href="/hardware/">Апаратура</a>
-        <a href="/#contacts">Контакти</a>
-        <a class="cta current" href="/investors/" aria-current="page">Інвесторам</a>
-              <a class="lang" href="/en/investors/" hreflang="en" lang="en">EN</a>
+        <a class="demo" href="mailto:info@elintir.com?subject=%D0%97%D0%B0%D0%BF%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8E%20ELINTIR">Замовити демо</a>
+        <a class="lang" href="/en/investors/" hreflang="en" lang="en">EN</a>
       </nav>
     </header>
 
