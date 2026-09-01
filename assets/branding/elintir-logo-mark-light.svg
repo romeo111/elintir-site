@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="ELINTIR: знак Δ/λ у п'ятикутнику (світле тло)">
+  <title>ELINTIR — Δ∕λ у п'ятикутнику (для світлого тла: чорний каркас, темно-зелений Δ∕λ)</title>
+  <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3"
+           fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M176 364.5 L336 171.5" fill="none" stroke="#3e6b1f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M206 190 L181 233 H231 Z M280 293 L336 351 M299.6 313.3 L282 351"
+        fill="none" stroke="#3e6b1f" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#3e6b1f">
+    <circle cx="256" cy="75" r="14"/>
+    <circle cx="75.3" cy="206.3" r="14"/>
+    <circle cx="144.3" cy="418.7" r="14"/>
+    <circle cx="367.7" cy="418.7" r="14"/>
+    <circle cx="436.7" cy="206.3" r="14"/>
+  </g>
+</svg>

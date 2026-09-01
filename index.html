@@ -13,7 +13,11 @@
     <meta property="og:description" content="Програмне забезпечення нового покоління для SDR, RF SoC і FPGA: пеленгація, радіолінки, розпізнавання сигнатур.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="uk_UA">
-    <meta property="og:image" content="/assets/elintir-hero.png">
+    <meta property="og:image" content="https://elintir.com/assets/products/elintir-og-product.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ELINTIR UCA-1, GR-1 and SL-1">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://elintir.com/">
     <link rel="alternate" hreflang="uk" href="https://elintir.com/">
     <link rel="alternate" hreflang="en" href="https://elintir.com/en/">
@@ -283,6 +287,68 @@
       }
       .direction-more a:hover { border-bottom-color: var(--brand-green-deep); }
 
+      /* ---------- перший продукт ---------- */
+
+      .product-home h2 {
+        font-family: var(--display);
+        margin: 0 0 16px;
+        max-width: 20ch;
+        font-size: clamp(23px, 3vw, 30px);
+        line-height: 1.22;
+        letter-spacing: -0.01em;
+        font-weight: 700;
+      }
+
+      .product-home p {
+        margin: 0 0 18px;
+        max-width: 62ch;
+        color: var(--muted);
+        font-size: 16.5px;
+        line-height: 1.65;
+      }
+
+      .product-home p strong { color: var(--ink); font-weight: 700; }
+
+      .product-home-more { margin: 0 !important; font-size: 15px; }
+      .product-home-more a {
+        color: var(--brand-green-deep);
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+      .product-home-more a:hover { border-bottom-color: var(--brand-green-deep); }
+
+      .product-shots {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+        margin-top: 38px;
+      }
+
+      .product-shots figure { margin: 0; }
+
+      .product-shots img {
+        width: 100%;
+        height: clamp(170px, 20vw, 235px);
+        object-fit: contain;
+        display: block;
+      }
+
+      .product-shots figcaption {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+
+      .product-shots figcaption b { display: block; color: var(--ink); margin-bottom: 3px; }
+
       /* ---------- компанія ---------- */
 
       .about {
@@ -391,6 +457,9 @@
         .topbar nav a.hide-sm {
           display: none;
         }
+
+        .product-shots { grid-template-columns: 1fr; gap: 32px; }
+        .product-shots img { height: 240px; }
       }
     </style>
   </head>
@@ -424,6 +493,50 @@
         <div class="hero-cta">
           <a class="btn" href="mailto:info@elintir.com?subject=%D0%97%D0%B0%D0%BF%D0%B8%D1%82%20%D0%BD%D0%B0%20%D0%B4%D0%B5%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8E%20ELINTIR">Замовити демо</a>
           <a class="btn-ghost" href="/hardware/">Дивитись апаратуру</a>
+        </div>
+      </section>
+
+      <section class="section wrap" id="product">
+        <p class="section-label">Перший продукт</p>
+        <div class="product-home">
+          <h2>Решітка, приймач, оператор</h2>
+          <p>
+            <strong>UCA-1</strong> ловить хвилю п'ятьма елементами в кільці.
+              <strong>GR-1</strong> приймає всі п'ять каналів когерентно й рахує
+              напрямок просто на позиції. <strong>SL-1</strong> лишається в оператора
+              й замикає s.Link з його боку — пеленги туди, команди назад. Канал
+              власний, точка-точка: ні ретрансляторів, ні інтернету.
+          </p>
+          <p class="product-home-more"><a href="/hardware/#product">Дивитись комплект →</a></p>
+          <div class="product-shots">
+            <figure>
+              <picture>
+                <source srcset="/assets/products/elintir-uca-1.webp" type="image/webp">
+                <img src="/assets/products/elintir-uca-1.jpg" width="839" height="1000"
+                     loading="lazy" decoding="async"
+                     alt="ELINTIR UCA-1 — п'ятикутна антенна решітка з п'ятьма вертикальними елементами">
+              </picture>
+              <figcaption><b>ELINTIR UCA-1</b>Антенна решітка</figcaption>
+            </figure>
+            <figure>
+              <picture>
+                <source srcset="/assets/products/elintir-gr-1.webp" type="image/webp">
+                <img src="/assets/products/elintir-gr-1.jpg" width="888" height="1000"
+                     loading="lazy" decoding="async"
+                     alt="ELINTIR GR-1 — приймальний блок із чотирма антенами та п'ятьма коаксіальними кабелями до решітки">
+              </picture>
+              <figcaption><b>ELINTIR GR-1</b>Приймач і обчислювач</figcaption>
+            </figure>
+            <figure>
+              <picture>
+                <source srcset="/assets/products/elintir-sl-1.webp" type="image/webp">
+                <img src="/assets/products/elintir-sl-1.jpg" width="576" height="1000"
+                     loading="lazy" decoding="async"
+                     alt="ELINTIR SL-1 — операторський модем s.Link з двома антенами">
+              </picture>
+              <figcaption><b>ELINTIR SL-1</b>Операторський модем</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 

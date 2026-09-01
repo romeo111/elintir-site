@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 256" role="img" aria-label="ELINTIR — ML SDR MAPPER">
+  <title>ELINTIR — горизонтальний лого-блок для шапки сайту</title>
+  <!-- Знак -->
+  <polygon points="128,45 40.5,108.6 73.9,211.4 182.1,211.4 215.5,108.6"
+           fill="none" stroke="#4f7f28" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M89.3 185.2 L166.7 91.7" fill="none" stroke="#4f7f28" stroke-width="6" stroke-linecap="round"/>
+  <path d="M103.8 100.7 L91.7 121.5 H115.9 Z M139.6 150.6 L166.7 178.6 M149.1 160.4 L140.6 178.6"
+        fill="none" stroke="#4f7f28" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#4f7f28">
+    <circle cx="128" cy="45" r="7"/>
+    <circle cx="40.5" cy="108.6" r="7"/>
+    <circle cx="73.9" cy="211.4" r="7"/>
+    <circle cx="182.1" cy="211.4" r="7"/>
+    <circle cx="215.5" cy="108.6" r="7"/>
+  </g>
+  <!-- Текстовий блок -->
+  <text x="278" y="130"
+        font-family="Montserrat, -apple-system, 'Segoe UI', Arial, sans-serif"
+        font-weight="700" font-size="88" letter-spacing="12" fill="#4f7f28">ELINTIR</text>
+  <text x="278" y="182"
+        font-family="Montserrat, -apple-system, 'Segoe UI', Arial, sans-serif"
+        font-weight="600" font-size="30" letter-spacing="11" fill="#4f7f28">ML SDR MAPPER</text>
+</svg>
