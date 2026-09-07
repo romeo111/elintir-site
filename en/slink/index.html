@@ -515,6 +515,9 @@
       .proof-table td.num { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
       .proof-table td.ctx { color: var(--faint); font-size: 13.5px; white-space: nowrap; }
       .proof-table tr:last-child td { border-bottom: 0; }
+      /* The profiles table carries prose in its last column, so the nowrap that
+         suits a short date stamp elsewhere would starve it of width. */
+      #profiles .proof-table td.ctx { white-space: normal; max-width: 20ch; }
 
       /* ---------- signature analysis ---------- */
 
@@ -795,6 +798,60 @@
         </div>
       </section>
 
+      <section class="section wrap" id="profiles">
+        <p class="section-label">PHY profiles</p>
+        <h2>Not one mode, but a ladder</h2>
+        <p class="body" style="max-width:70ch;margin-bottom:28px">
+          Every distinct use of the radio here is a separate named profile with its own
+          budget and its own tests, not a "setting" of the one next to it. The three
+          narrowband ones differ by exactly one lever: <strong>the slower the symbols,
+          the narrower the receiver's noise bandwidth</strong> — and the further it hears.
+        </p>
+        <div style="overflow-x:auto">
+          <table class="proof-table">
+            <thead>
+              <tr><th>Profile</th><th>Symbols/s</th><th>Bandwidth</th><th>What it buys</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Shared with the sweep</td><td class="num">240 000</td><td class="num">≈250 kHz</td>
+                <td>The modem lives inside the station's 30.72 MS/s hardware profile: an exact ×32 division in DSP, with no fractional resampler and none of the timing wander one brings.</td>
+                <td class="ctx">the only one to detect on the shared chain</td>
+              </tr>
+              <tr>
+                <td>Long range</td><td class="num">25 000</td><td class="num">26 kHz</td>
+                <td>A tenfold narrower noise bandwidth: <strong>−10 dB, so 3.2× the reach</strong>. The link carries 11 bytes every 15 s — there is simply nothing here to spend rate on.</td>
+                <td class="ctx">deployed, the default</td>
+              </tr>
+              <tr>
+                <td>Half rate</td><td class="num">12 500</td><td class="num">≈13 kHz</td>
+                <td>Half as wide again. Theory promises 10·log₁₀2 = 3.01 dB, <strong>measured 2.7–3.0</strong>. One slow frame instead of two fast ones — the slot does not move.</td>
+                <td class="ctx">launchable; air by loopback, not by field</td>
+              </tr>
+              <tr>
+                <td>4K video</td><td class="num">15 360 000</td><td class="num">19.2 MHz</td>
+                <td>1024 bytes in 0.557 ms — <strong>14.7 Mbit/s</strong> of payload, inside the AD9363's 20 MHz ceiling. Its own profile, not the narrowband one "turned up".</td>
+                <td class="ctx">off-air</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="rows" style="margin-top:30px">
+          <div class="row">
+            <div class="h">A profile is a property of both ends</div>
+            <div class="b">A receiver keyed to the long-range profile sees a half-rate burst as eight samples per symbol while it searches four — so <strong>long range does not decode half rate, and half rate does not decode long range</strong>. Switching one end alone takes the link down in both directions. A receiver listening for both profiles at once does not rescue this: it is ~3 dB deafer, handing back exactly what the profile earns. That was measured and rejected, not assumed.</div>
+          </div>
+          <div class="row">
+            <div class="h">There is no third halving</div>
+            <div class="b">6.25 ksym/s is 154 ms per frame, and the slot lasts 150. The bottom of the ladder is set by the schedule, not by physics.</div>
+          </div>
+        </div>
+        <p class="body" style="max-width:70ch;margin-top:22px;font-size:14.5px;color:var(--faint)">
+          Narrowband bandwidths are GMSK BT=0.5 at ≈1.04 of the symbol rate (the same rule
+          that gives 26 kHz at 25 ksym/s). The 19.2 MHz for 4K is a constant from the code.
+        </p>
+      </section>
+
       <section class="section wrap" id="measured">
         <p class="section-label">What is already measured</p>
         <div style="overflow-x:auto">
@@ -833,7 +890,7 @@
           </div>
           <div class="row">
             <div class="h">s.Link4k — a rooted mesh for 4K video</div>
-            <div class="b">Video relaying without trusting the relay: it forwards the authenticated 1024-byte packet <strong>without parsing H.265 or decrypting it</strong>. Routes and slots are handed out by the ground sink, and flooding is forbidden by design — every duplicate would consume a full burst on every subsequent hop. Earlier than the other rows here: the wire format and capacity model are implemented off-air, with no live radio path yet. Next comes packet FEC, then the scheduler simulator.</div>
+            <div class="b">Video relaying without trusting the relay: it forwards the authenticated 1024-byte packet <strong>without parsing H.265 or decrypting it</strong>. Routes and slots are handed out by the ground sink, and flooding is forbidden by design — every duplicate would consume a full burst on every subsequent hop. Earlier than the other rows here: the wire format, the capacity model <strong>and packet FEC</strong> are already implemented off-air — with no live radio path yet. Next comes the scheduler simulator.</div>
           </div>
         </div>
       </section>
@@ -924,7 +981,7 @@
           </div>
           <div class="row">
             <div class="h">Mesh — s.Link4k, a rooted relay for 4K</div>
-            <div class="b">A scheduled mesh, not flooding: the ground sink computes the route and the TDMA grants, and a relay forwards the authenticated 1024-byte packet <strong>without decrypting it or parsing H.265</strong>. A direct route carries 2160p30 in the capacity model; every single-frequency relay divides the airtime. Status: the wire format and capacity model are implemented off-air; next comes packet FEC, then the scheduler simulator.</div>
+            <div class="b">A scheduled mesh, not flooding: the ground sink computes the route and the TDMA grants, and a relay forwards the authenticated 1024-byte packet <strong>without decrypting it or parsing H.265</strong>. A direct route carries 2160p30 in the capacity model; every single-frequency relay divides the airtime. Status: the wire format, the capacity model <strong>and packet FEC</strong> are implemented off-air — a Cauchy-Reed-Solomon erasure code over 992-byte symbols, the rest of the 1024-byte packet being the authentication tag. There is still no live radio path. Next comes the scheduler simulator: HDL and a transmitter deliberately do not start until it is green.</div>
           </div>
           <div class="row">
             <div class="h">Video</div>

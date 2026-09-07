@@ -302,6 +302,33 @@
       }
       .callout p { max-width: 64ch; margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
 
+      .callout-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
+        gap: 24px 30px;
+        align-items: start;
+      }
+      .callout-text p + p { margin-top: 14px; }
+      .callout-fig { margin: 0; }
+      .callout-fig img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 3px;
+      }
+      .callout-fig figcaption {
+        margin-top: 8px;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.5;
+        color: var(--faint);
+      }
+      /* картинки нема на диску -> figure зникає, текст займає всю ширину */
+      .callout-grid.no-fig { grid-template-columns: 1fr; }
+      .callout-grid.no-fig .callout-fig { display: none; }
+
       /* ---------- cta ---------- */
 
       .cta-block {
@@ -354,6 +381,8 @@
       @media (max-width: 860px) {
         .stack, .stack.two, .stages { grid-template-columns: 1fr; }
         .row { grid-template-columns: 1fr; }
+        .callout-grid { grid-template-columns: 1fr; }
+        .callout-fig { max-width: 380px; }
       }
 
       @media (max-width: 560px) {
@@ -505,23 +534,39 @@
 
         <div class="callout">
           <div class="callout-h">Експортний дозвіл AMD на інструментарій RFSoC</div>
-          <p>
-            Ми маємо власний узгоджений з AMD експортний дозвіл на
-            <strong>програмне забезпечення</strong> для RFSoC. Це
-            <strong>Vivado ML Edition</strong> із ліцензіями на пристрої
-            UltraScale+, <strong>Vitis</strong> і <strong>Vitis HLS</strong>,
-            <strong>Vitis Model Composer</strong> для DSP-ланцюгів,
-            <strong>PetaLinux</strong> для системи на процесорній частині —
-            і, що тут головне, IP-ядро <strong>RF Data Converter</strong>
-            разом із його драйвером: саме воно, а не плата, дає доступ до
-            вбудованих АЦП і ЦАП, заради яких RFSoC і береться.
-          </p>
-          <p>
-            Вузьке місце тут саме інструментарій: без легального доступу до
-            нього розробки під цей кристал не існує взагалі — конфігурацію
-            перетворювачів нічим згенерувати, бітстрім нічим зібрати. Самі
-            плати їдуть із Китаю і жодного дозволу не потребують.
-          </p>
+          <div class="callout-grid">
+            <div class="callout-text">
+              <p>
+                Ми маємо власний узгоджений з AMD експортний дозвіл на
+                <strong>програмне забезпечення</strong> для RFSoC. Це
+                <strong>Vivado ML Edition</strong> із ліцензіями на пристрої
+                UltraScale+, <strong>Vitis</strong> і <strong>Vitis HLS</strong>,
+                <strong>Vitis Model Composer</strong> для DSP-ланцюгів,
+                <strong>PetaLinux</strong> для системи на процесорній частині —
+                і, що тут головне, IP-ядро <strong>RF Data Converter</strong>
+                разом із його драйвером: саме воно, а не плата, дає доступ до
+                вбудованих АЦП і ЦАП, заради яких RFSoC і береться.
+              </p>
+              <p>
+                Вузьке місце тут саме інструментарій: без легального доступу до
+                нього розробки під цей кристал не існує взагалі — конфігурацію
+                перетворювачів нічим згенерувати, бітстрім нічим зібрати. Самі
+                плати їдуть із Китаю і жодного дозволу не потребують.
+              </p>
+            </div>
+            <figure class="callout-fig">
+              <img
+                src="/assets/partners/amd-vivado.png"
+                alt="AMD Vivado Design Suite: коробка з програмним забезпеченням і три тези — єдиний потік інструментів, розширені потоки компіляції, широкий каталог IP."
+                width="509"
+                height="464"
+                loading="lazy"
+                decoding="async"
+                onerror="this.closest('.callout-grid').classList.add('no-fig')"
+              >
+              <figcaption>Ілюстрація AMD. Vivado ML Edition — частина інструментарію, на який ми маємо дозвіл.</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 

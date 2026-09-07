@@ -317,6 +317,33 @@
       }
       .callout p { max-width: 64ch; margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
 
+      .callout-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
+        gap: 24px 30px;
+        align-items: start;
+      }
+      .callout-text p + p { margin-top: 14px; }
+      .callout-fig { margin: 0; }
+      .callout-fig img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 3px;
+      }
+      .callout-fig figcaption {
+        margin-top: 8px;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.5;
+        color: var(--faint);
+      }
+      /* картинки нема на диску -> figure зникає, текст займає всю ширину */
+      .callout-grid.no-fig { grid-template-columns: 1fr; }
+      .callout-grid.no-fig .callout-fig { display: none; }
+
       /* ---------- cta ---------- */
 
       .cta-block {
@@ -369,6 +396,8 @@
       @media (max-width: 860px) {
         .stack, .stack.two, .stages { grid-template-columns: 1fr; }
         .row { grid-template-columns: 1fr; }
+        .callout-grid { grid-template-columns: 1fr; }
+        .callout-fig { max-width: 380px; }
       }
 
       @media (max-width: 560px) {
@@ -521,23 +550,39 @@
 
         <div class="callout">
           <div class="callout-h">AMD export permission for the RFSoC toolchain</div>
-          <p>
-            We hold our own export permission, agreed with AMD, for the RFSoC
-            <strong>design software</strong>: <strong>Vivado ML Edition</strong>
-            with UltraScale+ device licences, <strong>Vitis</strong> and
-            <strong>Vitis HLS</strong>, <strong>Vitis Model Composer</strong>
-            for DSP chains, <strong>PetaLinux</strong> for the processing
-            system — and, the part that matters most here, the
-            <strong>RF Data Converter</strong> IP core with its driver: that,
-            not the board, is what gives access to the on-die ADCs and DACs
-            an RFSoC is chosen for in the first place.
-          </p>
-          <p>
-            The bottleneck is the toolchain: without legal access to it there
-            is no development for this part at all — nothing to generate the
-            converter configuration with, nothing to build a bitstream with.
-            The boards themselves come from China and need no permission.
-          </p>
+          <div class="callout-grid">
+            <div class="callout-text">
+              <p>
+                We hold our own export permission, agreed with AMD, for the RFSoC
+                <strong>design software</strong>: <strong>Vivado ML Edition</strong>
+                with UltraScale+ device licences, <strong>Vitis</strong> and
+                <strong>Vitis HLS</strong>, <strong>Vitis Model Composer</strong>
+                for DSP chains, <strong>PetaLinux</strong> for the processing
+                system — and, the part that matters most here, the
+                <strong>RF Data Converter</strong> IP core with its driver: that,
+                not the board, is what gives access to the on-die ADCs and DACs
+                an RFSoC is chosen for in the first place.
+              </p>
+              <p>
+                The bottleneck is the toolchain: without legal access to it there
+                is no development for this part at all — nothing to generate the
+                converter configuration with, nothing to build a bitstream with.
+                The boards themselves come from China and need no permission.
+              </p>
+            </div>
+            <figure class="callout-fig">
+              <img
+                src="/assets/partners/amd-vivado.png"
+                alt="AMD Vivado Design Suite: a software box and three claims — unified tool flow, advanced compile flows, broad IP catalog."
+                width="509"
+                height="464"
+                loading="lazy"
+                decoding="async"
+                onerror="this.closest('.callout-grid').classList.add('no-fig')"
+              >
+              <figcaption>AMD's own illustration. Vivado ML Edition is part of the toolchain we are permitted to use.</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
