@@ -1227,7 +1227,7 @@
           </div>
           <div class="stack-card">
             <span class="k">Receivers</span>
-            <div class="v">24-1766 MHz coherent (5×RTL2838), plus survey to 6 GHz.</div>
+            <div class="v">24-1766 MHz coherent (5 × RTL2832U), plus survey to 6 GHz.</div>
           </div>
           <div class="stack-card">
             <span class="k">Compute</span>
@@ -1250,9 +1250,9 @@
 
         <h3 class="sub-h">The boards we work on</h3>
         <div class="rows">
-          <div class="row"><div class="h">Zynq-7010 — link and telemetry</div><div class="b">ADALM-Pluto and compatibles: 17 600 logic cells, 80 DSP slices. 12 456 cells (71%) and <strong>72 of 80 DSP</strong> are already used — DSP is the pinch that keeps the fast link mode out.</div></div>
-          <div class="row"><div class="h">Zynq-7020 — the wideband side</div><div class="b">A class above: 1 GB DDR3, gigabit networking, a 0.5 ppm temperature-stable oscillator with an external reference input, two receive channels. The driver is unlocked across the full 70 MHz - 6 GHz range.</div></div>
-          <div class="row"><div class="h">Measured on them, not taken from a datasheet</div><div class="b">12 bits give roughly 60 dB of dynamic range. Of the nominal 56 MHz, 48-52 MHz stay flat; the edges roll off. Sustained throughput over the network is about 9 MS/s with typical buffers, so a continuous maximum rate is impossible over any link: capture works in bursts.</div></div>
+          <div class="row"><div class="h">Two boards, one die</div><div class="b">The link and the wideband survey live on boards of the <strong>same</strong> class: <strong>XC7Z010</strong>, 17 600 logic cells, 80 DSP slices. The stock bitstream already takes 12 456 cells and <strong>72 of 80 DSP</strong> — DSP is the pinch that keeps the fast link mode out. The wideband board adds 1 GB DDR3, gigabit networking and a 0.5 ppm temperature-stable oscillator with an external reference input; its driver is unlocked across the full 70 MHz - 6 GHz range.</div></div>
+          <div class="row"><div class="h">We read the silicon instead of trusting the label</div><div class="b">The vendor describes the wideband board as a <strong>7020</strong>. By IDCODE it holds an <strong>XC7Z010</strong> — 17 600 LUT and 80 DSP instead of 53 200 and 220. Read three times in a row, through a second independent decoder, and on all three boards of the park including the station one. The difference is not cosmetic: the conclusion that a 4K receiver does not fit this fabric rests on it.</div></div>
+          <div class="row"><div class="h">Measured on them, not taken from a datasheet</div><div class="b">12 bits give roughly 60 dB of dynamic range. Sustained throughput over the network is about 9 MS/s with typical buffers, so a continuous maximum rate is impossible over any link: capture works in bursts. The nominal 56 MHz belongs to the AD9361; <strong>our board negotiates 30.72 MS/s at most</strong> and refuses 61.44, 56 and 40 with an error. An early run measured 48-52 MHz flat out of 56 — we kept the smaller of the two numbers in planning, because it comes from the newer run.</div></div>
           <div class="row"><div class="h">What they do not have</div><div class="b">No receive LNA in any variant, and above ~2 GHz the front end goes noticeably deaf — the balun is tuned for 2.4 GHz and there is no preselector. Weak targets in the upper bands need an external LNA and a bandpass filter.</div></div>
         </div>
       </section>
@@ -1262,7 +1262,7 @@
         <div class="rows">
           <div class="row"><div class="h">The station</div><div class="b">A Raspberry Pi 5 — starts by itself, runs off a power bank, lives in the field.</div></div>
           <div class="row"><div class="h">Real-time direction finding</div><div class="b">Five-channel coherent reception and MUSIC over a circular array: an azimuth on the source several times a second, with no demodulation of payload. The d/λ ratio is recomputed on every retune — otherwise the bearing would lie with a zero and never complain.</div></div>
-          <div class="row"><div class="h">12 scanners</div><div class="b">Each one knows what it is looking for in its own band: communications, radar, satellite channels, navigation jamming. Frequency labels come from a single atlas, not from the scanner's own code.</div></div>
+          <div class="row"><div class="h">15 scanners</div><div class="b">Each one knows what it is looking for in its own band: communications, radar, satellite channels, navigation jamming. Frequency labels come from a single atlas, not from the scanner's own code.</div></div>
           <div class="row"><div class="h">s.Link</div><div class="b">Our own encrypted station-to-operator radio: bearings out, commands back. <a href="/en/slink/" style="color:var(--brand-green-deep);font-weight:700;text-decoration:none;border-bottom:1px solid var(--brand-green-deep)">Its own page →</a></div></div>
           <div class="row"><div class="h">Signature vector analysis</div><div class="b">A feature vector — temporal, spectral, structural — is pulled from raw IQ and the emitter type is determined from it. The catalogue recognises a transmitter when it comes back. No demodulation of payload.</div></div>
           <div class="row"><div class="h">Raw IQ capture</div><div class="b">Multichannel coherent samples are written to a standard format with provenance metadata — either short event-scoped snippets or a continuous frame archive. The analysis then happens on the ground, as many times as needed.</div></div>
@@ -1281,7 +1281,7 @@
               <tr><td>Bearing on an 868.000 CW beacon, spread</td><td class="num">0.2–1.5° over 90-second legs, 107 bearings</td><td class="ctx">22.08 · field</td></tr>
               <tr><td>Source proven by frequency selectivity</td><td class="num">69.6 dB at 868.0 vs ~16 dB either side — a 53.1 dB drop</td><td class="ctx">22.08 · field</td></tr>
               <tr><td>Beacon moved 0° → 30°</td><td class="num">the bearing moved +35.9° for a true +30°</td><td class="ctx">22.08 · field</td></tr>
-              <tr><td>Automated tests passing</td><td class="num">14 863 across 717 files, ~5.5 min</td><td class="ctx">23.08 · CI</td></tr>
+              <tr><td>Automated tests passing</td><td class="num">18,542 passed / 44 skipped, 0 red</td><td class="ctx">08.09 · test run</td></tr>
             </tbody>
           </table>
         </div>
@@ -1459,11 +1459,12 @@
 
         <h3 class="sub-h">What we measure with</h3>
         <p class="body">
-          An instantaneous bandwidth of 56 MHz and a 65 536-point transform
-          give a resolution of <strong>854 Hz</strong>. The entire hop set
-          fits inside the instantaneous band, so we <strong>measure the
-          channel grid step rather than guessing it</strong>: this resolution
-          divides a 525 kHz grid into 615 cells.
+          Our board's instantaneous window is <strong>30.72 MHz</strong> —
+          not the nominal 56, because it accepts no more — and a 65 536-point
+          transform gives a resolution of <strong>469 Hz</strong> inside it.
+          The entire hop set of the sub-GHz families fits inside that window,
+          so we <strong>measure the channel grid step rather than guessing
+          it</strong>: this resolution divides a 525 kHz grid into 1120 cells.
         </p>
         <p class="body">
           An honest limitation: this works <strong>in park mode</strong>. In
@@ -1488,7 +1489,7 @@
 
     <footer class="footer wrap">
       <span>© 2026 ELINTIR LLC</span>
-      <span>Data as of 23.08.2026</span>
+      <span>Data as of 08.09.2026</span>
     </footer>
     <script src="/assets/contact.js" defer></script>
   </body>

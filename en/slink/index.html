@@ -842,8 +842,8 @@
             <div class="b">A receiver keyed to the long-range profile sees a half-rate burst as eight samples per symbol while it searches four — so <strong>long range does not decode half rate, and half rate does not decode long range</strong>. Switching one end alone takes the link down in both directions. A receiver listening for both profiles at once does not rescue this: it is ~3 dB deafer, handing back exactly what the profile earns. That was measured and rejected, not assumed.</div>
           </div>
           <div class="row">
-            <div class="h">There is no third halving</div>
-            <div class="b">6.25 ksym/s is 154 ms per frame, and the slot lasts 150. The bottom of the ladder is set by the schedule, not by physics.</div>
+            <div class="h">There is no third halving — and the crystals are to blame, not the schedule</div>
+            <div class="b">The reference-oscillator offset between two boards is measured: <strong>5.01 ppm</strong>, which is 4.4 kHz at 872 MHz. GMSK tolerates ≈40% of the symbol rate, and that tolerance falls with the rate while the offset does not: 12.5 ksym/s has 5 kHz and still covers the offset, 6.25 has 2.5 kHz and hands back <strong>−4.8 dB</strong> instead of the promised +5.9, and 3.125 does not decode at all. Shared clock discipline — the same GPS/PPS that frequency hopping needs — opens this ladder back up.</div>
           </div>
         </div>
         <p class="body" style="max-width:70ch;margin-top:22px;font-size:14.5px;color:var(--faint)">
@@ -860,10 +860,16 @@
               <tr><th>Measured</th><th>Value</th><th>When</th></tr>
             </thead>
             <tbody>
-              <tr><td>Our own radio, end to end</td><td class="num">92/92 frames, SNR 26.0 dB</td><td class="ctx">15.08 · bench</td></tr>
+              <tr><td>Downlink station → operator, a 29.6 min window</td><td class="num">777 of 803 packets = 96.8%, median SNR 38.5–40.7 dB</td><td class="ctx">05.09 · on air</td></tr>
+              <tr><td>Uplink operator → station, 2 min</td><td class="num">21 of 21 = 100%, 0 undecoded</td><td class="ctx">05.09 · on air</td></tr>
+              <tr><td>Loss after capture, s.Link 1.1 vs 1.0</td><td class="num">2.0% of captured energy wasted instead of 10.8%</td><td class="ctx">05.09 · on air</td></tr>
               <tr><td>Decode threshold on the air</td><td class="num">+2.27 dB</td><td class="ctx">15.08 · on air</td></tr>
-              <tr><td>Receiver sensitivity, gain</td><td class="num">+3.47 dB from a matched filter</td><td class="ctx">16.08 · measured</td></tr>
+              <tr><td>Half-rate profile 12.5 ksym/s, gain</td><td class="num">~3 dB on a real RF capture (+2.7…2.8 in simulation)</td><td class="ctx">01.09 · RF loopback</td></tr>
+              <tr><td>Receiver sensitivity, gain</td><td class="num">+3.47 dB from a matched filter</td><td class="ctx">16.08 · AWGN simulation</td></tr>
               <tr><td>Transmitter speed, gain</td><td class="num">×10.2, the signal bit-identical</td><td class="ctx">17.08 · measured</td></tr>
+              <tr><td>Reference oscillator offset between two boards</td><td class="num">5.01 ppm — 4,369 Hz at 872 MHz</td><td class="ctx">12.08 · measured</td></tr>
+              <tr><td>AD9361 retune — the basis of frequency hopping</td><td class="num">≤0.133 ms settling, 28 of 28 transitions</td><td class="ctx">24.08 · measured</td></tr>
+              <tr><td>Jamming resistance: GMSK vs chirp</td><td class="num">GMSK dies to a jammer 1…4 dB <em>weaker</em> than itself, chirp holds +13…+28 dB</td><td class="ctx">06.09 · simulation</td></tr>
               <tr><td>s.Link, continuous session</td><td class="num">5 h 20 min, 4863 frames</td><td class="ctx">bench</td></tr>
               <tr><td>s.Link, authentication failures</td><td class="num">0 of 4863</td><td class="ctx">bench</td></tr>
               <tr><td>s.Link duty cycle, <strong>remote station</strong></td><td class="num">2.3% — 83 s of air per hour</td><td class="ctx">measured</td></tr>
@@ -872,6 +878,13 @@
             </tbody>
           </table>
         </div>
+        <p class="body" style="max-width:74ch;margin-top:22px;font-size:14.5px;color:var(--faint)">
+          What this table does not carry is <strong>range</strong>. There has never been a
+          distance trial in the field, so every kilometre in our calculations is a link
+          budget, not a measurement. The 05.09 on-air figures come from the working
+          station ↔ operator link; the 1.1-vs-1.0 comparison rests on windows of 29.6 and
+          131 min — the direction is unambiguous, the precision of the number is not.
+        </p>
       </section>
 
       <section class="section wrap" id="pending">
@@ -977,7 +990,7 @@
         <div class="rows">
           <div class="row">
             <div class="h">Frequency hopping keyed to the link key</div>
-            <div class="b">The hop order is derived from the key and the clock the two ends already share: nothing extra goes on the air, and without the key the next channel cannot be guessed. The channel set is first filtered against the frequency plan — the key permutes the order, not the placement. A wide set buys up to ~28 dB of processing gain against a barrage jammer. The honest limit: the hop rate is capped by clock synchronisation, so time discipline comes before any radio work — done wrong, hopping makes a working link worse. The hop-order and hop-plan code is already in the tree and under test; it has never been switched on over the air.</div>
+            <div class="b">The hop order is derived from the key and the clock the two ends already share: nothing extra goes on the air, and without the key the next channel cannot be guessed. The channel set is first filtered against the frequency plan — the key permutes the order, not the placement. A wide set buys up to ~28 dB of processing gain against a barrage jammer. The honest limit: the hop rate is capped by clock synchronisation, not by the radio. The radio side is already measured — a retune settles in <strong>≤0.133 ms</strong> (28 of 28 transitions), so a hop on every slot fits the budget with sevenfold margin; the clocks do not, since the station's stock timesyncd only supports ~0.3 s between hops and only a shared timebase (~10 ms spread) makes a per-slot hop legitimate. That is why time discipline comes before any radio work — done wrong, hopping makes a working link worse. The hop-order and hop-plan code is already in the tree and under test; it has never been switched on over the air.</div>
           </div>
           <div class="row">
             <div class="h">Mesh — s.Link4k, a rooted relay for 4K</div>
@@ -989,7 +1002,7 @@
           </div>
           <div class="row">
             <div class="h">PHY robustness</div>
-            <div class="b">An interleaver over the convolutional code is a direct win against pulsed jamming, waits on nothing else, and goes first. Then a chirp preamble ahead of the GMSK payload: detection below the noise floor instead of an energy gate, and a carrier-offset measurement that unlocks higher bands. The CSS core and its tests are already in the tree.</div>
+            <div class="b">An interleaver over the convolutional code is a direct win against pulsed jamming, waits on nothing else, and goes first. Then the chirp: a modulation bench (8,038 runs, 06.09, simulated on the tree's real modulators and decoders) showed a gap no GMSK profile closes — <strong>15–33 dB</strong> of jamming resistance. Every GMSK profile dies to a jammer 1…4 dB weaker than its own signal; chirp holds +13…+28. Narrowing the bandwidth buys sensitivity and <em>not</em> jamming resistance: a narrowband jammer narrows along with you. Within the same 43 ms budget the chirp is also 4.3–4.7 dB more sensitive than spread GMSK. The CSS core and its tests are already in the tree; it has never been on the air.</div>
           </div>
           <div class="row">
             <div class="h">Operator survivability</div>
@@ -1016,7 +1029,7 @@
     </main>
     <footer class="footer wrap">
       <span>© 2026 ELINTIR LLC</span>
-      <span>Data as of 23.08.2026</span>
+      <span>Data as of 08.09.2026</span>
     </footer>
     <script src="/assets/contact.js" defer></script>
   </body>
