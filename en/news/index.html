@@ -1,0 +1,445 @@
+<!-- DRAFT, NOT PUBLISHED. Removed from the navigation on 2026-09-01 at
+     the owner's request: the section is being filled in a separate
+     session. Before bringing it back: add the nav entry on every page
+     and drop the robots noindex below. Do NOT copy into the
+     elintir-site mirror. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>News — ELINTIR LLC</title>
+    <meta name="description" content="The ELINTIR record: on-air measurements, architecture decisions and development milestones of the passive SIGINT station.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="News — ELINTIR LLC">
+    <meta property="og:description" content="The ELINTIR record: on-air measurements, architecture decisions and development milestones of the passive SIGINT station.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://elintir.com/assets/products/elintir-og-product.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ELINTIR UCA-1, GR-1 and SL-1">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://elintir.com/en/news/">
+    <link rel="alternate" hreflang="uk" href="https://elintir.com/news/">
+    <link rel="alternate" hreflang="en" href="https://elintir.com/en/news/">
+    <link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --ink: #101010;
+        --muted: #6e6e6e;
+        --faint: #9a9a9a;
+        --line: #e2e2e2;
+        --pad: clamp(20px, 6vw, 88px);
+        --sans: Calibri, Carlito, Candara, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+        --display: "Montserrat", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+        --brand-green: #3e6b1f;
+        --brand-green-deep: #2f4b19;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap { width: min(1080px, 100%); margin: 0 auto; padding: 0 var(--pad); }
+
+      .topbar {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 24px; padding-top: 26px; padding-bottom: 26px;
+      }
+      .brand { display: inline-flex; align-items: center; gap: 13px; text-decoration: none; }
+      .brand-mark { width: 37px; height: 35.3px; display: block; flex: none; }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; }
+      .brand-name {
+        font-family: var(--display); font-size: 21px; font-weight: 700;
+        letter-spacing: 0.16em; color: var(--ink);
+      }
+      .brand-slogan {
+        margin-top: 5px; font-family: var(--mono); font-size: 9.5px;
+        font-weight: 700; letter-spacing: 0.2em; color: var(--brand-green);
+      }
+      .topbar nav { display: flex; gap: 26px; color: var(--muted); font-size: 15px; }
+      .topbar nav a { text-decoration: none; padding-bottom: 4px; }
+      .topbar nav a:hover { color: var(--ink); }
+      .topbar nav a.current {
+        color: var(--ink);
+        font-weight: 700;
+        box-shadow: inset 0 -3px 0 0 var(--brand-green);
+      }
+      .topbar nav a.lang {
+        font-family: var(--mono); font-size: 12px; font-weight: 700;
+        letter-spacing: 0.08em; color: var(--faint);
+        border: 1px solid var(--line); border-radius: 3px; padding: 3px 7px;
+      }
+      .topbar nav a.lang:hover { color: var(--ink); border-color: var(--faint); }
+
+      .hero { padding-top: clamp(40px, 7vw, 76px); padding-bottom: clamp(28px, 4vw, 44px); }
+
+      h1 {
+        font-family: var(--display); margin: 0;
+        font-size: clamp(34px, 6vw, 54px); line-height: 1.08;
+        letter-spacing: -0.015em; font-weight: 700;
+      }
+
+      .lead {
+        max-width: 62ch; margin: 20px 0 0; color: var(--muted);
+        font-size: clamp(17px, 1.9vw, 19px); line-height: 1.6;
+      }
+
+      .section { padding-bottom: clamp(44px, 7vw, 72px); }
+
+      /* ---------- news ---------- */
+
+      .news-month {
+        font-family: var(--display);
+        margin: 44px 0 18px;
+        color: var(--faint);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .news-month:first-of-type { margin-top: 0; }
+
+      .news-item {
+        display: grid;
+        grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+        gap: 10px 34px;
+        padding: 20px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .news-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        align-items: flex-start;
+      }
+
+      .news-meta time {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .news-tag {
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-green-deep);
+      }
+
+      .news-body h3 {
+        font-family: var(--display);
+        margin: 0 0 8px;
+        font-size: 18px;
+        line-height: 1.32;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
+
+      .news-body p {
+        margin: 0;
+        max-width: 64ch;
+        color: var(--muted);
+        font-size: 15.5px;
+        line-height: 1.62;
+      }
+
+      .news-lead {
+        border-top: 2px solid var(--ink);
+        padding-top: 26px;
+      }
+      .news-lead .news-body h3 { font-size: clamp(21px, 2.6vw, 27px); line-height: 1.24; }
+      .news-lead .news-body p { font-size: 17px; }
+
+      @media (max-width: 700px) {
+        .news-item { grid-template-columns: 1fr; gap: 8px; }
+        .news-meta { flex-direction: row; align-items: baseline; gap: 12px; }
+      }
+
+      .footer {
+        display: flex; flex-wrap: wrap; justify-content: space-between;
+        gap: 10px 24px; padding-top: 24px; padding-bottom: 40px;
+        border-top: 1px solid var(--line); color: var(--faint); font-size: 14px;
+      }
+
+      @media (max-width: 560px) {
+        .topbar { flex-wrap: wrap; gap: 14px 18px; }
+        .topbar nav { flex-wrap: wrap; gap: 14px 18px; font-size: 14px; }
+        .brand-mark { width: 31px; height: 29.6px; }
+        .brand-name { font-size: 18px; }
+        .brand-slogan { font-size: 8.5px; letter-spacing: 0.16em; }
+        .topbar nav a.hide-sm { display: none; }
+      }
+
+      /* demo button in the header */
+      .topbar nav { align-items: baseline; }
+      .topbar nav a.demo {
+        color: #fff;
+        background: var(--brand-green-deep);
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 4px;
+      }
+      .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
+    </style>
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/en/" aria-label="ELINTIR — ML/RF MAPPER, back to start">
+        <svg class="brand-mark" viewBox="61.3 61 389.4 371.7" role="img" aria-hidden="true">
+          <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">ELINTIR</span>
+          <span class="brand-slogan">ML/RF MAPPER</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="hide-sm" href="/en/#directions">What we do</a>
+        <a href="/en/hardware/">Products</a>
+        <a href="/en/slink/">s.Link</a>
+        <a href="/en/investors/">Investors</a>
+        <a href="/en/company/">Company</a>
+        <a class="current" href="/en/news/" aria-current="page">News</a>
+        <a class="demo" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
+        <a class="lang" href="/news/" hreflang="uk" lang="uk">UA</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <h1>News</h1>
+        <p class="lead">The project record: what was measured on air, what was decided about the architecture and what changed in the product. Every entry carries a date and stands on a concrete result, not on an announcement.</p>
+      </section>
+
+      <section class="section wrap">
+        <p class="news-month">September 2026</p>
+        <article class="news-item news-lead">
+          <div class="news-meta">
+            <time datetime="2026-09-01">01.09.2026</time>
+            <span class="news-tag">Company</span>
+          </div>
+          <div class="news-body">
+            <h3>Investment raised to integrate the underslung pod on a carrier</h3>
+            <p>The round closes exactly the task we have been calling the main one: put GR-1 on a 15-inch copter acting as a relay carrier, wire up power and comms, and take the pairing through to repeatable flights.</p>
+          </div>
+        </article>
+        <p class="news-month">August 2026</p>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-31">31.08.2026</time>
+            <span class="news-tag">On air</span>
+          </div>
+          <div class="news-body">
+            <h3>Controller hunting exercised on the live station</h3>
+            <p>The scanner takes a bearing on the operator, not on the airframe. Every bearing in the log was measured by MUSIC on the five-channel array — none was computed from coordinates.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-31">31.08.2026</time>
+            <span class="news-tag">Front end</span>
+          </div>
+          <div class="news-body">
+            <h3>The board holds a gapless stream to 9.5 MS/s over a dedicated LAN</h3>
+            <p>The ceiling is about 9.7. The network turned out not to be the bottleneck it was assumed to be.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-30">30.08.2026</time>
+            <span class="news-tag">Link</span>
+          </div>
+          <div class="news-body">
+            <h3>The s.Link symbol rate is settled: 25 000 sym/s</h3>
+            <p>It also closed a documentation discrepancy that turned out never to have existed.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-29">29.08.2026</time>
+            <span class="news-tag">Architecture</span>
+          </div>
+          <div class="news-body">
+            <h3>The operator console became the single operator surface</h3>
+            <p>The s.Link channel carries 962 bit/s — a mapper page does not fit through it by three orders of magnitude, and the station's Wi-Fi is management-only in the field.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-28">28.08.2026</time>
+            <span class="news-tag">Front end</span>
+          </div>
+          <div class="news-body">
+            <h3>The 8 kHz line in the spectrum turned out to be the station's own USB</h3>
+            <p>Not an external source and not interference — the stream of our own KrakenSDR.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-27">27.08.2026</time>
+            <span class="news-tag">Limits</span>
+          </div>
+          <div class="news-body">
+            <h3>Two sources in one channel produce a confident bearing onto empty space</h3>
+            <p>The array does not split a 62° separation: instead of two directions you get one, and it looks trustworthy. The limit is documented so it is not mistaken for a target.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-26">26.08.2026</time>
+            <span class="news-tag">Direction finding</span>
+          </div>
+          <div class="news-body">
+            <h3>One second of dwell gives the same bearing as thirty</h3>
+            <p>The old 30-second floor was about record quality, not about direction.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-26">26.08.2026</time>
+            <span class="news-tag">Scanners</span>
+          </div>
+          <div class="news-body">
+            <h3>A chirped-radar recognition path in the 2700–3100 MHz band</h3>
+            <p>The presets were checked against real air, not only against synthetic signals.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-24">24.08.2026</time>
+            <span class="news-tag">Architecture</span>
+          </div>
+          <div class="news-body">
+            <h3>The LoRa mesh is retired: reporting runs over our own s.Link, point to point</h3>
+            <p>An owner decision. Multi-station cross-bearing stays — but it is the operator console that does it, not a node-to-node network.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-22">22.08.2026</time>
+            <span class="news-tag">Code provenance</span>
+          </div>
+          <div class="news-body">
+            <h3>pyargus removed — the direction estimators are our own</h3>
+            <p>Bartlett, Capon, MEM and FBA are written in house. One GPL dependency fewer on the direct import path.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-22">22.08.2026</time>
+            <span class="news-tag">Code provenance</span>
+          </div>
+          <div class="news-body">
+            <h3>iq_header and shmemIface rewritten clean</h3>
+            <p>Two files left the direct import path. Where a specification compresses the code, a clean room works; where it does not, the check said so itself.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-22">22.08.2026</time>
+            <span class="news-tag">Research</span>
+          </div>
+          <div class="news-body">
+            <h3>A route worked out for taking 6 GHz boards up to 12 GHz</h3>
+            <p>Undersampling does not help — the RF front end itself is the limit. It needs a mixer with a preselector, which means separate hardware.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-22">22.08.2026</time>
+            <span class="news-tag">On air</span>
+          </div>
+          <div class="news-body">
+            <h3>CW beacon at 868.000 MHz: 115 bearings, 6.9° spread, 69.9 dB margin</h3>
+            <p>The run every rate figure on the hardware page still rests on.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-20">20.08.2026</time>
+            <span class="news-tag">Scanners</span>
+          </div>
+          <div class="news-body">
+            <h3>The wideband scanner passed its own criterion for the first time</h3>
+            <p>And immediately failed the fifth gate — which was the point: a criterion is there to catch things.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-16">16.08.2026</time>
+            <span class="news-tag">Brand</span>
+          </div>
+          <div class="news-body">
+            <h3>A new ELINTIR mark — the diagonal Δ∕λ composition</h3>
+            <p>The mark was redrawn with a size system behind it, not as a single file.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-15">15.08.2026</time>
+            <span class="news-tag">Fleet</span>
+          </div>
+          <div class="news-body">
+            <h3>Every board's IDCODE read without a JTAG cable</h3>
+            <p>`devmem` over SSH, in seconds. The whole fleet turned out to be XC7Z010 — which is why the link's fast mode does not fit yet.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-15">15.08.2026</time>
+            <span class="news-tag">On air</span>
+          </div>
+          <div class="news-body">
+            <h3>Three gates instead of four: 307 candidates → 61 emitters</h3>
+            <p>The loudest candidates turned out to be artefacts of our own front end.</p>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-meta">
+            <time datetime="2026-08-08">08.08.2026</time>
+            <span class="news-tag">Process</span>
+          </div>
+          <div class="news-body">
+            <h3>A release policy: every branch dies one of three ways</h3>
+            <p>Merged, shelved or archived — none is left hanging. Before it, five version numbers had two or three claimants each.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <span>© 2026 ELINTIR LLC</span>
+      <span>Software for SDR</span>
+    </footer>
+    <script src="/assets/contact.js" defer></script>
+  </body>
+</html>
