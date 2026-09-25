@@ -6,11 +6,11 @@
     <title>s.Link — ELINTIR LLC</title>
     <meta
       name="description"
-      content="s.Link and s.Link4k: ELINTIR radio links for telemetry, commands and video. Frequency hopping and video transfer tested over the air. Results and development status, September 2026."
+      content="s.Link and s.Link4k — ELINTIR radio links for telemetry, commands and video. An in-house stack, data protection and adaptation for platform requirements."
     >
     <meta name="theme-color" content="#ffffff">
     <meta property="og:title" content="s.Link — ELINTIR LLC">
-    <meta property="og:description" content="s.Link and s.Link4k: ELINTIR radio links for telemetry, commands and video. Frequency hopping and video transfer tested over the air. Results and development status, September 2026.">
+    <meta property="og:description" content="s.Link and s.Link4k — ELINTIR radio links for telemetry, commands and video. An in-house stack, data protection and adaptation for platform requirements.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://elintir.com/assets/products/elintir-og-product.jpg">
@@ -67,7 +67,7 @@
         padding: 0 var(--pad);
       }
 
-      /* ---------- topbar ---------- */
+      
 
       .topbar {
         display: flex;
@@ -141,7 +141,7 @@
         box-shadow: inset 0 -3px 0 0 var(--brand-green);
       }
 
-      /* ---------- hero ---------- */
+      
 
       .hero {
         padding-top: clamp(48px, 10vw, 96px);
@@ -194,7 +194,7 @@
         color: var(--faint);
       }
 
-      /* ---------- sections ---------- */
+      
 
       .section {
         padding-top: clamp(44px, 7vw, 72px);
@@ -231,7 +231,7 @@
 
       .section p.body:last-child { margin-bottom: 0; }
 
-      /* ---------- platform + array diagram ---------- */
+      
 
       .passive-grid {
         display: grid;
@@ -250,7 +250,7 @@
         letter-spacing: 0.02em;
       }
 
-      /* ---------- coverage bar ---------- */
+      
 
       .spectrum { margin-bottom: 34px; }
       .spectrum-note {
@@ -281,7 +281,7 @@
 
 
 
-      /* ---------- hero: first product ---------- */
+      
 
       .hero-fig .track-map { width: 100%; max-width: 470px; height: auto; display: block; margin: 0 auto; }
 
@@ -300,7 +300,7 @@
         opacity: 0.16; stroke-dasharray: 3 8;
       }
 
-      /* the station mark is the array's own pentagon */
+      
       .track-map .station .core { fill: var(--brand-green-deep); }
       .track-map .station .core-in { fill: #fff; opacity: 0.9; }
       .track-map .station .halo { fill: none; stroke: var(--brand-green); stroke-width: 1.4; }
@@ -315,8 +315,7 @@
       .track-map .ic-radar .mast { stroke: #23241f; stroke-width: 1.8; }
       .track-map .ic-radar .wave { fill: none; stroke: var(--brand-green); stroke-width: 1.4; opacity: 0.55; }
 
-      /* the bearing refresh — ~2 updates a second, which is the measured rate.
-         Opacity only: no transform, so nothing depends on transform-box. */
+      
       .track-map .beam, .track-map .lock { animation: elnt-blip 0.5s ease-out infinite; }
       @keyframes elnt-blip { 0% { opacity: 1; } 70% { opacity: 0.45; } 100% { opacity: 0.35; } }
 
@@ -329,7 +328,7 @@
         .track-map .ic-radar .w1, .track-map .ic-radar .w2 { animation: none; opacity: 1; }
       }
 
-      /* readout under the map */
+      
       .fig-read { margin: 16px 0 0; }
 
       .fig-line {
@@ -357,7 +356,7 @@
         .fig-targets { grid-template-columns: 1fr 1fr; }
       }
 
-      /* ---------- first product ---------- */
+      
 
       .product-intro { max-width: 64ch; }
 
@@ -370,9 +369,7 @@
 
       .product { display: flex; flex-direction: column; }
 
-      /* Cards share row heights so the spec rules line up across all three,
-         whatever the language or width. Browsers without subgrid keep the
-         flex fallback above and simply stack each card independently. */
+      
       @supports (grid-template-rows: subgrid) {
         .product-grid { grid-template-rows: repeat(6, auto); }
         .product {
@@ -456,7 +453,7 @@
       }
       .product-more a:hover { border-bottom-color: var(--brand-green-deep); }
 
-      /* ---------- specs (stack) ---------- */
+      
 
       .stack {
         display: grid;
@@ -479,7 +476,7 @@
 
       .stack-card .v { color: var(--muted); font-size: 15px; line-height: 1.5; }
 
-      /* ---------- row list (works / limits) ---------- */
+      
 
       .rows { display: grid; gap: 0; }
       .row {
@@ -494,7 +491,7 @@
       .row .h { font-family: var(--display); font-weight: 700; font-size: 16px; }
       .row .b { color: var(--muted); font-size: 15px; line-height: 1.55; }
 
-      /* ---------- measured (table) ---------- */
+      
 
       .proof-table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
       .proof-table th {
@@ -515,13 +512,12 @@
       .proof-table td.num { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
       .proof-table td.ctx { color: var(--faint); font-size: 13.5px; white-space: nowrap; }
       .proof-table tr:last-child td { border-bottom: 0; }
-      /* The profiles table carries prose in its last column, so the nowrap that
-         suits a short date stamp elsewhere would starve it of width. */
+      
       #profiles .proof-table td.ctx { white-space: normal; max-width: 20ch; }
 
-      /* ---------- signature analysis ---------- */
+      
 
-      /* ---------- callout ---------- */
+      
 
       .sub-h {
         font-family: var(--display);
@@ -556,7 +552,7 @@
         font-size: 16px !important;
       }
 
-      /* ---------- s.Link waterfall ---------- */
+      
 
       .slink-grid {
         display: grid;
@@ -578,7 +574,7 @@
         line-height: 1.55;
       }
 
-      /* ---------- cta ---------- */
+      
 
       .cta-block {
         display: flex;
@@ -614,7 +610,7 @@
       }
       a.btn-ghost:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
 
-      /* ---------- footer ---------- */
+      
 
       .footer {
         display: flex;
@@ -648,7 +644,7 @@
         .proof-table { display: block; overflow-x: auto; }
       }
 
-      /* demo button in the header */
+      
       .topbar nav { align-items: baseline; }
       .topbar nav a.demo {
         color: #fff;
@@ -691,202 +687,127 @@
 
     <main>
       <section class="hero wrap">
-        <p class="eyebrow">Data as of 25 September 2026</p>
         <h1>s.Link — telemetry, commands and video</h1>
-        <p class="lead">Our own physical and data-link layers connecting a station to its operator. <strong>s.Link</strong> carries telemetry and commands; <strong>s.Link4k</strong> is a separate wideband profile for video.</p>
-        <nav class="section-nav" aria-label="On this page"><a href="#slink">Overview</a> · <a href="#profiles">Profiles</a> · <a href="#measured">Trials</a> · <a href="#modulations">Modulations</a> · <a href="#adaptation">Adaptation</a> · <a href="#roadmap">Development</a></nav>
+        <p class="lead">ELINTIR radio solutions connecting a station to its operator. Telemetry, commands and video within a shared control environment.</p>
+        <nav class="section-nav" aria-label="Overview"><a href="#slink">Overview</a> · <a href="#profiles">Applications</a> · <a href="#measured">Validation</a> · <a href="#modulations">Modulations</a> · <a href="#adaptation">Adaptation</a> · <a href="#roadmap">Integration</a></nav>
       </section>
-<section class="section wrap" id="slink">
-      <p class="section-label">Overview</p>
-      <h2>Two tasks, two radio profiles</h2>
-      <div class="rows">
-      <div class="row">
-      <div class="h">s.Link · telemetry and commands</div>
-      <div class="b">A direct radio channel between station and operator carrying bearings, equipment status and commands. The narrowband GMSK profile runs on hardware. Frequency hopping passed over-the-air trials in September.</div>
-      </div>
-      <div class="row">
-      <div class="h">s.Link4k · video</div>
-      <div class="b">H.265 passes through fragmentation, packet error correction, encryption and the radio path. A video file recovered after transmission through antennas matched the original byte for byte. The profile name does not mean that 4K streaming has been demonstrated.</div>
-      </div>
-      <div class="row">
-      <div class="h">Data protection</div>
-      <div class="b">ChaCha20-Poly1305 provides encryption and data authentication. Error correction helps recover damaged data and lost packets. These are separate mechanisms: encryption alone does not provide resistance to radio interference.</div>
-      </div>
-      <div class="row">
-      <div class="h">Operator interface</div>
-      <div class="b">The console displays radio-link status, telemetry and video. s.Link supports an operator-silence mode.</div>
-      </div>
-      </div>
+      <section class="section wrap" id="slink">
+        <p class="section-label">Overview</p>
+        <h2>Communications for the platform’s task</h2>
+        <div class="rows">
+          <div class="row">
+            <div class="h">s.Link · telemetry and commands</div>
+            <div class="b">A radio channel for equipment status, observation data and commands between a station and its operator.</div>
+          </div>
+          <div class="row">
+            <div class="h">s.Link4k · video</div>
+            <div class="b">A separate radio-link development direction for video delivery. The transport combines data protection and loss recovery, with video presented in a shared operator console.</div>
+          </div>
+          <div class="row">
+            <div class="h">Data protection</div>
+            <div class="b">The stack implements encryption and data authentication. Integration parameters and configuration are agreed for each application.</div>
+          </div>
+        </div>
       </section>
       <section class="section wrap" id="profiles">
-      <p class="section-label">Profiles</p>
-      <h2>Specifications depend on the profile</h2>
-      <div style="overflow-x:auto">
-      <table class="proof-table">
-      <thead>
-      <tr>
-      <th scope="col">Profile</th>
-      <th scope="col">Physical layer</th>
-      <th scope="col">Status</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td>s.Link</td>
-      <td>GMSK; 25 and 12.5 ksymbol/s profiles. Convolutional coding, Viterbi decoding and a frequency-hopping mode.</td>
-      <td>Radio link and frequency hopping tested over the air, including 2 hops/s in trials on 9–12 September 2026. Half-rate profile tested in an RF loop.</td>
-      </tr>
-      <tr>
-      <td>s.Link4k</td>
-      <td>QPSK, 15.36 Msymbol/s; 19.2 MHz bandwidth; 1,024-byte packet.</td>
-      <td>Video file transmitted over the air and recovered using the host software reference decoder.</td>
-      </tr>
-      </tbody>
-      </table>
-      </div>
-      <p class="body evidence-note">The baseline s.Link4k profile has a calculated rate of about 14.7 Mbit/s during a burst. Average video bitrate is lower because of gaps, overhead, loss correction and repetitions. Frequency, burst duration and transmit duty cycle depend on the selected configuration.</p>
+        <p class="section-label">Applications</p>
+        <h2>From telemetry to video links</h2>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Fixed and mobile systems</div>
+            <div class="b">Data exchange between equipment and operator, status display and remote interaction.</div>
+          </div>
+          <div class="row">
+            <div class="h">Ground robots</div>
+            <div class="b">We study video-link profiles for built environments and multipath propagation.</div>
+          </div>
+          <div class="row">
+            <div class="h">Airborne platforms</div>
+            <div class="b">We assess video-link profiles for line-of-sight channels and changing propagation conditions.</div>
+          </div>
+        </div>
       </section>
       <section class="section wrap" id="measured">
-      <p class="section-label">Trials</p>
-      <h2>What the trials demonstrate</h2>
-      <div style="overflow-x:auto">
-      <table class="proof-table">
-      <thead>
-      <tr>
-      <th scope="col">Result</th>
-      <th scope="col">Conditions and limits</th>
-      <th scope="col">Date</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td><strong>Hopping: 32 of 32 packets</strong></td>
-      <td>Station-to-operator delivery over 120 seconds at one hop/s. A short over-the-air trial.</td>
-      <td>9 Sep 2026</td>
-      </tr>
-      <tr>
-      <td><strong>Hopping: 2 hops/s</strong></td>
-      <td>Three five-minute windows with no recorded retune errors or authentication failures. This does not imply zero packet loss.</td>
-      <td>12 Sep 2026</td>
-      </tr>
-      <tr>
-      <td><strong>Video: 60 of 60 frames</strong></td>
-      <td>H.265, 640×480; Pluto → air → B210 indoors. Recovered file matches the original SHA-256. The stream was transmitted repeatedly; this validates file delivery.</td>
-      <td>18 Sep 2026</td>
-      </tr>
-      <tr>
-      <td><strong>Streaming transmission from B210</strong></td>
-      <td>Consecutive video packets received on Nano SDR in an over-the-air bench trial, decoded on a PC. Demonstrates the signal path, not field range.</td>
-      <td>21 Sep 2026</td>
-      </tr>
-      </tbody>
-      </table>
-      </div>
-      <p class="body evidence-note">Field range and end-to-end video latency have not yet been established by measurements. These radio trials took place at short range. They do not demonstrate a finished real-time 4K link.</p>
+        <p class="section-label">Validation</p>
+        <h2>From models to trials</h2>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Radio path</div>
+            <div class="b">The telemetry channel and video-file delivery have been tested through a real radio path.</div>
+          </div>
+          <div class="row">
+            <div class="h">Software stack</div>
+            <div class="b">Modulations, transport and adaptation mechanisms are evaluated with software tests and channel modelling.</div>
+          </div>
+          <div class="row">
+            <div class="h">Application assessment</div>
+            <div class="b">The solution scope and readiness of individual features are clarified during technical discussions. Model results and over-the-air trials are treated separately.</div>
+          </div>
+        </div>
       </section>
       <section class="section wrap" id="modulations">
-      <p class="section-label">Modulation tests and assessments</p>
-      <h2>What our evaluations show</h2>
-      <p class="body" style="margin-bottom:28px">These are results from recorded trials and calculations. Each entry states the evaluation method and the scope of its conclusions: over the air, RF capture or software model.</p>
-      <div class="rows">
-      <div class="row">
-      <div class="h">GMSK · tested over the air</div>
-      <div class="b">The baseline s.Link radio carries telemetry and commands. On 9 September 2026, with frequency hopping enabled, the station delivered 32 of 32 packets to the operator over 120 seconds at one hop per second. This is the result of a specific session. Half-rate sensitivity was assessed separately using an RF capture; these checks do not establish field range.</div>
-      </div>
-      <div class="row">
-      <div class="h">CSS · compared in a software test bench</div>
-      <div class="b">Our modulator and decoder were evaluated in the modulation comparison bench on 6–7 September 2026. The study assessed sensitivity, packet duration and the effects of tonal, narrowband and impulsive interference. CSS showed greater tolerance to these interference types than the compared GMSK profiles in the tested scenarios. The result applies to the software bench and the implemented receivers. The assessed application is short messages and telemetry; these records contain no over-the-air CSS validation.</div>
-      </div>
-      <div class="row">
-      <div class="h">QPSK · video file delivered over the air</div>
-      <div class="b">On 18 September 2026 the baseline s.Link4k profile carried 640×480 H.265 video between Pluto and B210 through antennas indoors. All 60 frames were recovered and the file matched the original SHA-256. Transmission was repeated and decoding ran on the host. Separate line-of-sight air-to-ground channel modelling supported this option in the studied conditions. The experiment did not measure range or live-stream latency.</div>
-      </div>
-      <div class="row">
-      <div class="h">BPSK and repeated QPSK · lower rates assessed</div>
-      <div class="b">The software comparison on 21 September 2026 tested BPSK, baseline QPSK and repeated QPSK using 40 frames at each noise level. BPSK and repeated QPSK decoded under poorer conditions at the cost of throughput. The options are implemented in the s.Link4k software model. The rate–sensitivity trade-off is supported by model results; this comparison did not test automatic over-the-air switching.</div>
-      </div>
-      <div class="row">
-      <div class="h">16-QAM · upper rate option assessed</div>
-      <div class="b">16-QAM was tested alongside BPSK and QPSK in the same software bench. It provided higher throughput with greater signal-quality requirements. For the current frame format, the calculated burst rate is about 28.4 Mbit/s including preamble and header overhead. This is a format calculation and model-based decoder validation, not a measured over-the-air video bitrate.</div>
-      </div>
-      <div class="row">
-      <div class="h">COFDM · assessed for ground robots</div>
-      <div class="b">On 22 September 2026 COFDM was compared with the single-carrier receiver using the same reflection and ground-channel models. In COST 207 Typical Urban at 15 dB SNR, three runs produced 3–12% packet loss; the compared single-carrier receiver without a multi-tap equaliser lost all packets. This supports the studied COFDM implementation in those multipath conditions and its selection for further ground-robot video-link trials. Lower throughput and higher signal peaks were also assessed. These results do not replace field validation on a ground robot.</div>
-      </div>
-      <div class="row">
-      <div class="h">CSS + DBPSK / DQPSK · preliminary software check</div>
-      <div class="b">On 22 September 2026 a probe tested additional data carried by chirp phase, using 400 symbols at each white Gaussian noise level. At the tested points, DBPSK and DQPSK phase data decoded with error rates comparable to the baseline chirp symbols. This supports the principle in a simplified model. Residual frequency offset and imperfect timing were not assessed by this probe; a radio-link application has not yet been validated.</div>
-      </div>
-      </div>
+        <p class="section-label">Modulations</p>
+        <h2>Different conditions, different waveforms</h2>
+        <div class="rows">
+          <div class="row">
+            <div class="h">GMSK</div>
+            <div class="b">Used in the s.Link telemetry direction for short messages and commands.</div>
+          </div>
+          <div class="row">
+            <div class="h">BPSK, QPSK and QAM</div>
+            <div class="b">Options evaluated in software models for different balances of throughput and channel requirements. The baseline video profile has also been tested through a radio path.</div>
+          </div>
+          <div class="row">
+            <div class="h">CSS and phase hybrids</div>
+            <div class="b">Chirp signals and selected hybrid variants have been studied in software models for short-message delivery.</div>
+          </div>
+          <div class="row">
+            <div class="h">COFDM for ground platforms</div>
+            <div class="b">Assessed in channel models with reflections and multipath propagation. The results support further investigation for ground-robot video links.</div>
+          </div>
+        </div>
       </section>
       <section class="section wrap" id="adaptation">
-      <p class="section-label">Adaptation</p>
-      <h2>Matching video quality to channel capacity</h2>
-      <p class="body" style="margin-bottom:28px">The s.Link4k software stack implements mechanisms that connect data-delivery conditions to video-quality selection. Their purpose is to match the offered load to available capacity and keep the picture current as link conditions change.</p>
-      <div class="rows">
-      <div class="row">
-      <div class="h">Assessing delivery at the receiver</div>
-      <div class="b">The available-rate estimator accounts for the current radio profile and losses after packet error correction. This gives the quality controller a basis for its bitrate decision. Stale reports, silence and receiver restarts are handled explicitly. The implementation has software test coverage, including a path through our receiver with packet loss.</div>
-      </div>
-      <div class="row">
-      <div class="h">Automatic video-quality selection</div>
-      <div class="b">A controller implements profiles from reduced quality through SD, Full HD, QHD and 4K. It selects a profile and target bitrate from the available rate. A 4K controller profile means software support for that choice; the over-the-air result reported above concerns a 640×480 video file.</div>
-      </div>
-      <div class="row">
-      <div class="h">Stable behaviour as conditions change</div>
-      <div class="b">Software tests cover falling capacity, packet loss and fluctuations around profile boundaries. Quality increases require evidence of stable conditions and are blocked when fresh feedback is unavailable. This prevents unsupported increases in load and frequent profile switching.</div>
-      </div>
-      <div class="row">
-      <div class="h">Keeping sender and receiver aligned</div>
-      <div class="b">The video-profile change protocol accounts for missing acknowledgements, stale messages and receiver restarts. These scenarios have software test coverage. Its purpose is to maintain consistent decoding during quality changes. End-to-end operation with the camera, encoder and radio modems requires separate over-the-air validation.</div>
-      </div>
-      <div class="row">
-      <div class="h">Several adaptation mechanisms</div>
-      <div class="b">The model includes BPSK, QPSK and 16-QAM options; the transport includes packet loss-correction profiles and video-quality selection. Single-carrier and COFDM waveforms have been assessed for different conditions. Bandwidth changes are included in capacity calculations, but complete automatic over-the-air bandwidth switching has not been validated. These mechanisms are at different stages of readiness.</div>
-      </div>
-      <div class="row">
-      <div class="h">A practical integration advantage</div>
-      <div class="b">Owning the physical layer, transport and video controller lets us modify them together for a particular platform. Compared with a fixed-video-bitrate configuration, the software controller accounts for changes in available rate. Compared with integrating a modem only through its supplied interface, we can also work on its internal logic. This is an advantage in development control, not demonstrated range or throughput superiority over production alternatives.</div>
-      </div>
-      <div class="row">
-      <div class="h">What the comparison with alternatives shows</div>
-      <div class="b"><a href="https://silvustechnologies.com/products/streamcaster-4400-enhanced/">Silvus StreamCaster</a> already advertises automatic radio-link adaptation, and <a href="https://kb.doodlelabs.com/low-latency-cc-and-video-streaming-guide">Doodle Labs</a> describes video bitrate adaptation to network capacity. Our distinction is our own implementation and the ability to modify it within ELINTIR. We have no comparative trials against these products under matching conditions, so we do not claim superior range, latency or reliability.</div>
-      </div>
-      </div>
+        <p class="section-label">Adaptation</p>
+        <h2>Matching video to channel capacity</h2>
+        <div class="rows">
+          <div class="row">
+            <div class="h">Delivery assessment</div>
+            <div class="b">The software stack implements available-rate estimation using data-reception results.</div>
+          </div>
+          <div class="row">
+            <div class="h">Video-quality selection</div>
+            <div class="b">A software controller selects quality and bitrate according to assessed channel capacity. Behaviour under changing conditions has test coverage.</div>
+          </div>
+          <div class="row">
+            <div class="h">Coordinated changes</div>
+            <div class="b">Profile-control mechanisms account for interaction between sender and receiver. They are evaluated as part of the shared transport and video stack.</div>
+          </div>
+          <div class="row">
+            <div class="h">In-house implementation</div>
+            <div class="b">Control over the physical layer, transport and software lets us develop them together for a customer’s platform. This supports flexible integration; we do not claim comparative range or latency advantages without matched trials.</div>
+          </div>
+        </div>
       </section>
-      <section class="section wrap" id="roadmap"><span id="pending"></span>
-      <p class="section-label">Development</p>
-      <h2>What we are developing next</h2>
-      <div class="rows">
-      <div class="row">
-      <div class="h">FPGA reception and transmission</div>
-      <div class="b">The s.Link4k receiver with a channel equaliser has been synthesised and routed for Zynq-7010. This is a separate milestone from over-the-air reception by a complete FPGA system. The next step is end-to-end hardware validation.</div>
-      </div>
-      <div class="row">
-      <div class="h">Real-time video</div>
-      <div class="b">Integrating the camera, encoder, radio modem and console into a continuous path. Camera-to-display latency and sustained operation with packet loss still need to be measured.</div>
-      </div>
-      <div class="row">
-      <div class="h">Mesh and relaying</div>
-      <div class="b">The s.Link4k transport packet format, encryption and outer loss correction are implemented. A controlled multi-node radio mesh with a scheduler requires further implementation and testing.</div>
-      </div>
-      <div class="row">
-      <div class="h" id="amps">Antennas, amplification and range</div>
-      <div class="b">Measuring output power, antenna performance and transmitter–receiver interaction. Range will be established through field trials with documented conditions, antenna heights and channel profiles.</div>
-      </div>
-      </div>
+      <section class="section wrap" id="roadmap">
+        <p class="section-label">Integration</p>
+        <h2>A technical discussion for your application</h2>
+        <div class="rows">
+          <span id="pending"></span><span id="amps"></span>
+          <div class="row">
+            <div class="h">Platform and interfaces</div>
+            <div class="b">We can discuss system purpose, equipment interfaces, video and telemetry requirements.</div>
+          </div>
+          <div class="row">
+            <div class="h">Demonstration and assessment</div>
+            <div class="b">We can demonstrate available capabilities and agree a validation programme for your application. Detailed specifications are shared within an agreed technical discussion.</div>
+          </div>
+        </div>
       </section>
-      <section class="section wrap" id="cta">
-      <div class="cta-block">
-      <p class="body" style="margin:0">We can demonstrate the current bench setup and discuss integration for your application. Detailed trial records and the specification are available in the data room.</p>
-      <div class="cta-actions"><a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a><a class="btn-ghost" href="/en/investors/">Data room</a>
-      </div>
-      </div>
-      </section>
+      <section class="section wrap" id="cta"><div class="cta-block"><p class="body" style="margin:0">Contact us for a demonstration and an integration discussion.</p><div class="cta-actions"><a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a><a class="btn-ghost" href="/en/investors/">Investors</a></div></div></section>
     </main>
     <footer class="footer wrap">
       <span>© 2026 ELINTIR LLC</span>
-      <span>Data as of 25 September 2026</span>
     </footer>
     <script src="/assets/contact.js" defer></script>
   </body>
