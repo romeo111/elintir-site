@@ -785,40 +785,39 @@
       <p class="body evidence-note">Field range and end-to-end video latency have not yet been established by measurements. These radio trials took place at short range. They do not demonstrate a finished real-time 4K link.</p>
       </section>
       <section class="section wrap" id="modulations">
-      <p class="section-label">Modulations and applications</p>
-      <h2>Choosing the waveform for the channel</h2>
-      <p class="body" style="margin-bottom:28px">Short telemetry messages, line-of-sight video and a ground robot among buildings require different channel properties. We compare waveforms for noise and reflection tolerance, throughput, latency and radio hardware requirements.</p>
+      <p class="section-label">Modulation tests and assessments</p>
+      <h2>What our evaluations show</h2>
+      <p class="body" style="margin-bottom:28px">These are results from recorded trials and calculations. Each entry states the evaluation method and the scope of its conclusions: over the air, RF capture or software model.</p>
       <div class="rows">
       <div class="row">
-      <div class="h">GMSK · telemetry and commands</div>
-      <div class="b">The baseline s.Link modulation for small messages: bearings, equipment status and commands. Its compact spectrum and nearly constant signal amplitude suit a narrowband channel and its power amplifier. We study the balance between rate, sensitivity and packet duration. The baseline radio link has been tested over the air; slower profiles have separate validation.</div>
+      <div class="h">GMSK · tested over the air</div>
+      <div class="b">The baseline s.Link radio carries telemetry and commands. On 9 September 2026, with frequency hopping enabled, the station delivered 32 of 32 packets to the operator over 120 seconds at one hop per second. This is the result of a specific session. Half-rate sensitivity was assessed separately using an RF capture; these checks do not establish field range.</div>
       </div>
       <div class="row">
-      <div class="h">CSS · short messages in difficult channels</div>
-      <div class="b">Chirp spread spectrum is a candidate for telemetry when delivering a small message matters more than carrying a large stream. We study sensitivity and behaviour under different types of interference. The trade-off is between data rate, occupied bandwidth and transmission time. Our own modulator and receiver are being evaluated in software models as a separate research direction.</div>
+      <div class="h">CSS · compared in a software test bench</div>
+      <div class="b">Our modulator and decoder were evaluated in the modulation comparison bench on 6–7 September 2026. The study assessed sensitivity, packet duration and the effects of tonal, narrowband and impulsive interference. CSS showed greater tolerance to these interference types than the compared GMSK profiles in the tested scenarios. The result applies to the software bench and the implemented receivers. The assessed application is short messages and telemetry; these records contain no over-the-air CSS validation.</div>
       </div>
       <div class="row">
-      <div class="h">QPSK · line-of-sight video</div>
-      <div class="b">Single-carrier QPSK is the baseline s.Link4k option for air-to-ground channels and elevated antennas with a clear line of sight. It combines throughput with moderate amplifier linearity requirements. This is the profile that has already carried a video file through the over-the-air path. Channel equalisation is being studied separately for more demanding reflections.</div>
+      <div class="h">QPSK · video file delivered over the air</div>
+      <div class="b">On 18 September 2026 the baseline s.Link4k profile carried 640×480 H.265 video between Pluto and B210 through antennas indoors. All 60 frames were recovered and the file matched the original SHA-256. Transmission was repeated and decoding ran on the host. Separate line-of-sight air-to-ground channel modelling supported this option in the studied conditions. The experiment did not measure range or live-stream latency.</div>
       </div>
       <div class="row">
-      <div class="h">BPSK and repeated QPSK · lower-rate options</div>
-      <div class="b">We study these as options for an adaptive video link when signal quality deteriorates. BPSK carries fewer bits per symbol; repeated QPSK spends more airtime on the same data. The aim is to reduce stream bitrate while maintaining connectivity. Both options are implemented in the software profile model; automatic switching in the complete radio path still needs validation.</div>
+      <div class="h">BPSK and repeated QPSK · lower rates assessed</div>
+      <div class="b">The software comparison on 21 September 2026 tested BPSK, baseline QPSK and repeated QPSK using 40 frames at each noise level. BPSK and repeated QPSK decoded under poorer conditions at the cost of throughput. The options are implemented in the s.Link4k software model. The rate–sensitivity trade-off is supported by model results; this comparison did not test automatic over-the-air switching.</div>
       </div>
       <div class="row">
-      <div class="h">16-QAM · more throughput in a good channel</div>
-      <div class="b">A candidate for higher video bitrate when channel quality has sufficient margin. More bits per symbol increase throughput within the same bandwidth, but place greater demands on noise levels, reception accuracy and transmitter linearity. We study it as an upper adaptation step. It is implemented in the software model; its over-the-air readiness is assessed separately from baseline QPSK.</div>
+      <div class="h">16-QAM · upper rate option assessed</div>
+      <div class="b">16-QAM was tested alongside BPSK and QPSK in the same software bench. It provided higher throughput with greater signal-quality requirements. For the current frame format, the calculated burst rate is about 28.4 Mbit/s including preamble and header overhead. This is a format calculation and model-based decoder validation, not a measured over-the-air video bitrate.</div>
       </div>
       <div class="row">
-      <div class="h">COFDM · video links for ground robots</div>
-      <div class="b">A priority research option for unmanned ground vehicles: low antennas, buildings, trees and nearby vehicles create reflected signal copies that arrive with different delays. COFDM combines multiple subcarriers, a guard interval and error correction to better tolerate this multipath propagation. In our ground-channel simulations it outperformed the tested single-carrier receiver without a multi-tap equaliser. The trade-offs are overhead and higher amplifier and processing requirements. These are simulation results; COFDM trials on a real ground robot are still ahead.</div>
+      <div class="h">COFDM · assessed for ground robots</div>
+      <div class="b">On 22 September 2026 COFDM was compared with the single-carrier receiver using the same reflection and ground-channel models. In COST 207 Typical Urban at 15 dB SNR, three runs produced 3–12% packet loss; the compared single-carrier receiver without a multi-tap equaliser lost all packets. This supports the studied COFDM implementation in those multipath conditions and its selection for further ground-robot video-link trials. Lower throughput and higher signal peaks were also assessed. These results do not replace field validation on a ground robot.</div>
       </div>
       <div class="row">
-      <div class="h">CSS + DPSK / QAM · experimental hybrids</div>
-      <div class="b">We are exploring whether a chirp signal can carry additional data through its phase or amplitude. Initial software probes have been performed for CSS with differential phase modulation using DBPSK and DQPSK. Combining CSS with QAM remains a research idea. We are investigating whether the benefit survives a real channel with imperfect synchronisation; these hybrids are not yet finished s.Link modes.</div>
+      <div class="h">CSS + DBPSK / DQPSK · preliminary software check</div>
+      <div class="b">On 22 September 2026 a probe tested additional data carried by chirp phase, using 400 symbols at each white Gaussian noise level. At the tested points, DBPSK and DQPSK phase data decoded with error rates comparable to the baseline chirp symbols. This supports the principle in a simplified model. Residual frequency offset and imperfect timing were not assessed by this probe; a radio-link application has not yet been validated.</div>
       </div>
       </div>
-      <p class="body evidence-note">COFDM is a coded multicarrier scheme; our current model uses QPSK on its subcarriers. Frequency hopping changes the operating frequency and is described as a link mode. Coding, repetition and modulation selection are studied together while keeping their roles distinct.</p>
       </section>
       <section class="section wrap" id="roadmap"><span id="pending"></span>
       <p class="section-label">Development</p>
