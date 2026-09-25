@@ -694,7 +694,7 @@
         <p class="eyebrow">Data as of 25 September 2026</p>
         <h1>s.Link — telemetry, commands and video</h1>
         <p class="lead">Our own physical and data-link layers connecting a station to its operator. <strong>s.Link</strong> carries telemetry and commands; <strong>s.Link4k</strong> is a separate wideband profile for video.</p>
-        <nav class="section-nav" aria-label="On this page"><a href="#slink">Overview</a> · <a href="#profiles">Profiles</a> · <a href="#measured">Trials</a> · <a href="#roadmap">Development</a></nav>
+        <nav class="section-nav" aria-label="On this page"><a href="#slink">Overview</a> · <a href="#profiles">Profiles</a> · <a href="#measured">Trials</a> · <a href="#modulations">Modulations</a> · <a href="#roadmap">Development</a></nav>
       </section>
 <section class="section wrap" id="slink">
       <p class="section-label">Overview</p>
@@ -784,6 +784,42 @@
       </div>
       <p class="body evidence-note">Field range and end-to-end video latency have not yet been established by measurements. These radio trials took place at short range. They do not demonstrate a finished real-time 4K link.</p>
       </section>
+      <section class="section wrap" id="modulations">
+      <p class="section-label">Modulations and applications</p>
+      <h2>Choosing the waveform for the channel</h2>
+      <p class="body" style="margin-bottom:28px">Short telemetry messages, line-of-sight video and a ground robot among buildings require different channel properties. We compare waveforms for noise and reflection tolerance, throughput, latency and radio hardware requirements.</p>
+      <div class="rows">
+      <div class="row">
+      <div class="h">GMSK · telemetry and commands</div>
+      <div class="b">The baseline s.Link modulation for small messages: bearings, equipment status and commands. Its compact spectrum and nearly constant signal amplitude suit a narrowband channel and its power amplifier. We study the balance between rate, sensitivity and packet duration. The baseline radio link has been tested over the air; slower profiles have separate validation.</div>
+      </div>
+      <div class="row">
+      <div class="h">CSS · short messages in difficult channels</div>
+      <div class="b">Chirp spread spectrum is a candidate for telemetry when delivering a small message matters more than carrying a large stream. We study sensitivity and behaviour under different types of interference. The trade-off is between data rate, occupied bandwidth and transmission time. Our own modulator and receiver are being evaluated in software models as a separate research direction.</div>
+      </div>
+      <div class="row">
+      <div class="h">QPSK · line-of-sight video</div>
+      <div class="b">Single-carrier QPSK is the baseline s.Link4k option for air-to-ground channels and elevated antennas with a clear line of sight. It combines throughput with moderate amplifier linearity requirements. This is the profile that has already carried a video file through the over-the-air path. Channel equalisation is being studied separately for more demanding reflections.</div>
+      </div>
+      <div class="row">
+      <div class="h">BPSK and repeated QPSK · lower-rate options</div>
+      <div class="b">We study these as options for an adaptive video link when signal quality deteriorates. BPSK carries fewer bits per symbol; repeated QPSK spends more airtime on the same data. The aim is to reduce stream bitrate while maintaining connectivity. Both options are implemented in the software profile model; automatic switching in the complete radio path still needs validation.</div>
+      </div>
+      <div class="row">
+      <div class="h">16-QAM · more throughput in a good channel</div>
+      <div class="b">A candidate for higher video bitrate when channel quality has sufficient margin. More bits per symbol increase throughput within the same bandwidth, but place greater demands on noise levels, reception accuracy and transmitter linearity. We study it as an upper adaptation step. It is implemented in the software model; its over-the-air readiness is assessed separately from baseline QPSK.</div>
+      </div>
+      <div class="row">
+      <div class="h">COFDM · video links for ground robots</div>
+      <div class="b">A priority research option for unmanned ground vehicles: low antennas, buildings, trees and nearby vehicles create reflected signal copies that arrive with different delays. COFDM combines multiple subcarriers, a guard interval and error correction to better tolerate this multipath propagation. In our ground-channel simulations it outperformed the tested single-carrier receiver without a multi-tap equaliser. The trade-offs are overhead and higher amplifier and processing requirements. These are simulation results; COFDM trials on a real ground robot are still ahead.</div>
+      </div>
+      <div class="row">
+      <div class="h">CSS + DPSK / QAM · experimental hybrids</div>
+      <div class="b">We are exploring whether a chirp signal can carry additional data through its phase or amplitude. Initial software probes have been performed for CSS with differential phase modulation using DBPSK and DQPSK. Combining CSS with QAM remains a research idea. We are investigating whether the benefit survives a real channel with imperfect synchronisation; these hybrids are not yet finished s.Link modes.</div>
+      </div>
+      </div>
+      <p class="body evidence-note">COFDM is a coded multicarrier scheme; our current model uses QPSK on its subcarriers. Frequency hopping changes the operating frequency and is described as a link mode. Coding, repetition and modulation selection are studied together while keeping their roles distinct.</p>
+      </section>
       <section class="section wrap" id="roadmap"><span id="pending"></span>
       <p class="section-label">Development</p>
       <h2>What we are developing next</h2>
@@ -795,10 +831,6 @@
       <div class="row">
       <div class="h">Real-time video</div>
       <div class="b">Integrating the camera, encoder, radio modem and console into a continuous path. Camera-to-display latency and sustained operation with packet loss still need to be measured.</div>
-      </div>
-      <div class="row">
-      <div class="h">Adaptation and multipath</div>
-      <div class="b">Modulation and coding options and reflected-signal models are being studied separately. Software models, FPGA synthesis and over-the-air validation represent different stages of readiness.</div>
       </div>
       <div class="row">
       <div class="h">Mesh and relaying</div>
