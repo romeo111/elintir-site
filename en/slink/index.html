@@ -694,7 +694,7 @@
         <p class="eyebrow">Data as of 25 September 2026</p>
         <h1>s.Link — telemetry, commands and video</h1>
         <p class="lead">Our own physical and data-link layers connecting a station to its operator. <strong>s.Link</strong> carries telemetry and commands; <strong>s.Link4k</strong> is a separate wideband profile for video.</p>
-        <nav class="section-nav" aria-label="On this page"><a href="#slink">Overview</a> · <a href="#profiles">Profiles</a> · <a href="#measured">Trials</a> · <a href="#modulations">Modulations</a> · <a href="#roadmap">Development</a></nav>
+        <nav class="section-nav" aria-label="On this page"><a href="#slink">Overview</a> · <a href="#profiles">Profiles</a> · <a href="#measured">Trials</a> · <a href="#modulations">Modulations</a> · <a href="#adaptation">Adaptation</a> · <a href="#roadmap">Development</a></nav>
       </section>
 <section class="section wrap" id="slink">
       <p class="section-label">Overview</p>
@@ -816,6 +816,41 @@
       <div class="row">
       <div class="h">CSS + DBPSK / DQPSK · preliminary software check</div>
       <div class="b">On 22 September 2026 a probe tested additional data carried by chirp phase, using 400 symbols at each white Gaussian noise level. At the tested points, DBPSK and DQPSK phase data decoded with error rates comparable to the baseline chirp symbols. This supports the principle in a simplified model. Residual frequency offset and imperfect timing were not assessed by this probe; a radio-link application has not yet been validated.</div>
+      </div>
+      </div>
+      </section>
+      <section class="section wrap" id="adaptation">
+      <p class="section-label">Adaptation</p>
+      <h2>Matching video quality to channel capacity</h2>
+      <p class="body" style="margin-bottom:28px">The s.Link4k software stack implements mechanisms that connect data-delivery conditions to video-quality selection. Their purpose is to match the offered load to available capacity and keep the picture current as link conditions change.</p>
+      <div class="rows">
+      <div class="row">
+      <div class="h">Assessing delivery at the receiver</div>
+      <div class="b">The available-rate estimator accounts for the current radio profile and losses after packet error correction. This gives the quality controller a basis for its bitrate decision. Stale reports, silence and receiver restarts are handled explicitly. The implementation has software test coverage, including a path through our receiver with packet loss.</div>
+      </div>
+      <div class="row">
+      <div class="h">Automatic video-quality selection</div>
+      <div class="b">A controller implements profiles from reduced quality through SD, Full HD, QHD and 4K. It selects a profile and target bitrate from the available rate. A 4K controller profile means software support for that choice; the over-the-air result reported above concerns a 640×480 video file.</div>
+      </div>
+      <div class="row">
+      <div class="h">Stable behaviour as conditions change</div>
+      <div class="b">Software tests cover falling capacity, packet loss and fluctuations around profile boundaries. Quality increases require evidence of stable conditions and are blocked when fresh feedback is unavailable. This prevents unsupported increases in load and frequent profile switching.</div>
+      </div>
+      <div class="row">
+      <div class="h">Keeping sender and receiver aligned</div>
+      <div class="b">The video-profile change protocol accounts for missing acknowledgements, stale messages and receiver restarts. These scenarios have software test coverage. Its purpose is to maintain consistent decoding during quality changes. End-to-end operation with the camera, encoder and radio modems requires separate over-the-air validation.</div>
+      </div>
+      <div class="row">
+      <div class="h">Several adaptation mechanisms</div>
+      <div class="b">The model includes BPSK, QPSK and 16-QAM options; the transport includes packet loss-correction profiles and video-quality selection. Single-carrier and COFDM waveforms have been assessed for different conditions. Bandwidth changes are included in capacity calculations, but complete automatic over-the-air bandwidth switching has not been validated. These mechanisms are at different stages of readiness.</div>
+      </div>
+      <div class="row">
+      <div class="h">A practical integration advantage</div>
+      <div class="b">Owning the physical layer, transport and video controller lets us modify them together for a particular platform. Compared with a fixed-video-bitrate configuration, the software controller accounts for changes in available rate. Compared with integrating a modem only through its supplied interface, we can also work on its internal logic. This is an advantage in development control, not demonstrated range or throughput superiority over production alternatives.</div>
+      </div>
+      <div class="row">
+      <div class="h">What the comparison with alternatives shows</div>
+      <div class="b"><a href="https://silvustechnologies.com/products/streamcaster-4400-enhanced/">Silvus StreamCaster</a> already advertises automatic radio-link adaptation, and <a href="https://kb.doodlelabs.com/low-latency-cc-and-video-streaming-guide">Doodle Labs</a> describes video bitrate adaptation to network capacity. Our distinction is our own implementation and the ability to modify it within ELINTIR. We have no comparative trials against these products under matching conditions, so we do not claim superior range, latency or reliability.</div>
       </div>
       </div>
       </section>
