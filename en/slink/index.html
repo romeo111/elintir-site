@@ -6,11 +6,11 @@
     <title>s.Link — ELINTIR LLC</title>
     <meta
       name="description"
-      content="s.Link, ELINTIR's own radio link: our own physical and link layers, GMSK at 872 MHz, ChaCha20-Poly1305, a 2.3% duty cycle. Measured figures and the development plan: mesh, frequency hopping, video."
+      content="s.Link and s.Link4k: ELINTIR radio links for telemetry, commands and video. Frequency hopping and video transfer tested over the air. Results and development status, September 2026."
     >
     <meta name="theme-color" content="#ffffff">
     <meta property="og:title" content="s.Link — ELINTIR LLC">
-    <meta property="og:description" content="The s.Link radio: specifications, measured characteristics and the development plan — the s.Link4k mesh, frequency hopping, video.">
+    <meta property="og:description" content="s.Link and s.Link4k: ELINTIR radio links for telemetry, commands and video. Frequency hopping and video transfer tested over the air. Results and development status, September 2026.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://elintir.com/assets/products/elintir-og-product.jpg">
@@ -658,6 +658,11 @@
         border-radius: 4px;
       }
       .topbar nav a.demo:hover { color: #fff; background: var(--brand-green); }
+      .section-nav { margin-top: 28px; color: var(--brand-green-deep); font-size: 15px; line-height: 2; }
+      .section-nav a { text-underline-offset: 4px; }
+      .section p.evidence-note { margin-top: 24px; max-width: 74ch; font-size: 15px; }
+      .proof-table th:last-child, .proof-table td:last-child { min-width: 120px; }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     </style>
   </head>
   <body>
@@ -686,350 +691,141 @@
 
     <main>
       <section class="hero wrap">
-        <h1>s.Link — our own radio link</h1>
-        <p class="lead">
-          We write the physical and link layers ourselves. s.Link joins the station to the operator point to point: bearing telemetry out, commands back — no relays and no internet in between.
-        </p>
+        <p class="eyebrow">Data as of 25 September 2026</p>
+        <h1>s.Link — telemetry, commands and video</h1>
+        <p class="lead">Our own physical and data-link layers connecting a station to its operator. <strong>s.Link</strong> carries telemetry and commands; <strong>s.Link4k</strong> is a separate wideband profile for video.</p>
+        <nav class="section-nav" aria-label="On this page"><a href="#slink">Overview</a> · <a href="#profiles">Profiles</a> · <a href="#measured">Trials</a> · <a href="#roadmap">Development</a></nav>
       </section>
-
-      <section class="section wrap" id="slink">
-        <p class="section-label">Overview</p>
-        <div class="slink-grid">
-          <div>
-        <h2>A channel we designed for the job</h2>
-        <p class="body">
-          We write the physical and link layers ourselves, so the channel's
-          characteristics are set by the job rather than by a supplier's
-          catalogue. s.Link connects the station to the operator: bearing
-          telemetry out, commands back.
-        </p>
-        <p class="body">
-          The station is on the air <strong>2.3% of the time</strong> — 83
-          seconds an hour. In a spectrogram a burst like that reads as a
-          domestic sensor at 872 MHz, not as a military channel.
-        </p>
-          </div>
-
-          <figure class="waterfall">
-          <svg viewBox="0 0 660 300" role="img" aria-label="Spectrum waterfall: a conventional channel burns as a solid stripe throughout while s.Link is three short dashes, one per second">
-            <defs>
-              <filter id="wfNoise" x="0" y="0" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.92 0.38" numOctaves="3" seed="7"/>
-                <feColorMatrix type="matrix"
-                  values="0 0 0 0 0.30
-                          0 0 0 0 0.44
-                          0 0 0 0 0.24
-                          1 0 0 0 -0.44"/>
-              </filter>
-              <filter id="wfGlow" x="-300%" y="-300%" width="700%" height="700%">
-                <feGaussianBlur stdDeviation="5"/>
-              </filter>
-              <clipPath id="wfClip"><rect x="46" y="16" width="566" height="222"/></clipPath>
-            </defs>
-
-            <rect x="46" y="16" width="566" height="222" fill="#0d1008"/>
-            <g clip-path="url(#wfClip)">
-              <rect x="46" y="16" width="566" height="222" filter="url(#wfNoise)" opacity="0.85"/>
-
-              <!-- a conventional continuous channel: wide and always on the air -->
-              <rect x="150" y="16" width="30" height="222" fill="#d4a843" opacity="0.30" filter="url(#wfGlow)"/>
-              <rect x="159" y="16" width="12" height="222" fill="#eec25c"/>
-              <rect x="162" y="16" width="6" height="222" fill="#fff3d0"/>
-
-              <!-- s.Link: narrow, 26 kHz, 77 ms once a second -->
-              <g>
-                <rect x="432" y="46" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
-                <rect x="434" y="47" width="5" height="5" fill="#b6f5a2"/>
-                <rect x="432" y="120" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
-                <rect x="434" y="121" width="5" height="5" fill="#b6f5a2"/>
-                <rect x="432" y="194" width="9" height="7" fill="#7ccc63" opacity="0.55" filter="url(#wfGlow)"/>
-                <rect x="434" y="195" width="5" height="5" fill="#b6f5a2"/>
-              </g>
-            </g>
-            <rect x="46" y="16" width="566" height="222" fill="none" stroke="#2c3319" stroke-width="1"/>
-
-            <!-- time axis -->
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
-              <text x="40" y="53" text-anchor="end">0 s</text>
-              <text x="40" y="127" text-anchor="end">1 s</text>
-              <text x="40" y="201" text-anchor="end">2 s</text>
-            </g>
-            <g stroke="#d8d8d8" stroke-width="1">
-              <line x1="43" y1="49.5" x2="46" y2="49.5"/>
-              <line x1="43" y1="123.5" x2="46" y2="123.5"/>
-              <line x1="43" y1="197.5" x2="46" y2="197.5"/>
-            </g>
-
-            <!-- labels -->
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
-              <line x1="165" y1="238" x2="165" y2="256" stroke="#c8a24a" stroke-width="1"/>
-              <text x="165" y="272" fill="#8a6c1f" text-anchor="middle">a conventional channel</text>
-              <text x="165" y="287" fill="#a8a08a" text-anchor="middle">always on the air</text>
-
-              <line x1="436" y1="238" x2="436" y2="256" stroke="#5f9c46" stroke-width="1"/>
-              <text x="436" y="272" fill="#2f4b19" text-anchor="middle" font-weight="700">s.Link</text>
-              <text x="436" y="287" fill="#a8a08a" text-anchor="middle">77 ms per second</text>
-            </g>
-          </svg>
-          <figcaption>
-            A spectrum waterfall, synthetic illustration. The bandwidth and
-            duty cycle are the datasheet ones: 26 kHz and 2.3%.
-          </figcaption>
-          </figure>
-        </div>
-
-        <div class="stack" style="margin-top:34px">
-          <div class="stack-card">
-            <span class="k">Radio</span>
-            <div class="v">872 MHz, GMSK BT=0.5, 25 000 sym/s. Occupied bandwidth 26 kHz.</div>
-          </div>
-          <div class="stack-card">
-            <span class="k">Coding</span>
-            <div class="v">Convolutional code rate 1/2, K=7, soft-decision Viterbi, block interleaving.</div>
-          </div>
-          <div class="stack-card">
-            <span class="k">Encryption</span>
-            <div class="v">ChaCha20-Poly1305 AEAD, 256-bit. A frame is accepted on authentication, not on a correlation metric.</div>
-          </div>
-          <div class="stack-card">
-            <span class="k">Access</span>
-            <div class="v">TDMA on a 1 s period, synchronised to the peer — with no reliance on system time or GNSS.</div>
-          </div>
-        </div>
+<section class="section wrap" id="slink">
+      <p class="section-label">Overview</p>
+      <h2>Two tasks, two radio profiles</h2>
+      <div class="rows">
+      <div class="row">
+      <div class="h">s.Link · telemetry and commands</div>
+      <div class="b">A direct radio channel between station and operator carrying bearings, equipment status and commands. The narrowband GMSK profile runs on hardware. Frequency hopping passed over-the-air trials in September.</div>
+      </div>
+      <div class="row">
+      <div class="h">s.Link4k · video</div>
+      <div class="b">H.265 passes through fragmentation, packet error correction, encryption and the radio path. A video file recovered after transmission through antennas matched the original byte for byte. The profile name does not mean that 4K streaming has been demonstrated.</div>
+      </div>
+      <div class="row">
+      <div class="h">Data protection</div>
+      <div class="b">ChaCha20-Poly1305 provides encryption and data authentication. Error correction helps recover damaged data and lost packets. These are separate mechanisms: encryption alone does not provide resistance to radio interference.</div>
+      </div>
+      <div class="row">
+      <div class="h">Operator interface</div>
+      <div class="b">The console displays radio-link status, telemetry and video. s.Link supports an operator-silence mode. Video and modem measurements are shown separately: a visible picture alone does not establish delivery over that radio link.</div>
+      </div>
+      </div>
       </section>
-
       <section class="section wrap" id="profiles">
-        <p class="section-label">PHY profiles</p>
-        <h2>Not one mode, but a ladder</h2>
-        <p class="body" style="max-width:70ch;margin-bottom:28px">
-          Every distinct use of the radio here is a separate named profile with its own
-          budget and its own tests, not a "setting" of the one next to it. The three
-          narrowband ones differ by exactly one lever: <strong>the slower the symbols,
-          the narrower the receiver's noise bandwidth</strong> — and the further it hears.
-        </p>
-        <div style="overflow-x:auto">
-          <table class="proof-table">
-            <thead>
-              <tr><th>Profile</th><th>Symbols/s</th><th>Bandwidth</th><th>What it buys</th><th>Status</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Shared with the sweep</td><td class="num">240 000</td><td class="num">≈250 kHz</td>
-                <td>The modem lives inside the station's 30.72 MS/s hardware profile: an exact ×32 division in DSP, with no fractional resampler and none of the timing wander one brings.</td>
-                <td class="ctx">the only one to detect on the shared chain</td>
-              </tr>
-              <tr>
-                <td>Long range</td><td class="num">25 000</td><td class="num">26 kHz</td>
-                <td>A tenfold narrower noise bandwidth: <strong>−10 dB, so 3.2× the reach</strong>. The link carries 11 bytes every 15 s — there is simply nothing here to spend rate on.</td>
-                <td class="ctx">deployed, the default</td>
-              </tr>
-              <tr>
-                <td>Half rate</td><td class="num">12 500</td><td class="num">≈13 kHz</td>
-                <td>Half as wide again. Theory promises 10·log₁₀2 = 3.01 dB, <strong>measured 2.7–3.0</strong>. One slow frame instead of two fast ones — the slot does not move.</td>
-                <td class="ctx">launchable; air by loopback, not by field</td>
-              </tr>
-              <tr>
-                <td>4K video</td><td class="num">15 360 000</td><td class="num">19.2 MHz</td>
-                <td>1024 bytes in 0.557 ms — <strong>14.7 Mbit/s</strong> of payload, inside the AD9363's 20 MHz ceiling. Its own profile, not the narrowband one "turned up".</td>
-                <td class="ctx">off-air</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="rows" style="margin-top:30px">
-          <div class="row">
-            <div class="h">A profile is a property of both ends</div>
-            <div class="b">A receiver keyed to the long-range profile sees a half-rate burst as eight samples per symbol while it searches four — so <strong>long range does not decode half rate, and half rate does not decode long range</strong>. Switching one end alone takes the link down in both directions. A receiver listening for both profiles at once does not rescue this: it is ~3 dB deafer, handing back exactly what the profile earns. That was measured and rejected, not assumed.</div>
-          </div>
-          <div class="row">
-            <div class="h">There is no third halving — and the crystals are to blame, not the schedule</div>
-            <div class="b">The reference-oscillator offset between two boards is measured: <strong>5.01 ppm</strong>, which is 4.4 kHz at 872 MHz. GMSK tolerates ≈40% of the symbol rate, and that tolerance falls with the rate while the offset does not: 12.5 ksym/s has 5 kHz and still covers the offset, 6.25 has 2.5 kHz and hands back <strong>−4.8 dB</strong> instead of the promised +5.9, and 3.125 does not decode at all. Shared clock discipline — the same GPS/PPS that frequency hopping needs — opens this ladder back up.</div>
-          </div>
-        </div>
-        <p class="body" style="max-width:70ch;margin-top:22px;font-size:14.5px;color:var(--faint)">
-          Narrowband bandwidths are GMSK BT=0.5 at ≈1.04 of the symbol rate (the same rule
-          that gives 26 kHz at 25 ksym/s). The 19.2 MHz for 4K is a constant from the code.
-        </p>
+      <p class="section-label">Profiles</p>
+      <h2>Specifications depend on the profile</h2>
+      <div style="overflow-x:auto">
+      <table class="proof-table">
+      <thead>
+      <tr>
+      <th scope="col">Profile</th>
+      <th scope="col">Physical layer</th>
+      <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>s.Link</td>
+      <td>GMSK; 25 and 12.5 ksymbol/s profiles. Convolutional coding and Viterbi decoding.</td>
+      <td>Radio link tested over the air; half-rate profile tested in an RF loop.</td>
+      </tr>
+      <tr>
+      <td>s.Link · frequency hopping</td>
+      <td>Coordinated frequency changes at both ends.</td>
+      <td>Over-the-air trials on 9–12 September 2026, including 2 hops/s.</td>
+      </tr>
+      <tr>
+      <td>s.Link4k</td>
+      <td>QPSK, 15.36 Msymbol/s; 19.2 MHz bandwidth; 1,024-byte packet.</td>
+      <td>Video file transmitted over the air and recovered using the host software reference decoder.</td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+      <p class="body evidence-note">The baseline s.Link4k profile has a calculated rate of about 14.7 Mbit/s during a burst. Average video bitrate is lower because of gaps, overhead, loss correction and repetitions. Frequency, burst duration and transmit duty cycle depend on the selected configuration.</p>
       </section>
-
       <section class="section wrap" id="measured">
-        <p class="section-label">What is already measured</p>
-        <div style="overflow-x:auto">
-          <table class="proof-table">
-            <thead>
-              <tr><th>Measured</th><th>Value</th><th>When</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Downlink station → operator, a 29.6 min window</td><td class="num">777 of 803 packets = 96.8%, median SNR 38.5–40.7 dB</td><td class="ctx">05.09 · on air</td></tr>
-              <tr><td>Uplink operator → station, 2 min</td><td class="num">21 of 21 = 100%, 0 undecoded</td><td class="ctx">05.09 · on air</td></tr>
-              <tr><td>Loss after capture, s.Link 1.1 vs 1.0</td><td class="num">2.0% of captured energy wasted instead of 10.8%</td><td class="ctx">05.09 · on air</td></tr>
-              <tr><td>Decode threshold on the air</td><td class="num">+2.27 dB</td><td class="ctx">15.08 · on air</td></tr>
-              <tr><td>Half-rate profile 12.5 ksym/s, gain</td><td class="num">~3 dB on a real RF capture (+2.7…2.8 in simulation)</td><td class="ctx">01.09 · RF loopback</td></tr>
-              <tr><td>Receiver sensitivity, gain</td><td class="num">+3.47 dB from a matched filter</td><td class="ctx">16.08 · AWGN simulation</td></tr>
-              <tr><td>Transmitter speed, gain</td><td class="num">×10.2, the signal bit-identical</td><td class="ctx">17.08 · measured</td></tr>
-              <tr><td>Reference oscillator offset between two boards</td><td class="num">5.01 ppm — 4,369 Hz at 872 MHz</td><td class="ctx">12.08 · measured</td></tr>
-              <tr><td>AD9361 retune — the basis of frequency hopping</td><td class="num">≤0.133 ms settling, 28 of 28 transitions</td><td class="ctx">24.08 · measured</td></tr>
-              <tr><td>Jamming resistance: GMSK vs chirp</td><td class="num">GMSK dies to a jammer 1…4 dB <em>weaker</em> than itself, chirp holds +13…+28 dB</td><td class="ctx">06.09 · simulation</td></tr>
-              <tr><td>s.Link, continuous session</td><td class="num">5 h 20 min, 4863 frames</td><td class="ctx">bench</td></tr>
-              <tr><td>s.Link, authentication failures</td><td class="num">0 of 4863</td><td class="ctx">bench</td></tr>
-              <tr><td>s.Link duty cycle, <strong>remote station</strong></td><td class="num">2.3% — 83 s of air per hour</td><td class="ctx">measured</td></tr>
-              <tr><td>s.Link duty cycle, <strong>operator</strong></td><td class="num">0% when idle</td><td class="ctx">code constant</td></tr>
-              <tr><td>640×480 video through the whole chain</td><td class="num">60 of 60 frames byte-exact</td><td class="ctx">22.08 · bench</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="body" style="max-width:74ch;margin-top:22px;font-size:14.5px;color:var(--faint)">
-          What this table does not carry is <strong>range</strong>. There has never been a
-          distance trial in the field, so every kilometre in our calculations is a link
-          budget, not a measurement. The 05.09 on-air figures come from the working
-          station ↔ operator link; the 1.1-vs-1.0 comparison rests on windows of 29.6 and
-          131 min — the direction is unambiguous, the precision of the number is not.
-        </p>
+      <p class="section-label">Trials</p>
+      <h2>What the trials demonstrate</h2>
+      <div style="overflow-x:auto">
+      <table class="proof-table">
+      <thead>
+      <tr>
+      <th scope="col">Result</th>
+      <th scope="col">Conditions and limits</th>
+      <th scope="col">Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td><strong>Hopping: 32 of 32 packets</strong></td>
+      <td>Station-to-operator delivery over 120 seconds at one hop/s. A short over-the-air trial.</td>
+      <td>9 Sep 2026</td>
+      </tr>
+      <tr>
+      <td><strong>Hopping: 2 hops/s</strong></td>
+      <td>Three five-minute windows with no recorded retune errors or authentication failures. This does not imply zero packet loss.</td>
+      <td>12 Sep 2026</td>
+      </tr>
+      <tr>
+      <td><strong>Video: 60 of 60 frames</strong></td>
+      <td>H.265, 640×480; Pluto → air → B210 indoors. Recovered file matches the original SHA-256. The stream was transmitted repeatedly; this validates file delivery.</td>
+      <td>18 Sep 2026</td>
+      </tr>
+      <tr>
+      <td><strong>Streaming transmission from B210</strong></td>
+      <td>Consecutive video packets received on Nano SDR in an over-the-air bench trial, decoded on a PC. Demonstrates the signal path, not field range.</td>
+      <td>21 Sep 2026</td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+      <p class="body evidence-note">Field range and end-to-end video latency have not yet been established by measurements. These radio trials took place at short range. They do not demonstrate a finished real-time 4K link.</p>
       </section>
-
-      <section class="section wrap" id="pending">
-        <p class="section-label">Ready in code — waiting for the air</p>
-        <p class="body" style="margin-bottom:28px">
-          These are not plans or intentions: the code is written, the chain closes on the bench, the tests are green. Exactly one thing is missing — a run on the air.
-        </p>
-        <div class="rows">
-          <div class="row">
-            <div class="h">640×480 video channel</div>
-            <div class="b">The whole chain joined for the first time: H.265 → fragmenter → outer Reed-Solomon code → PHY → and back. 60 of 60 frames byte-exact, and ffmpeg played the result. The radio is not involved yet.</div>
-          </div>
-          <div class="row">
-            <div class="h">Drone control over s.Link</div>
-            <div class="b">A compressed subset of MAVLink, ~72 bit/s in long-range mode. The code is written and tested, but has never been on the air.</div>
-          </div>
-          <div class="row">
-            <div class="h">s.Link4k — a rooted mesh for 4K video</div>
-            <div class="b">Video relaying without trusting the relay: it forwards the authenticated 1024-byte packet <strong>without parsing H.265 or decrypting it</strong>. Routes and slots are handed out by the ground sink, and flooding is forbidden by design — every duplicate would consume a full burst on every subsequent hop. Earlier than the other rows here: the wire format, the capacity model <strong>and packet FEC</strong> are already implemented off-air — with no live radio path yet. Next comes the scheduler simulator.</div>
-          </div>
-        </div>
+      <section class="section wrap" id="roadmap"><span id="pending"></span>
+      <p class="section-label">Development</p>
+      <h2>What we are developing next</h2>
+      <div class="rows">
+      <div class="row">
+      <div class="h">FPGA reception and transmission</div>
+      <div class="b">The s.Link4k receiver with a channel equaliser has been synthesised and routed for Zynq-7010. This is a separate milestone from over-the-air reception by a complete FPGA system. The next step is end-to-end hardware validation.</div>
+      </div>
+      <div class="row">
+      <div class="h">Real-time video</div>
+      <div class="b">Integrating the camera, encoder, radio modem and console into a continuous path. Camera-to-display latency and sustained operation with packet loss still need to be measured.</div>
+      </div>
+      <div class="row">
+      <div class="h">Adaptation and multipath</div>
+      <div class="b">Modulation and coding options and reflected-signal models are being studied separately. Software models, FPGA synthesis and over-the-air validation represent different stages of readiness.</div>
+      </div>
+      <div class="row">
+      <div class="h">Mesh and relaying</div>
+      <div class="b">The s.Link4k transport packet format, encryption and outer loss correction are implemented. A controlled multi-node radio mesh with a scheduler requires further implementation and testing.</div>
+      </div>
+      <div class="row">
+      <div class="h" id="amps">Antennas, amplification and range</div>
+      <div class="b">Measuring output power, antenna performance and transmitter–receiver interaction. Range will be established through field trials with documented conditions, antenna heights and channel profiles.</div>
+      </div>
+      </div>
       </section>
-
-      <section class="section wrap" id="amps">
-        <p class="section-label">The amplifier study</p>
-        <h2>Why "just add a watt" does not add range</h2>
-        <p class="body">
-          The obvious answer to range is an amplifier. We costed it and
-          checked it, and it turned out to be mostly a trap. We publish it
-          because this is the part of engineering that shows whether someone
-          has actually worked with hardware.
-        </p>
-
-        <figure class="figwide">
-          <svg viewBox="0 0 660 236" role="img" aria-label="Range gain from added power: the exponent near the ground is 4, so 12 decibels only double the range">
-            <rect x="420" y="26" width="54" height="164" fill="#3e6b1f" fill-opacity="0.07"/>
-            <text x="447" y="20" font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#2f4b19" text-anchor="middle">+20…+23 dBm</text>
-
-            <g stroke="#efefef" stroke-width="1">
-              <line x1="60" y1="150.2" x2="600" y2="150.2"/>
-              <line x1="60" y1="110" x2="600" y2="110"/>
-              <line x1="60" y1="70" x2="600" y2="70"/>
-            </g>
-            <line x1="60" y1="16" x2="60" y2="190" stroke="#c8c8c8" stroke-width="1"/>
-            <line x1="60" y1="190" x2="600" y2="190" stroke="#c8c8c8" stroke-width="1"/>
-
-            <path d="M60.0,190.0 L96.0,179.6 L132.0,166.6 L168.0,150.2 L204.0,129.5 L240.0,103.5 L276.0,70.8 L306.0,36.0" fill="none" stroke="#c8c8c8" stroke-width="1.8" stroke-dasharray="5 4"/>
-            <path d="M60.0,190.0 L96.0,185.1 L132.0,179.6 L168.0,173.5 L204.0,166.6 L240.0,158.9 L276.0,150.2 L312.0,140.5 L348.0,129.5 L384.0,117.3 L420.0,103.5 L456.0,88.1 L492.0,70.8 L528.0,51.3 L560.0,33.0" fill="none" stroke="#3e6b1f" stroke-width="2.4"/>
-
-            <circle cx="276" cy="150.2" r="4.5" fill="#2f4b19"/>
-            <circle cx="546" cy="40.7" r="4.5" fill="#2f4b19"/>
-
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="10.5">
-              <text x="286" y="146" fill="#2f4b19" font-weight="700">+12 dB → ×2</text>
-              <text x="540" y="36" fill="#2f4b19" text-anchor="end" font-weight="700">2 W → ×4.7</text>
-              <text x="316" y="52" fill="#a8a8a8">free space</text>
-              <text x="452" y="126" fill="#2f4b19">near the ground</text>
-            </g>
-            <g font-family="JetBrains Mono, Consolas, monospace" font-size="9.5" fill="#9a9a9a">
-              <text x="60" y="206" text-anchor="middle">0</text>
-              <text x="330" y="206" text-anchor="middle">+15 dB</text>
-              <text x="600" y="206" text-anchor="end">+30 dB</text>
-              <text x="52" y="194" text-anchor="end">×1</text>
-              <text x="52" y="34" text-anchor="end">×5</text>
-              <text x="330" y="230" text-anchor="middle" fill="#b4b4b4">range gain from added power</text>
-            </g>
-          </svg>
-        </figure>
-        <div class="rows">
-          <div class="row">
-            <div class="h">Near the ground the exponent is 4, not 2</div>
-            <div class="b">In the two-ray model range grows far more slowly than power: 2 W (+27 dBm) buys only <strong>×4.7</strong>, not ×22. Doubling the range costs 12 dB, not 6. The sweet spot is <strong>+20…+23 dBm, not watts</strong>.</div>
-          </div>
-          <div class="row">
-            <div class="h">An ungated amplifier deafens its own receiver</div>
-            <div class="b">It holds the noise floor up permanently, because the local oscillator cannot switch off between bursts. One metre of antenna separation costs <strong>−4.8 dB of our own sensitivity</strong>, half a metre <strong>−9.5 dB</strong>. A low-noise amplifier makes this <em>worse</em>, not better. The conclusion: the gate has to be switched together with the burst.</div>
-          </div>
-          <div class="row">
-            <div class="h">The real blocker is our own array</div>
-            <div class="b">A strong transmitter nearby drives the KrakenSDR into clipping, and distance does not save it. A beacon of a few milliwatts <strong>already</strong> does this. It needs the array blanked for the duration of the burst plus a limiter — without them every bearing frame is contaminated.</div>
-          </div>
-          <div class="row">
-            <div class="h">~9 dB sits there for free</div>
-            <div class="b">The transmitter's digital scale sits 12 dB below full. GMSK has a constant envelope and needs no such headroom — <strong>+8…+9 dB can be taken with no hardware at all</strong>. The flip side of the same fact: the "+6 dBm" budget line is probably overstated by those same 12 dB, so the range calculation may be optimistic by a factor of two. First measurement: power at the connector.</div>
-          </div>
-          <div class="row">
-            <div class="h">An LNA earns its place on feeder loss, not noise figure</div>
-            <div class="b">On noise figure alone it gives only ~3.6 dB. But it takes cable loss out of the budget, and that is what decides: a 10 m mast is worth +14 dB, while RG58 at 866 MHz eats 6 dB over ten metres and 26 dB over forty-four.</div>
-          </div>
-          <div class="row">
-            <div class="h">The asymmetry of roles is already in the code</div>
-            <div class="b">The operator console must be findable by nobody, so it sends only what the operator deliberately sent. Hence the split: the power amplifier goes <strong>on the station only</strong>, the low-noise one on the operator. A power amplifier on the operator side would be the worst of the four combinations.</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section wrap" id="roadmap">
-        <p class="section-label">Development plan</p>
-        <h2>Where the link grows next</h2>
-        <p class="body">
-          These, by contrast, are plans, and we label them as such. What is already implemented off-air is said plainly; the number still missing before the air is named.
-        </p>
-        <div class="rows">
-          <div class="row">
-            <div class="h">Frequency hopping keyed to the link key</div>
-            <div class="b">The hop order is derived from the key and the clock the two ends already share: nothing extra goes on the air, and without the key the next channel cannot be guessed. The channel set is first filtered against the frequency plan — the key permutes the order, not the placement. A wide set buys up to ~28 dB of processing gain against a barrage jammer. The honest limit: the hop rate is capped by clock synchronisation, not by the radio. The radio side is already measured — a retune settles in <strong>≤0.133 ms</strong> (28 of 28 transitions), so a hop on every slot fits the budget with sevenfold margin; the clocks do not, since the station's stock timesyncd only supports ~0.3 s between hops and only a shared timebase (~10 ms spread) makes a per-slot hop legitimate. That is why time discipline comes before any radio work — done wrong, hopping makes a working link worse. The hop-order and hop-plan code is already in the tree and under test; it has never been switched on over the air.</div>
-          </div>
-          <div class="row">
-            <div class="h">Mesh — s.Link4k, a rooted relay for 4K</div>
-            <div class="b">A scheduled mesh, not flooding: the ground sink computes the route and the TDMA grants, and a relay forwards the authenticated 1024-byte packet <strong>without decrypting it or parsing H.265</strong>. A direct route carries 2160p30 in the capacity model; every single-frequency relay divides the airtime. Status: the wire format, the capacity model <strong>and packet FEC</strong> are implemented off-air — a Cauchy-Reed-Solomon erasure code over 992-byte symbols, the rest of the 1024-byte packet being the authentication tag. There is still no live radio path. Next comes the scheduler simulator: HDL and a transmitter deliberately do not start until it is green.</div>
-          </div>
-          <div class="row">
-            <div class="h">Video</div>
-            <div class="b">The 640×480 chain already closes on the bench — 60 of 60 frames byte-exact; only the air remains. The high-rate video profile will be its own named PHY profile with its own budget and tests, not a tuning of narrowband s.Link; 4K rides the mesh above.</div>
-          </div>
-          <div class="row">
-            <div class="h">PHY robustness</div>
-            <div class="b">An interleaver over the convolutional code is a direct win against pulsed jamming, waits on nothing else, and goes first. Then the chirp: a modulation bench (8,038 runs, 06.09, simulated on the tree's real modulators and decoders) showed a gap no GMSK profile closes — <strong>15–33 dB</strong> of jamming resistance. Every GMSK profile dies to a jammer 1…4 dB weaker than its own signal; chirp holds +13…+28. Narrowing the bandwidth buys sensitivity and <em>not</em> jamming resistance: a narrowband jammer narrows along with you. Within the same 43 ms budget the chirp is also 4.3–4.7 dB more sensitive than spread GMSK. The CSS core and its tests are already in the tree; it has never been on the air.</div>
-          </div>
-          <div class="row">
-            <div class="h">Operator survivability</div>
-            <div class="b">The operator must not be direction-findable. At idle their emission is zero — measured. Next: commands at the least sufficient power driven by the station's telemetry, a randomised emission instant inside the slot, and re-acquiring a lost link with no fixed rendezvous channel — only the station transmits, the operator just listens.</div>
-          </div>
-          <div class="row">
-            <div class="h">30 km of range</div>
-            <div class="b">The order of work is costed: directional antennas at both ends first (+8…12 dBi — they help both directions at once), then the console's local noise — a measured ~29 dB above the receiver's own floor — and only then an amplifier. Every existing number was taken on one site; a 1–3 km field run comes before any money is spent on range.</div>
-          </div>
-        </div>
-      </section>
-
       <section class="section wrap" id="cta">
-        <div class="cta-block">
-          <p class="body" style="margin:0">
-            We can show the link working in person. The full technical wiki and the protocol specification live in the data room.
-          </p>
-          <div class="cta-actions">
-            <a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a>
-            <a class="btn-ghost" href="/en/investors/">Data room</a>
-          </div>
-        </div>
+      <div class="cta-block">
+      <p class="body" style="margin:0">We can demonstrate the current bench setup and discuss integration for your application. Detailed trial records and the specification are available in the data room.</p>
+      <div class="cta-actions"><a class="btn" href="mailto:info@elintir.com?subject=ELINTIR%20demo%20request">Request a demo</a><a class="btn-ghost" href="/en/investors/">Data room</a>
+      </div>
+      </div>
       </section>
     </main>
     <footer class="footer wrap">
       <span>© 2026 ELINTIR LLC</span>
-      <span>Data as of 08.09.2026</span>
+      <span>Data as of 25 September 2026</span>
     </footer>
     <script src="/assets/contact.js" defer></script>
   </body>
