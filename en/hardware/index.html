@@ -1271,19 +1271,11 @@
       </section>
 
       <section class="section wrap" id="measured">
-        <p class="section-label">What is already measured — in the field, with a date</p>
-        <div style="overflow-x:auto">
-          <table class="proof-table">
-            <thead>
-              <tr><th>Measured</th><th>Value</th><th>When</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Bearing on an 868.000 CW beacon, spread</td><td class="num">0.2–1.5° over 90-second legs, 107 bearings</td><td class="ctx">22.08 · field</td></tr>
-              <tr><td>Source proven by frequency selectivity</td><td class="num">69.6 dB at 868.0 vs ~16 dB either side — a 53.1 dB drop</td><td class="ctx">22.08 · field</td></tr>
-              <tr><td>Beacon moved 0° → 30°</td><td class="num">the bearing moved +35.9° for a true +30°</td><td class="ctx">22.08 · field</td></tr>
-              <tr><td>Automated tests passing</td><td class="num">18,542 passed / 44 skipped, 0 red</td><td class="ctx">08.09 · test run</td></tr>
-            </tbody>
-          </table>
+        <p class="section-label">Field validation</p>
+        <div class="rows">
+          <div class="row"><div class="h">Direction finding</div><div class="b">In field trials, the system tracked the bearing to a reference source and responded when its position changed.</div></div>
+          <div class="row"><div class="h">Source identification</div><div class="b">The reference signal’s frequency selectivity confirmed that the system was tracking the intended source.</div></div>
+          <div class="row"><div class="h">Software verification</div><div class="b">Automated checks support ongoing development and stability of the software.</div></div>
         </div>
       </section>
 
