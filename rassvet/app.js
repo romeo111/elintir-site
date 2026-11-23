@@ -18,7 +18,7 @@
   const plural = (n,one,few,many) => n%10===1&&n%100!==11?one:n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?few:many;
   const DEG = Math.PI/180;
   const cache = new Map();
-  let alerts=null, boundaries=null, day=null, observer=null, minute=585, threshold=10, selectedSat=null, placeName="Київ", playing=false, timer=null, passes=[], queryVersion=0, dateTimer=null;
+  let alerts=null, boundaries=null, day=null, observer=null, minute=585, threshold=10, selectedSat=null, placeName="Київ", playing=false, timer=null, passes=[], queryVersion=0, dateTimer=null, coordinateTimer=null;
 
   function dateAt(offset){
     const value=new Date(Date.parse(FIRST+"T00:00:00Z")+offset*86400000);
@@ -28,6 +28,7 @@
     const date=dateAt(Number($("date-scrub").value));
     $("date").value=date;
     $("date-label").textContent=fmtDate.format(new Date(date+"T12:00:00Z"));
+    $("daily-json").href=`data/${date}.json`;
   }
   function showDataWindow(){
     $("date-scrub").max=String(Math.round((Date.parse(LAST)-Date.parse(FIRST))/86400000));
@@ -216,6 +217,27 @@
     }
   }
 
+  function exportPassesCsv(){
+    if(!day)return;
+    const at=index=>new Date(day.startMs+index*day.stepSeconds*1000).toISOString();
+    const cell=value=>`"${String(value??"").replaceAll('"','""')}"`;
+    const columns=["norad_id","name","rise_utc","peak_utc","end_utc","peak_elevation_deg",
+      "peak_azimuth_deg","peak_range_km","latitude_deg","longitude_deg","threshold_deg",
+      "gp_epoch_utc","gp_age_hours_at_peak","model_status"];
+    const lat=Number($("lat").value),lon=Number($("lon").value);
+    const rows=passes.map(pass=>{
+      const peak=look(pass.sat,pass.peak),peakUtc=at(pass.peak);
+      return [pass.sat.id,pass.sat.name,at(pass.rise),peakUtc,at(pass.end),pass.maxEl.toFixed(2),
+        peak.az.toFixed(2),peak.range.toFixed(1),lat.toFixed(6),lon.toFixed(6),threshold,
+        pass.sat.epoch,(Math.abs(Date.parse(peakUtc)-Date.parse(pass.sat.epoch))/3600000).toFixed(1),day.modelStatus];
+    });
+    const csv="\uFEFF"+[columns.join(","),...rows.map(row=>row.map(cell).join(","))].join("\r\n")+"\r\n";
+    const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+    const link=document.createElement("a");link.href=url;link.download=`rassvet-passes-${day.date}.csv`;
+    document.body.appendChild(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+  }
+
   function render(){
     if(!day||!alerts)return;
     minute=Math.max(0,Math.min(day.sampleCount-2,minute));
@@ -250,7 +272,8 @@
       const info=threats.length?`За весь інтервал API вказує: ${threats.map(x=>THREAT_NAMES[x]||x).join(", ")}.`:
         "Тип загрози в цих записах не вказаний.";
       $("alert-explanation").textContent=`У вибраний час є запис про тривогу. ${info} Часова близькість до проходу супутника не доводить зв'язку між ними.`;
-    }else{$("alert-explanation").textContent="У збереженій історії для цього району в обраний час немає запису про тривогу. Це не означає, що не було удару або загрози.";}
+    }else{$("alert-explanation").textContent="";}
+    $("alert-explanation").hidden=!$("alert-explanation").textContent;
     $("visible-count").textContent=`${visible.length} із ${day.satellites.length}`;
     const groups=[...new Set(day.satellites.map(s=>s.group||"RASSVET"))];
     $("scene-live-label").textContent=`${groups.length===1?groups[0]:groups.length+" групи"} · ${day.satellites.length} GP`;
@@ -304,11 +327,24 @@
       if(!boundaryResponse.ok)throw Error("Немає меж районів");
       alerts=await alertsResponse.json();boundaries=await boundaryResponse.json();
       refreshRegion();
-      for(const id of ["lat","lon"])$(id).addEventListener("input",()=>{placeName="Моя точка";refreshRegion();});
+      for(const id of ["lat","lon"]){
+        $(id).addEventListener("input",()=>{
+          placeName="Моя точка";refreshRegion();clearTimeout(coordinateTimer);
+          const lat=Number($("lat").value),lon=Number($("lon").value);
+          if($("lat").value&&$("lon").value&&Number.isFinite(lat)&&Number.isFinite(lon)&&
+             lat>=-90&&lat<=90&&lon>=-180&&lon<=180){
+            coordinateTimer=setTimeout(applyQuery,500);
+          }
+        });
+        $(id).addEventListener("keydown",event=>{
+          if(event.key==="Enter"){event.preventDefault();clearTimeout(coordinateTimer);applyQuery();}
+        });
+      }
       $("date-scrub").addEventListener("input",()=>{
         syncDate();clearTimeout(dateTimer);dateTimer=setTimeout(applyQuery,160);
       });
-      $("show").addEventListener("click",applyQuery);
+      $("show").addEventListener("click",()=>{clearTimeout(coordinateTimer);applyQuery();});
+      $("export-passes").addEventListener("click",exportPassesCsv);
       $("locate").addEventListener("click",()=>{
         const status=$("location-status"),button=$("locate");
         status.hidden=false;
@@ -318,7 +354,7 @@
           button.disabled=false;
           $("lat").value=position.coords.latitude.toFixed(6);
           $("lon").value=position.coords.longitude.toFixed(6);
-          placeName="Моя точка";refreshRegion();
+          placeName="Моя точка";refreshRegion();clearTimeout(coordinateTimer);
           status.textContent=`Координати визначено · точність близько ${Math.round(position.coords.accuracy)} м.`;
           applyQuery();
         },failure=>{

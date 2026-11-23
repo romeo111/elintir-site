@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Відстеження супутників «Рассвет»: розраховані прольоти над точкою та історія повітряних тривог.">
   <title>Рассвет · відстеження супутників</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="light-theme.css?v=7">
+  <link rel="stylesheet" href="light-theme.css?v=9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
   <script src="vendor_three-r128.min.js" defer></script>
   <script src="vendor_orbitcontrols-r128.js" defer></script>
   <script src="map-overlay.js" defer></script>
-  <script src="terrain3d.js?v=7" defer></script>
-  <script src="app.js?v=7" defer></script>
+  <script src="terrain3d.js?v=10" defer></script>
+  <script src="app.js?v=10" defer></script>
 </head>
 <body>
   <header class="site-header">
-    <div class="brand"><a class="brand-home" href="https://elintir.com/" aria-label="ELINTIR — головна сторінка"><span class="brand-symbol" aria-hidden="true">⬡</span><span>ELINTIR</span></a><span class="brand-divider" aria-hidden="true"></span><span class="brand-product">Рассвет <small>орбітальна модель</small></span></div>
+    <div class="brand"><a class="brand-home" href="https://elintir.com/" aria-label="ELINTIR — головна сторінка"><svg class="brand-mark" viewBox="61.3 61 389.4 371.7" aria-hidden="true"><polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/><path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/><g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g></svg><span class="brand-text"><span class="brand-name">ELINTIR</span><span class="brand-slogan">ML/RF MAPPER</span></span></a><span class="brand-divider" aria-hidden="true"></span><span class="brand-product">Рассвет <small>орбітальна модель</small></span></div>
     <div class="header-right"><span class="header-tag" id="header-range">завантаження…</span><a class="header-home-link" href="https://elintir.com/">На сайт ELINTIR</a></div>
   </header>
 
@@ -33,7 +34,11 @@
         <label>Довгота, °
           <input id="lon" type="number" min="-180" max="180" step="any" value="30.5234" required inputmode="decimal">
         </label>
-        <button id="locate" class="locate-button" type="button" aria-label="Визначити моє місцеположення"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg><span>Визначити моє</span></button>
+        <div class="coordinate-actions">
+          <button id="show" class="primary-button" type="button">Показати за координатами</button>
+          <button id="locate" class="locate-button" type="button" aria-label="Визначити моє місцеположення" title="Визначити моє місцеположення"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></button>
+        </div>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
         <p id="location-status" class="location-status" role="status" hidden></p>
         <input id="region" type="hidden" value="31">
         <div class="region-result" aria-live="polite">
@@ -48,8 +53,6 @@
         </div>
         <input id="date" type="hidden">
         <input id="time" type="hidden" value="09:45">
-        <button id="show" class="primary-button" type="button">Показати точку</button>
-        <p id="form-error" class="form-error" role="alert" hidden></p>
       </aside>
 
       <div class="results">
@@ -57,11 +60,6 @@
           <div class="scene-topline">
             <div><span class="section-kicker">Небо над точкою</span><h2 id="result-heading">Завантаження…</h2><p id="provenance">Завантажуємо дані…</p></div>
             <span id="quality" class="quality-chip">GP</span>
-          </div>
-          <div class="key-metrics">
-            <div><span>Супутники вище порога</span><strong id="count">—</strong><small id="count-note">розрахунок, не радіоприйом</small></div>
-            <div><span>Найвищий кут</span><strong id="highest">—</strong><small>над цією точкою</small></div>
-            <div><span>Тривога</span><strong id="alert-short">—</strong><small id="alert-detail">для визначеного району</small></div>
           </div>
           <div class="analysis-panel">
             <div class="analysis-heading">
@@ -77,12 +75,6 @@
               <button id="now" class="now-button" type="button" title="Повернутися до поточної дати й часу за Києвом">Зараз</button>
               <button id="play" class="play-button" type="button">Відтворити</button>
             </div>
-            <div class="timeline-row"><span>Супутники</span><span id="coverage-total">—</span></div>
-            <div id="coverage-track" class="track coverage-track" aria-label="Інтервали прогнозованої видимості"></div>
-            <div class="timeline-row"><span>Тривоги</span><span id="alert-total">—</span></div>
-            <div id="alert-track" class="track alert-track" aria-label="Інтервали тривог у визначеному районі"></div>
-            <div class="ticks" aria-hidden="true"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
-            <p id="alert-explanation" class="alert-explanation" aria-live="polite"></p>
           </div>
           <div class="terrain-heading"><h3>3D-рельєф і супутники</h3><span id="scene-live-label">RASSVET · GP</span></div>
           <div class="terrain-stage">
@@ -92,15 +84,36 @@
               <div id="terrain-tooltip" class="terrain-tooltip" hidden></div>
               <div class="scene-key">◈ розраховане положення</div>
             </div>
-            <div class="relief-control">
-              <label for="relief-scale">Глибина</label>
-              <output id="relief-value" for="relief-scale">100%</output>
-              <input id="relief-scale" type="range" min="1" max="4" step="1" value="4" orient="vertical" aria-label="Вертикальний масштаб рельєфу" aria-valuetext="100%">
-              <span>25%</span>
+            <div class="terrain-controls">
+              <div class="relief-control">
+                <label for="relief-scale">Глибина</label>
+                <output id="relief-value" for="relief-scale">100%</output>
+                <input id="relief-scale" type="range" min="1" max="4" step="1" value="4" orient="vertical" aria-label="Вертикальний масштаб рельєфу" aria-valuetext="100%">
+                <span>25%</span>
+              </div>
+              <div class="zoom-control">
+                <label for="zoom-scale">Наближення</label>
+                <output id="zoom-value" for="zoom-scale">4/5</output>
+                <input id="zoom-scale" type="range" min="1" max="5" step="1" value="4" orient="vertical" aria-label="Наближення сцени" aria-valuetext="4 із 5">
+                <span>1/5</span>
+              </div>
             </div>
           </div>
           <div class="scene-foot"><p id="terrain-status">Завантажуємо 3D-модель висот…</p><span>Обертайте й наближайте сцену</span></div>
           <p class="scene-source">Рельєф: <a href="https://mapterhorn.com/attribution/" target="_blank" rel="noopener">© Mapterhorn</a>. Дороги й назви: <a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a>, дані © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Тайли навколо введеної точки надходять безпосередньо від постачальників. Вертикальний масштаб і купол неба схематичні.</p>
+          <div class="key-metrics">
+            <div><span>Супутники вище порога</span><strong id="count">—</strong><small id="count-note">розрахунок, не радіоприйом</small></div>
+            <div><span>Найвищий кут</span><strong id="highest">—</strong><small>над цією точкою</small></div>
+            <div><span>Тривога</span><strong id="alert-short">—</strong><small id="alert-detail">для визначеного району</small></div>
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-row"><span>Супутники</span><span id="coverage-total">—</span></div>
+            <div id="coverage-track" class="track coverage-track" aria-label="Інтервали прогнозованої видимості"></div>
+            <div class="timeline-row"><span>Тривоги</span><span id="alert-total">—</span></div>
+            <div id="alert-track" class="track alert-track" aria-label="Інтервали тривог у визначеному районі"></div>
+            <div class="ticks" aria-hidden="true"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+            <p id="alert-explanation" class="alert-explanation" aria-live="polite"></p>
+          </div>
         </section>
 
         <section class="details-grid">
@@ -137,6 +150,20 @@
         <p>Положення супутника розраховане з GP/OMM орбітальних елементів. Видимість не означає передавання сигналу чи зв'язку з атакою. Тривога стосується району та інтервалу часу, а не точної точки удару.</p>
         <p>Минулі дні використовують архівний GP; майбутні — екстраполяцію останнього GP, точність якої з часом погіршується. Історія тривог завантажена лише для вибраних районів Київської та Львівської областей та міста Києва.</p>
         <div class="source-links"><a href="https://devs.alerts.in.ua/" target="_blank" rel="noopener">alerts.in.ua</a><a href="https://celestrak.org/NORAD/documentation/gp-data-formats.php" target="_blank" rel="noopener">CelesTrak GP</a><a href="https://github.com/slawomirmatuszak/ukrainian_geodata" target="_blank" rel="noopener">Межі районів · CC BY 4.0</a><a href="https://github.com/wmgeolab/geoBoundaries" target="_blank" rel="noopener">Межа Києва · ODbL 1.0</a></div>
+      </div>
+    </details>
+    <details class="method card research-card">
+      <summary>Для дослідників <span>JSON · CSV</span></summary>
+      <div>
+        <p>Дані орбіт і тривог доступні як файли з цього сайту без ключа. Позиції супутників розраховані щохвилини; це прогноз положення, не підтвердження радіосигналу.</p>
+        <div class="research-links">
+          <a href="data/manifest.json" target="_blank" rel="noopener">Вікно й час оновлення · JSON</a>
+          <a id="daily-json" href="data/2026-11-23.json" target="_blank" rel="noopener">Орбіти за вибрану дату · JSON</a>
+          <a href="data/latest-gp.json" target="_blank" rel="noopener">Останній GP · JSON</a>
+          <a href="data/README.md" target="_blank" rel="noopener">Формат даних і приклад декодування</a>
+        </div>
+        <button id="export-passes" class="research-export" type="button">Завантажити CSV проходів для цієї точки</button>
+        <p>CSV містить час UTC, NORAD ID, початок і кінець проходу, кут, азимут і відстань у піку, поріг видимості та вік GP.</p>
       </div>
     </details>
   </main>

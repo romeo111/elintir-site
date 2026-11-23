@@ -9,6 +9,8 @@
   const tooltip = document.getElementById("terrain-tooltip");
   const reliefSlider = document.getElementById("relief-scale");
   const reliefValue = document.getElementById("relief-value");
+  const zoomSlider = document.getElementById("zoom-scale");
+  const zoomValue = document.getElementById("zoom-value");
   if (!viewport || !T || !T.OrbitControls) {
     if (status) status.textContent = "3D-бібліотека недоступна. Схема неба нижче працює окремо.";
     return;
@@ -42,16 +44,32 @@
 
   const scene = new T.Scene();
   const camera = new T.PerspectiveCamera(43, 1, .1, 100);
-  camera.position.set(15, 12, 17);
+  camera.position.set(11, 7.5, 12.5);
   const controls = new T.OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 2.2, 0);
+  controls.target.set(0, .2, 0);
   controls.enableDamping = true;
   controls.enablePan = false;
-  controls.minDistance = 12;
-  controls.maxDistance = 36;
+  controls.minDistance = 14;
+  controls.maxDistance = 30;
   controls.minPolarAngle = .12;
   controls.maxPolarAngle = Math.PI * .49;
   controls.update();
+  function syncZoomLabel() {
+    if (!zoomSlider || !zoomValue) return;
+    const distance = camera.position.distanceTo(controls.target);
+    const level = Math.max(1, Math.min(5, Math.round((30 - distance) / 4) + 1));
+    zoomSlider.value = String(level);
+    zoomValue.textContent = `${level}/5`;
+    zoomSlider.setAttribute("aria-valuetext", `${level} із 5`);
+  }
+  zoomSlider?.addEventListener("input", () => {
+    const distance = 30 - (Number(zoomSlider.value) - 1) * 4;
+    camera.position.sub(controls.target).setLength(distance).add(controls.target);
+    controls.update();
+    syncZoomLabel();
+  });
+  controls.addEventListener("change", syncZoomLabel);
+  syncZoomLabel();
 
   scene.add(new T.HemisphereLight(0xd8ffff, 0x122531, .9));
   const sun = new T.DirectionalLight(0xffffff, .95);
@@ -190,12 +208,27 @@
     for (let j = 0; j < GRID; j++) for (let i = 0; i < GRID; i++) {
       const east = (i / (GRID - 1) * 2 - 1) * RADIUS_M;
       const south = (j / (GRID - 1) * 2 - 1) * RADIUS_M;
-      const h = east * east + south * south <= RADIUS_M ** 2 ?
-        sample(plan, tiles, east, south) : null;
+      const h = sample(plan, tiles, east, south) ?? center;
       heights.push(h);
-      if (h !== null) { min = Math.min(min, h); max = Math.max(max, h); }
+      if (east * east + south * south <= RADIUS_M ** 2) {
+        min = Math.min(min, h); max = Math.max(max, h);
+      }
     }
     return { heights, center, min, max };
+  }
+  function gridHeight(grid, east, south) {
+    const u = Math.max(0, Math.min(GRID - 1.000001, (east / RADIUS_M + 1) * (GRID - 1) / 2));
+    const v = Math.max(0, Math.min(GRID - 1.000001, (south / RADIUS_M + 1) * (GRID - 1) / 2));
+    const i = Math.floor(u), j = Math.floor(v), a = u - i, b = v - j;
+    const values = [grid.heights[j * GRID + i], grid.heights[j * GRID + i + 1],
+      grid.heights[(j + 1) * GRID + i], grid.heights[(j + 1) * GRID + i + 1]];
+    return values[0] * (1 - a) * (1 - b) + values[1] * a * (1 - b) +
+      values[2] * (1 - a) * b + values[3] * a * b;
+  }
+  function terrainY(grid, height, radiusFraction) {
+    const edge = Math.max(0, Math.min(1, (radiusFraction - .94) / .06));
+    const smooth = edge * edge * (3 - 2 * edge);
+    return (height - grid.center) * .012 * reliefFraction * (1 - smooth) - .25 * smooth;
   }
   function disposeObject(object) {
     if (!object) return;
@@ -214,17 +247,31 @@
     ground.add(terrain);
     const vertices = [], colors = [], indices = [];
     const low = new T.Color(0x163d50), high = new T.Color(0x8ebcb1);
-    for (let j = 0; j < GRID; j++) for (let i = 0; i < GRID; i++) {
-      const k = j * GRID + i, h = grid.heights[k];
-      const x = (i / (GRID - 1) * 2 - 1) * RADIUS_SCENE;
-      const z = (j / (GRID - 1) * 2 - 1) * RADIUS_SCENE;
-      vertices.push(x, h === null ? -1.7 : (h - grid.center) * .012 * reliefFraction, z);
-      const t = h === null ? 0 : Math.max(0, Math.min(1, (h - grid.min) / Math.max(1, grid.max - grid.min)));
+    const rings = 40, sectors = 128;
+    function vertex(east, south, fraction) {
+      const h = gridHeight(grid, east, south);
+      vertices.push(east / RADIUS_M * RADIUS_SCENE,
+        terrainY(grid, h, fraction), south / RADIUS_M * RADIUS_SCENE);
+      const t = Math.max(0, Math.min(1, (h - grid.min) / Math.max(1, grid.max - grid.min)));
       const color = low.clone().lerp(high, t);
       colors.push(color.r, color.g, color.b);
-      if (i < GRID - 1 && j < GRID - 1 &&
-          [k, k + 1, k + GRID, k + GRID + 1].every(n => grid.heights[n] !== null))
-        indices.push(k, k + GRID, k + 1, k + 1, k + GRID, k + GRID + 1);
+    }
+    vertex(0, 0, 0);
+    for (let ring = 1; ring <= rings; ring++) {
+      const fraction = ring / rings;
+      for (let sector = 0; sector < sectors; sector++) {
+        const angle = sector / sectors * Math.PI * 2;
+        vertex(Math.cos(angle) * RADIUS_M * fraction,
+          Math.sin(angle) * RADIUS_M * fraction, fraction);
+      }
+    }
+    for (let sector = 0; sector < sectors; sector++)
+      indices.push(0, 1 + (sector + 1) % sectors, 1 + sector);
+    for (let ring = 2; ring <= rings; ring++) for (let sector = 0; sector < sectors; sector++) {
+      const next = (sector + 1) % sectors;
+      const inner = 1 + (ring - 2) * sectors, outer = 1 + (ring - 1) * sectors;
+      indices.push(inner + sector, outer + next, outer + sector,
+        inner + sector, inner + next, outer + next);
     }
     const geometry = new T.BufferGeometry();
     geometry.setAttribute("position", new T.Float32BufferAttribute(vertices, 3));
@@ -233,22 +280,10 @@
     geometry.computeVertexNormals();
     terrain.add(new T.Mesh(geometry,
       new T.MeshPhongMaterial({ vertexColors: true, side: T.DoubleSide, shininess: 8 })));
-    const strokes = [];
-    for (let j = 0; j < GRID; j += 8) for (let i = 0; i < GRID - 1; i++)
-      if (grid.heights[j * GRID + i] !== null && grid.heights[j * GRID + i + 1] !== null) {
-        const a = (j * GRID + i) * 3, b = a + 3;
-        strokes.push(new T.Vector3(vertices[a], vertices[a + 1] + .012, vertices[a + 2]),
-          new T.Vector3(vertices[b], vertices[b + 1] + .012, vertices[b + 2]));
-      }
-    for (let i = 0; i < GRID; i += 8) for (let j = 0; j < GRID - 1; j++)
-      if (grid.heights[j * GRID + i] !== null && grid.heights[(j + 1) * GRID + i] !== null) {
-        const a = (j * GRID + i) * 3, b = ((j + 1) * GRID + i) * 3;
-        strokes.push(new T.Vector3(vertices[a], vertices[a + 1] + .012, vertices[a + 2]),
-          new T.Vector3(vertices[b], vertices[b + 1] + .012, vertices[b + 2]));
-      }
-    const wire = new T.LineSegments(new T.BufferGeometry().setFromPoints(strokes),
-      new T.LineBasicMaterial({ color: 0xc1e5df, transparent: true, opacity: .16 }));
-    terrain.add(wire);
+    const rim = new T.Mesh(new T.CylinderGeometry(RADIUS_SCENE, RADIUS_SCENE, 1.45, sectors, 1, true),
+      new T.MeshPhongMaterial({ color: 0x123a4a, side: T.DoubleSide, shininess: 4 }));
+    rim.position.y = -.975;
+    terrain.add(rim);
     sitePin.position.y = .35;
   }
   function surfacePoint(lon, lat, plan, grid, lift = .045) {
@@ -257,18 +292,10 @@
     const yp = (1 - Math.asinh(Math.tan(lat * Math.PI / 180)) / Math.PI) / 2 * plan.n * TILE;
     const east = (xp - plan.cx) * plan.mpp, south = (yp - plan.cy) * plan.mpp;
     if (east * east + south * south > (RADIUS_M - 80) ** 2) return null;
-    const u = (east / RADIUS_M + 1) * (GRID - 1) / 2;
-    const v = (south / RADIUS_M + 1) * (GRID - 1) / 2;
-    const i = Math.max(0, Math.min(GRID - 2, Math.floor(u)));
-    const j = Math.max(0, Math.min(GRID - 2, Math.floor(v)));
-    const a = u - i, b = v - j;
-    const values = [grid.heights[j * GRID + i], grid.heights[j * GRID + i + 1],
-      grid.heights[(j + 1) * GRID + i], grid.heights[(j + 1) * GRID + i + 1]];
-    if (values.some(h => h === null)) return null;
-    const h = values[0] * (1 - a) * (1 - b) + values[1] * a * (1 - b) +
-      values[2] * (1 - a) * b + values[3] * a * b;
+    const h = gridHeight(grid, east, south);
+    const fraction = Math.hypot(east, south) / RADIUS_M;
     return new T.Vector3(east / RADIUS_M * RADIUS_SCENE,
-      (h - grid.center) * .012 * reliefFraction + lift, south / RADIUS_M * RADIUS_SCENE);
+      terrainY(grid, h, fraction) + lift, south / RADIUS_M * RADIUS_SCENE);
   }
   function placeSprite(name, major) {
     const canvas = document.createElement("canvas");
