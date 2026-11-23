@@ -209,7 +209,13 @@ footer { background: #fff; border-top-color: var(--line); color: var(--muted); }
 
 @media (max-width: 520px) {
   .workspace { grid-template-columns: minmax(0, 1fr); }
+  .results { grid-template-columns: minmax(0, 1fr); }
+  .details-grid { grid-template-columns: minmax(0, 1fr); }
   .scene-card { min-width: 0; }
   .analysis-heading { flex-wrap: wrap; }
   .analysis-heading > * { min-width: 0; }
+}
+
+@media (max-width: 360px) {
+  .sky-card summary span, .research-card summary span { display: none; }
 }
