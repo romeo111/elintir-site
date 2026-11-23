@@ -192,3 +192,24 @@ footer { background: #fff; border-top-color: var(--line); color: var(--muted); }
   .terrain-controls label { font-size: .6rem; }
   .terrain-controls input[type=range] { height: 92px; }
 }
+
+/* Keep the map wide on tablets instead of squeezing it beside the search card. */
+@media (min-width: 761px) and (max-width: 900px) {
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+  .controls {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+  }
+  .controls h2, .controls .region-result, .controls .date-control,
+  .controls .form-error, .controls .location-status,
+  .controls .coordinate-actions { grid-column: 1 / -1; }
+  .terrain-viewport { height: 540px; min-height: 540px; }
+}
+
+@media (max-width: 520px) {
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+  .scene-card { min-width: 0; }
+  .analysis-heading { flex-wrap: wrap; }
+  .analysis-heading > * { min-width: 0; }
+}
