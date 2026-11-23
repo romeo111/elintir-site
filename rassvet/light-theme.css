@@ -1,0 +1,156 @@
+:root {
+  color-scheme: light;
+  color: #183544;
+  background: #f8f9f7;
+  font: 400 16px/1.5 "Montserrat", "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f8f9f7;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+}
+button, input, select { font-family: inherit; }
+h1, h2, h3, .brand-home, .brand-product, .section-kicker,
+.quality-chip, .key-metrics strong, .analysis-heading strong,
+.primary-button, .locate-button, .time-controls button { font-weight: 700; }
+.controls label, .analysis-heading label, .timeline-row,
+.scene-foot, .card-heading span { font-weight: 600; }
+h1, h2, h3 { letter-spacing: -.025em; }
+.section-kicker { letter-spacing: .045em; }
+
+a { color: #3d5b2c; }
+button:focus-visible, input:focus-visible, select:focus-visible,
+summary:focus-visible, a:focus-visible { outline-color: #4c6b35; }
+
+.site-header {
+  max-width: none;
+  padding-inline: max(2rem, calc((100vw - 1376px) / 2));
+  background: #fff;
+  border-bottom-color: #e1e5de;
+  box-shadow: 0 2px 14px #16384b0a;
+}
+.brand { color: #172019; gap: .8rem; }
+.brand-home { display: inline-flex; align-items: center; gap: .48rem; color: #172019; text-decoration: none; font-size: 1.08rem; font-weight: 700; letter-spacing: .12em; }
+.brand-home:hover { color: #3d5b2c; }
+.brand-symbol { color: #4c6b35; font-size: 1.7rem; line-height: 1; letter-spacing: 0; }
+.brand-divider { width: 1px; height: 1.4rem; background: #d7ded3; }
+.brand-product { font-size: .93rem; font-weight: 700; }
+.brand small { display: block; margin: -.15rem 0 0; font-size: .65rem; font-weight: 400; letter-spacing: 0; color: #68766b; }
+.header-right { display: flex; align-items: center; gap: 1.3rem; }
+.header-tag { color: #66736a; }
+.header-home-link { color: #3d5b2c; font-size: .82rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.header-home-link:hover { text-decoration: underline; }
+h1 { color: #171f1a; }
+.card {
+  background: #fff;
+  border-color: #e1e6df;
+  box-shadow: 0 8px 28px #1e42520c;
+}
+.section-kicker { color: #526b3c; }
+
+.controls label, .analysis-heading label { color: #385563; }
+.controls input[type=number], select {
+  background: #fff;
+  border-color: #bfcfd6;
+  color: #193b49;
+}
+.controls input[type=number]:focus, select:focus { border-color: #4c6b35; }
+.region-result { background: #f3f6f0; border-color: #dce8d4; }
+.region-result span, .region-result small { color: #5a7883; }
+.region-result strong { color: #193b49; }
+.region-result.unavailable { background: #fff6ea; border-color: #efd4b2; }
+.region-result.unavailable strong { color: #925321; }
+.date-control label strong { color: #193b49; }
+.date-control input, .time-controls input { accent-color: #587641; }
+.date-ends { color: #607b86; }
+.primary-button { background: #3d5b2c; color: #fff; }
+.primary-button:hover { background: #2e4821; }
+.form-error { color: #a43d34; }
+.locate-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  background: #f4f7f1;
+  border-color: #c2d2b5;
+  color: #3d5b2c;
+  font-size: .85rem;
+}
+.locate-button svg { flex: none; }
+.locate-button:hover { background: #e9f0e2; border-color: #6f935b; }
+.location-status { color: #526e79; }
+
+.scene-topline p { color: #577683; }
+.quality-chip { background: #eef4e9; border-color: #d1e1c7; color: #41662f; }
+.quality-chip.old { background: #fff3df; border-color: #ebd5ac; color: #89591d; }
+.scene-topline .uncertainty { color: #945819; }
+.key-metrics { border-color: #e2eaed; }
+.key-metrics>div+div { border-left-color: #e2eaed; }
+.key-metrics span, .key-metrics small { color: #5b7682; }
+.key-metrics strong { color: #173949; }
+.key-metrics>div:last-child strong { color: #9b552a; }
+
+.analysis-panel { background: #f5f7f3; border-bottom: 1px solid #e1e9dd; }
+.analysis-heading strong { color: #183b49; }
+.analysis-heading select {
+  background-image: linear-gradient(45deg, transparent 50%, #496f7d 50%),
+                    linear-gradient(135deg, #496f7d 50%, transparent 50%);
+}
+.time-controls button { background: #fff; border-color: #bfd2da; color: #2e5362; }
+.time-controls button:hover { background: #edf3e8; border-color: #91ac80; }
+.time-controls .play-button { background: #e6eee1 !important; color: #3d5b2c; }
+.time-controls .now-button { background: #3d5b2c; border-color: #3d5b2c; color: #fff; }
+.time-controls .now-button:hover { background: #2e4821; border-color: #2e4821; }
+.timeline-row { color: #355766; }
+.timeline-row span:last-child { color: #5e7e89; }
+.track {
+  background: repeating-linear-gradient(90deg, transparent 0, transparent calc(25% - 1px), #cbdce2 calc(25% - 1px), #cbdce2 25%), #fff;
+  border-color: #c9dbe2;
+}
+.coverage-track .segment { background: #638b57; }
+.alert-track .segment { background: #db8a4d; }
+.alert-track .segment.red { background: #d75c54; }
+.track .cursor { background: #173947; box-shadow: 0 0 0 2px #fff9; }
+.ticks, .alert-explanation { color: #577480; }
+
+.terrain-heading { background: #fff; }
+.terrain-heading h3 { color: #173746; }
+.terrain-heading span { background: #edf4e9; color: #476c39; border-color: #cbdcbe; }
+.scene-foot, .scene-source { color: #587783; }
+.scene-source a { color: #3d5b2c; }
+.relief-control { background: #071b27e8; }
+.relief-control label { color: #e5f7f5; }
+
+.card-heading h2 { color: #173746; }
+.card-heading span { color: #5d7c86; }
+.sat-row, .pass-row {
+  background: #f4f9fa;
+  border-color: #d7e5e9;
+  color: #1c3d4c;
+}
+.sat-row:hover, .sat-row.selected, .pass-row:hover { background: #f0f6ed; border-color: #8fac7b; }
+.sat-row span:not(:first-child), .pass-row span:not(:first-child) { color: #54727e; }
+.sat-empty, .sat-detail { color: #4d6a77; }
+.sat-detail { border-top-color: #dce8eb; }
+.sky-card summary::after, .method summary::after { color: #4c6b35; }
+.sky-card summary span { color: #63808b; }
+.sky-card svg text { fill: #4c6d7b; }
+.sky-card svg .ring-label { fill: #6e8892; }
+.sky-disk { fill: #edf6f8; stroke: #8db0bc; }
+.sky-ring, .sky-axis { stroke: #c8dce2; }
+.sat-dot { fill: #5f8751; stroke: #f0f9fa; }
+.sat-dot:hover, .sat-dot.selected { fill: #e89a3d; }
+.sat-label { fill: #204858 !important; }
+.method>div { color: #4b6876; }
+footer { background: #fff; border-top-color: #e1e5de; color: #68766b; }
+
+@media (max-width: 760px) {
+  .site-header { padding-inline: 1rem; }
+  .header-home-link { display: none; }
+}
+@media (max-width: 520px) {
+  .brand small { display: block; }
+  .brand-home { font-size: .92rem; letter-spacing: .11em; }
+  .brand-product { font-size: .8rem; }
+  .brand { gap: .55rem; }
+}

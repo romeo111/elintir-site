@@ -1,0 +1,37 @@
+name: Update RASSVET demo data
+
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rassvet-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/rassvet-requirements.txt
+      - run: python -m pip install -r scripts/rassvet-requirements.txt
+      - name: Fetch, validate and build static data
+        env:
+          ALERTS_API_TOKEN: ${{ secrets.ALERTS_API_TOKEN }}
+        run: python scripts/update_rassvet.py
+      - name: Publish new snapshot
+        run: |
+          git add rassvet/data
+          if git diff --cached --quiet; then exit 0; fi
+          git -c user.name='ELINTIR data updater' -c user.email='actions@users.noreply.github.com' commit -m 'data: refresh RASSVET orbit and alert snapshots'
+          git push
