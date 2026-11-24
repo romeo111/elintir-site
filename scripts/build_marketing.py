@@ -16,7 +16,7 @@ def signal_svg(label="RF"):
 
 
 def card(name, role, detail, image, status, href):
-    return f'''<a class="product-card" href="{href}"><img src="/assets/products/{image}" alt="{name}" loading="lazy" width="640" height="480">
+    return f'''<a class="product-card" href="{href}"><img src="/assets/products/{image}" alt="" loading="lazy" width="640" height="480">
     <div class="card-copy"><h3>{name}</h3><p>{role}. {detail}</p><div class="card-foot"><span class="status">{status}</span><span aria-hidden="true">↗</span></div></div></a>'''
 
 
