@@ -23,10 +23,14 @@
 
 | Файл | Призначення |
 |------|-------------|
-| `index.html` | Уся сторінка: розмітка + CSS в одному файлі, без JS і зовнішніх залежностей |
+| `index.html`, `hardware/`, `slink/`, `investors/`, `company/` | Україномовні сторінки компанії та продуктів |
+| `en/` | Англомовні версії сторінок |
+| `scripts/build_marketing.py` | Відтворювана генерація маркетингових HTML-сторінок |
+| `assets/site-v2.css` | Спільні стилі та адаптивна верстка |
+| `assets/pitch-drone.jpeg` | Фото для головної, взяте з наданої ELINTIR-презентації |
 | `404.html` | Редірект на головну |
 | `CNAME` | Кастомний домен `elintir.com` (не видаляти — Pages читає саме його) |
-| `assets/elintir-hero.png` | Картинка для `og:image` |
+| `assets/products/elintir-og-product.jpg` | Картинка для `og:image` |
 | `.nojekyll` | Вимикає обробку Jekyll — файли віддаються як є |
 
 ## Деплой
@@ -46,5 +50,6 @@ Apex і `www` вказують на IP GitHub Pages (`185.199.108-111.153`). Ц�
 ## Локальний перегляд
 
 ```bash
+python scripts/build_marketing.py
 python -m http.server 8137
 ```
