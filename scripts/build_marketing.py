@@ -1,5 +1,6 @@
 """Build the Ukrainian and English investor-facing static pages."""
 
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +23,7 @@ def card(name, role, detail, image, status, href):
 
 def base(lang, title, description, body, current):
     en = lang == "en"
+    css_version = hashlib.sha256((ROOT / "assets/site-v2.css").read_bytes()).hexdigest()[:10]
     prefix = "/en" if en else ""
     home = f"{prefix}/"
     labels = ("Home", "Products", "Communications", "RASSVET", "Investors", "Company", "Request a demo") if en else ("Головна", "Продукти", "Зв’язок", "Рассвет", "Інвесторам", "Компанія", "Замовити демо")
@@ -39,14 +41,14 @@ def base(lang, title, description, body, current):
 <link rel="canonical" href="https://elintir.com{home if current == "home" else prefix + "/" + current + "/"}">
 <link rel="alternate" hreflang="uk" href="https://elintir.com/{"" if current == "home" else current + "/"}">
 <link rel="alternate" hreflang="en" href="https://elintir.com/en/{"" if current == "home" else current + "/"}">
-<link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg"><link rel="stylesheet" href="/assets/site-v2.css">
+<link rel="icon" type="image/svg+xml" href="/assets/branding/elintir-favicon.svg"><link rel="stylesheet" href="/assets/site-v2.css?v={css_version}">
 <meta property="og:title" content="{title} — ELINTIR"><meta property="og:description" content="{description}"><meta property="og:type" content="website"><meta property="og:image" content="https://elintir.com/assets/products/elintir-og-product.jpg">
 </head><body><header class="topbar wrap"><a class="brand" href="{home}" aria-label="ELINTIR — ML/RF MAPPER, {'home' if en else 'на початок'}">
-<svg class="brand-mark" viewBox="61.3 61 389.4 371.7" role="img" aria-hidden="true">
+<svg class="brand-mark" width="37" height="35" viewBox="61.3 61 389.4 371.7" role="img" aria-hidden="true">
   <polygon points="256,75 75.3,206.3 144.3,418.7 367.7,418.7 436.7,206.3" fill="none" stroke="#0d0f0a" stroke-width="14" stroke-linejoin="round"/>
   <path d="M204.5 192.5 V259.5 A51.5 51.5 0 0 0 307.5 259.5 V192.5 M256 179 V351" fill="none" stroke="#3e6b1f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
   <g fill="#3e6b1f"><circle cx="256" cy="75" r="14"/><circle cx="75.3" cy="206.3" r="14"/><circle cx="144.3" cy="418.7" r="14"/><circle cx="367.7" cy="418.7" r="14"/><circle cx="436.7" cy="206.3" r="14"/></g>
-</svg><span class="brand-text"><span class="brand-name">ELINTIR</span><span class="brand-slogan">ML/RF MAPPER</span></span></a>
+</svg><span class="brand-text" style="display:flex;flex-direction:column;line-height:1"><span class="brand-name">ELINTIR</span><span class="brand-slogan">ML/RF MAPPER</span></span></a>
 <nav class="nav" aria-label="{"Main navigation" if en else "Основна навігація"}">{nav}<a class="nav-cta" href="mailto:info@elintir.com?subject={mail}">{labels[6]}</a><a class="lang" href="{alt if current == "home" else alt + current + "/"}" hreflang="{"uk" if en else "en"}">{alt_lang}</a></nav></header>
 <main>{body}</main><footer class="footer wrap"><span>© ELINTIR · 2026</span><span>{"SDR systems for reconnaissance and communications" if en else "SDR-системи розвідки та зв’язку"}</span><a href="mailto:info@elintir.com">info@elintir.com</a></footer></body></html>'''
 
