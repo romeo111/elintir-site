@@ -1,4 +1,4 @@
-name: Update RASSVET demo data
+name: Update RASSVET orbit and alert data
 
 on:
   schedule:

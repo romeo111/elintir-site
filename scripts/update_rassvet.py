@@ -183,8 +183,6 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     anchor = args.anchor or datetime.now(KYIV).date()
     token = os.environ.get("ALERTS_API_TOKEN")
-    if not args.alerts_file and not token:
-        raise RuntimeError("ALERTS_API_TOKEN is required in GitHub Actions secrets")
     if args.gp_file:
         records = json.loads(args.gp_file.read_text(encoding="utf-8"))
     else:
@@ -213,10 +211,22 @@ def main():
                 raise RuntimeError(f"Missing historical day {target}; retaining prior release")
         else:
             write_day(target, records, anchor, output)
+    alerts_status = "retained"
+    alerts_path = output / "alerts.json"
     if args.alerts_file:
         shutil.copyfile(args.alerts_file, output / "alerts.json")
-    else:
-        fetch_alerts(token, output, anchor)
+        alerts_status = "fixture"
+    elif token:
+        try:
+            fetch_alerts(token, output, anchor)
+            alerts_status = "updated"
+        except Exception as exc:
+            if not alerts_path.exists():
+                raise
+            print(f"Alert refresh failed; retaining previous snapshot: {exc}")
+    elif not alerts_path.exists():
+        write_json(alerts_path, {"sources": [], "regions": [], "alerts": []})
+        alerts_status = "unavailable"
     for stale in output.glob("20??-??-??.json"):
         if not anchor - timedelta(days=7) <= date.fromisoformat(stale.stem) <= anchor + timedelta(days=7):
             stale.unlink()
@@ -230,7 +240,7 @@ def main():
         "historicalSource": "daily public GP snapshots", "forecastSource": iso(utcnow()),
         "sampleIntervalSeconds": 60,
     })
-    print(f"Updated {anchor.isoformat()}: {len(records)} tracked objects, 15 day files, alerts snapshot")
+    print(f"Updated {anchor.isoformat()}: {len(records)} tracked objects, 15 day files, alerts {alerts_status}")
 
 
 if __name__ == "__main__":
