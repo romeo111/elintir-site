@@ -275,7 +275,7 @@
   function close() { if (back) { back.setAttribute("hidden", ""); } }
 
   document.addEventListener("click", function (e) {
-    var a = e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
+    var a = e.target.closest ? e.target.closest('a[data-topic][href^="mailto:"]') : null;
     if (!a) { return; }
     /* Усередині самого вікна mailto має працювати як завжди: і запасна
        кнопка «Відкрити пошту», і адреса внизу. */
